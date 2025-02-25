@@ -39,3 +39,7 @@
     font-family: instrument-sans;
     src: url("./assets/fonts/instrument-sans.ttf");
 }
+
+button{
+    cursor: pointer;
+}

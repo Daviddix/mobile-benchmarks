@@ -1,0 +1,122 @@
+.homepage-main {
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    color: #fff;
+}
+
+.homepage-main header{
+    background-image: url("./assets/images/bg-image.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2rem 0 0 0;
+}
+
+.homepage-main .homepage-inner-top{
+    width:90%;
+    margin:auto;
+}
+
+.homepage-inner-top h1{
+    color:#fff;
+    font-size: 1.4rem;
+    width:80%;
+    font-weight: 600;
+    margin: 2rem 0 1.5rem 0;
+}
+
+.homepage-main header form{
+    border-block:1.5px solid var(--l4-elevation);
+    height: 3.5rem;
+    background-color: rgba(0, 0, 0, 0.295);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+}
+
+header form .homepage-inner-top{
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.homepage-inner-top .form-left{
+    display: flex;
+    flex:1;
+    column-gap: .5rem;
+    align-items: stretch;
+    justify-content: start;
+}
+
+.form-left input{
+    width:100%;
+    min-height: 2rem;
+    border-left: 1px solid white;
+    background-color: transparent;
+    border:none;
+    border-right: 1px solid var(--l3-elevation);
+    color: #fff;
+    font-weight: 100;
+}
+
+.form-left input::placeholder{
+    font-family: inherit;
+    font-weight: 600;
+}
+
+.homepage-inner-top .form-right{
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+
+.form-right select{
+    background-color: var(--l1-elevation);
+    display: block;
+    min-height: 2rem;
+    border: 1px solid #ffffff1c;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    color: #fff;
+    width:5rem;
+    padding: 0 .2rem;
+}
+
+.form-right button{
+    background-color: var(--l1-elevation);
+    min-height: 2rem;
+    border: 1px solid #ffffff1c;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    color: #fff;
+    width:2rem;
+    padding: 0 .2rem;
+}
+
+.homepage-main .homepage-body-inner{
+    width:90%;
+    margin:auto;
+}
+
+.homepage-main .popular-games h2{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: .8rem 0;
+    color: var(--text-secondary-color);
+}
+
+.homepage-main .all-games-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    row-gap: 1rem;
+}
