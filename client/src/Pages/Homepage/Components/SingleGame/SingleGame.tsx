@@ -2,6 +2,7 @@ import "./SingleGame.css"
 import testGameLogo from "./assets/images/logo-test.webp"
 import ramIcon from "./assets/icons/ram-icon.svg"
 import platformIcon from "./assets/icons/platform-icon.svg"
+import categoryIcon from "./assets/icons/game-category-icon.svg"
 
 function SingleGame() {
   return (
@@ -13,7 +14,7 @@ function SingleGame() {
 
                         <div className="more-game-text">
                             <div className="category">
-                                <img src="" alt="" />
+                                <img src={categoryIcon} alt="category icon" />
                                 <p>Battle Royale</p>
                             </div>
 

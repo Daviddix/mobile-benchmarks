@@ -3,6 +3,7 @@ import logo from "./assets/icons/logo.svg"
 import searchIcon from "./assets/icons/search-icon.svg"
 import cameraIcon from "./assets/icons/camera-icon.svg"
 import SingleGame from "./Components/SingleGame/SingleGame"
+import SinglePhone from "./Components/SinglePhone/SinglePhone"
 
 function Homepage() {
   return (
@@ -41,10 +42,18 @@ function Homepage() {
             <h2>Popular Games</h2>
 
             <div className="all-games-container">
+                {/* <SingleGame />
                 <SingleGame />
                 <SingleGame />
-                <SingleGame />
-                <SingleGame />
+                <SingleGame /> */}
+            </div>
+
+            <div className="all-phones-container">
+            <SinglePhone />
+            <SinglePhone />
+            <SinglePhone />
+            <SinglePhone />
+
             </div>
         </div>
 

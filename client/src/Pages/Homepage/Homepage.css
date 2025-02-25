@@ -14,13 +14,15 @@
 
 .homepage-main .homepage-inner-top{
     width:90%;
+    max-width: 130rem;
     margin:auto;
 }
 
 .homepage-inner-top h1{
     color:#fff;
-    font-size: 1.4rem;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
     width:80%;
+    max-width: 30rem;
     font-weight: 600;
     margin: 2rem 0 1.5rem 0;
 }
@@ -105,6 +107,7 @@ header form .homepage-inner-top{
 
 .homepage-main .homepage-body-inner{
     width:90%;
+    max-width: 130rem;
     margin:auto;
 }
 
@@ -119,4 +122,10 @@ header form .homepage-inner-top{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     row-gap: 1rem;
+}
+
+.homepage-main .all-phones-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem 1rem;
 }
