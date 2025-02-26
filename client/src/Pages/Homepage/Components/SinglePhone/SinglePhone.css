@@ -6,7 +6,7 @@
 .single-phone .phone-image{
     width: 100%;
     object-fit: cover;
-    height: 12rem;
+    height: 18rem;
     border-radius: .3rem;
     -webkit-border-radius: .3rem;
     -moz-border-radius: .3rem;
@@ -16,8 +16,8 @@
 
 .single-phone h3{
     font-weight: 500;
-    font-size: 1rem;
-    margin: 0 0 .3rem 0;
+    font-size: 1.6rem;
+    margin: 0 0 .5rem 0;
 }
 
 .single-phone .more-phone-text{
@@ -35,10 +35,10 @@
 }
 
 .more-phone-text div img{
-    width:.7rem;
+    width:1rem;
 }
 
 .more-phone-text div p{
-    font-size: .7rem;
+    font-size: 1.1rem;
     color: var(--text-secondary-color);
 }

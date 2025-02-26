@@ -6,8 +6,8 @@
 }
 
 .single-game .game-logo{
-    height: 4rem;
-    width: 4rem;
+    height: 7rem;
+    width: 7rem;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
@@ -17,7 +17,7 @@
 
 .single-game h3{
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 1.4rem;
     margin: 0 0 .3rem 0;
 }
 
@@ -27,7 +27,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: .5rem;
-    max-width: 10rem;
+    max-width: 15rem;
 }
 
 .more-game-text > div{
@@ -37,10 +37,10 @@
 }
 
 .more-game-text div img{
-    width:.7rem;
+    width:1rem;
 }
 
 .more-game-text div p{
-    font-size: .7rem;
+    font-size: 1.1rem;
     color: var(--text-secondary-color);
 }

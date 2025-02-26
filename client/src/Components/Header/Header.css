@@ -1,0 +1,100 @@
+header{
+    background-image: url("./assets/images/bg-image.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2rem 0 0 0;
+}
+
+.homepage-inner-top{
+    width:90%;
+    max-width: 130rem;
+    margin:auto;
+}
+
+.homepage-inner-top h1{
+    color:#fff;
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+    width:80%;
+    max-width: 60rem;
+    font-weight: 600;
+    margin: 2rem 0 1.5rem 0;
+}
+
+header form{
+    border-block:1.5px solid var(--l4-elevation);
+    height: 5.5rem;
+    background-color: rgba(0, 0, 0, 0.295);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+}
+
+header form .homepage-inner-top{
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.homepage-inner-top .form-left{
+    display: flex;
+    flex:1;
+    column-gap: .5rem;
+    align-items: stretch;
+    justify-content: start;
+}
+
+.form-left input{
+    width:100%;
+    min-height: 4rem;
+    border-left: 1px solid white;
+    background-color: transparent;
+    border:none;
+    border-right: 1px solid var(--l3-elevation);
+    color: #fff;
+    font-weight: 100;
+}
+
+.form-left input::placeholder{
+    font-family: inherit;
+    font-weight: 600;
+}
+
+.homepage-inner-top .form-right{
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.form-right select{
+    background-color: var(--l1-elevation);
+    display: block;
+    min-height: 3.5rem;
+    border: 1px solid #ffffff1c;
+    border-radius: .6rem;
+    -webkit-border-radius: .6rem;
+    -moz-border-radius: .6rem;
+    -ms-border-radius: .6rem;
+    -o-border-radius: .6rem;
+    color: #fff;
+    width:7.5rem;
+    padding: 0 .2rem;
+}
+
+.form-right button{
+    background-color: var(--l1-elevation);
+    min-height: 3.5rem;
+    border: 1px solid #ffffff1c;
+    border-radius: .6rem;
+    -webkit-border-radius: .6rem;
+    -moz-border-radius: .6rem;
+    -ms-border-radius: .6rem;
+    -o-border-radius: .6rem;
+    color: #fff;
+    width:3.5rem;
+    padding: 0 .2rem;
+}
