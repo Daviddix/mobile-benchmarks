@@ -1,0 +1,113 @@
+.compatible-games-inner .image > img{
+    width:100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    position: relative;
+    display: block;
+}
+
+.compatible-games-inner .image{
+    position: relative;
+}
+
+.compatible-games-inner .image::after{
+    content : "";
+    background-image: linear-gradient(to bottom, transparent,transparent,transparent, rgba(0, 0, 0, 0.637), black);
+    position: absolute;
+    top: 0; 
+    left:0;
+    width:100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+}
+
+.single-compatible-game .image h2{
+    position: absolute;
+    bottom: .6rem;
+    z-index: 3;
+    left:1rem;
+    font-size: 1.8rem;
+    max-width: 90%;
+    overflow-wrap: break-word;
+    font-weight: 500; 
+}
+
+.single-compatible-game .image .badge{
+    position: absolute;
+    top:1rem;
+    right:1rem;
+    background-color: var(--green-badge-bg);
+    color: var(--green-badge-text);
+    border: 2px solid #fff;
+    width:3.5rem;
+    height:3.5rem;
+    display: flex;
+    align-items: center;
+    font-weight: 900;
+    font-size: 1.2rem;
+    justify-content: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.single-compatible-game .text > p{
+    color: #e8e8e8;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+}
+
+.single-compatible-game hr{
+    margin: 0 0 1rem 0;
+    opacity: .1;
+    height: .1rem;
+}
+
+.single-compatible-game .game-settings{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 2rem;
+    margin: 0 0 3rem 0;
+}
+
+.game-settings > div.small img{
+    display: block;
+}
+
+.game-settings > div.small p{
+    display: inline;
+}
+
+.single-setting > p{
+    font-size: 1.6rem;
+}
+
+@media screen and (min-width:1300px) {
+    .compatible-games .single-compatible-game{
+        display: flex;
+        column-gap: 2rem;
+        margin: 0 0 1rem;
+        align-items: center;
+    }
+
+    .compatible-games-inner .image > img{
+        width:20rem;
+        aspect-ratio: 9/11;
+    }
+
+    .compatible-games-inner .image::after{
+        aspect-ratio: 9/11;
+    }
+}
