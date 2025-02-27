@@ -3,6 +3,7 @@ import "./App.css"
 import Homepage from "./Pages/Homepage/Homepage"
 import Header from "./Components/Header/Header"
 import PhoneInfo from "./Pages/PhoneInfo/PhoneInfo"
+import GameInfo from "./Pages/GameInfo/GameInfo"
 
 function App(){
   return (
@@ -10,6 +11,7 @@ function App(){
       <Route element={<Header />}>
       <Route path="/" element={<Homepage />} />
       <Route path="/phone/:phoneName" element={<PhoneInfo />} />
+      <Route path="/game/:gameName" element={<GameInfo />} />
       </Route>
     </Routes>
   )
