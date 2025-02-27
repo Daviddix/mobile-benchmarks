@@ -66,6 +66,7 @@
 .single-compatible-game .text > p{
     color: #e8e8e8;
     font-size: 1.4rem;
+    line-height: 1.5;
     margin: 1rem 0;
 }
 
@@ -109,5 +110,13 @@
 
     .compatible-games-inner .image::after{
         aspect-ratio: 9/11;
+    }
+
+    .single-compatible-game .text > p{
+        margin:0 0 1rem 0;
+    }
+
+    .single-compatible-game .game-settings{
+        margin: 0 0 0rem 0;
     }
 }
