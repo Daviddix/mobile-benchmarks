@@ -17,7 +17,7 @@
 
 .single-game h3{
     font-weight: 500;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     margin: 0 0 .3rem 0;
 }
 
@@ -37,10 +37,10 @@
 }
 
 .more-game-text div img{
-    width:1rem;
+    width:1.3rem;
 }
 
 .more-game-text div p{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--text-secondary-color);
 }

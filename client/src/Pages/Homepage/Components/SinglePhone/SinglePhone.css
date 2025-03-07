@@ -6,12 +6,12 @@
 .single-phone .phone-image{
     width: 100%;
     object-fit: cover;
-    height: 18rem;
-    border-radius: .3rem;
-    -webkit-border-radius: .3rem;
-    -moz-border-radius: .3rem;
-    -ms-border-radius: .3rem;
-    -o-border-radius: .3rem;
+    height: 20rem;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
 }
 
 .single-phone h3{
@@ -35,10 +35,10 @@
 }
 
 .more-phone-text div img{
-    width:1rem;
+    width:1.3rem;
 }
 
 .more-phone-text div p{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--text-secondary-color);
 }
