@@ -1,17 +1,22 @@
 .single-phone{
-    max-width: 200px;
+    max-width: 100%;
     align-items: start;
 }
 
 .single-phone .phone-image{
     width: 100%;
     object-fit: cover;
-    height: 20rem;
+    aspect-ratio: 9/17;
+    max-height: 26rem;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
     -ms-border-radius: .5rem;
     -o-border-radius: .5rem;
+}
+
+.single-phone .text{
+    cursor: pointer;
 }
 
 .single-phone h3{

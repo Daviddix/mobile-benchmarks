@@ -18,4 +18,16 @@ async function addNewPhone(req, res){
     } 
 }
 
-module.exports = {addNewPhone}
+async function getAllPhones(req, res){
+    try{
+        const allPhones = await phoneModel.find({}).limit(10) 
+
+        res.status(200).json(allPhones)
+    }
+    catch(err){
+        console.log("An error occurred", err) 
+        res.status(500).json({type : "error", message : "Couldn't get phones, please try again"})
+    } 
+}
+
+module.exports = {addNewPhone, getAllPhones}
