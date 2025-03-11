@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const moreInfoSchema = new mongoose.Schema({
     generalCompatibility: { type: Number},
     gpu: { type: String },
-    averageRating : {
+    averageRating : { 
         type : [String],
         validate : {
             validator : function(arr){
