@@ -60,8 +60,8 @@ function GameInfo() {
 
           <div className="supported-devices-container">
             <div className="supported-devices-inner">
-            <SinglePhone />
-            <SinglePhone />
+            {/* <SinglePhone />
+            <SinglePhone /> */}
             </div>
           </div>
         </section>

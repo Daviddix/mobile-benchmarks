@@ -24,14 +24,14 @@ type compatibleGameProps = {
   gameData: gameDataType
 }
 
-function CompatibleGame({gameCoverImage, gameDescription, gameName, gameData} : compatibleGameProps) {
+function CompatibleGame({gameCoverImage, gameDescription, gameName, gameData, gameCompatibilityRating} : compatibleGameProps) {
   return (
     <div className="single-compatible-game">
             <div className="image">
               <img src={gameCoverImage} alt={`game image for ${gameName}`} />
               <h2>{gameName}</h2>
               <div className="badge high">
-                <p>90%</p>
+                <p>{gameCompatibilityRating}%</p>
               </div>
             </div>
 
