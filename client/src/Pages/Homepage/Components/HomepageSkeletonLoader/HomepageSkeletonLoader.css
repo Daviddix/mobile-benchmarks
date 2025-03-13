@@ -1,0 +1,32 @@
+.single-phone.skeleton .fake-h2{
+    height:1.5rem;
+    margin:.5rem 0;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    width: 100%;
+    max-width: 12rem;
+}
+
+.single-phone.skeleton .fake-icon{
+    height:.5rem;
+    width:.5rem;
+    margin: .5rem 0;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}
+
+.single-phone.skeleton .fake-p{
+    width:8rem;
+    height: .5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}

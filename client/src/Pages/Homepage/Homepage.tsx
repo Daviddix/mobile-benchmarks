@@ -2,6 +2,7 @@ import "./Homepage.css"
 import SingleGame from "./Components/SingleGame/SingleGame"
 import SinglePhone from "./Components/SinglePhone/SinglePhone"
 import { useEffect, useState } from "react"
+import HomepageSkeletonLoader from "./Components/HomepageSkeletonLoader/HomepageSkeletonLoader"
 
 function Homepage() {
   //types
@@ -32,6 +33,7 @@ function Homepage() {
         throw new Error("Fetching Error" , {cause : responseInJson})
       }
       setAllPopularPhones(responseInJson)
+      setFetchingState("completed")
     }
     catch(err){
       console.log("An error occurred", err)
@@ -69,7 +71,15 @@ function Homepage() {
             <h2>Popular Phones</h2>
 
             <div className="all-phones-container">
-            {mappedPopularPhones}
+            {
+              fetchingState == "loading"?
+              <HomepageSkeletonLoader />
+              :
+              fetchingState == "error"?
+              <div>Error</div>
+              :
+              mappedPopularPhones
+            }
             </div>
         </div>
 
