@@ -1,17 +1,24 @@
 import searchIcon from "./assets/icons/search-icon.svg"
 import cameraIcon from "./assets/icons/camera-icon.svg"
 import logo from "./assets/icons/logo.svg"
-import { Outlet } from "react-router"
+import { Outlet, useSearchParams } from "react-router"
 import "./Header.css"
 import {useAtom} from "jotai"
-import { allPopularPhonesAtom, filteredPhonesAtom, searchAtom, searchingState } from "../../globals/states"
-import { ChangeEvent, FormEvent } from "react"
+import { allPopularPhonesAtom, filteredPhonesAtom, itemsToViewAtom, searchAtom, searchingState } from "../../globals/states"
+import { useEffect, useState } from "react"
 
 function Header() {
   const [searchQuery, setSearchQuery] = useAtom(searchAtom)
   const [allPopularPhones, setAllPopularPhones] = useAtom(allPopularPhonesAtom)
   const [filteredPhones, setFilteredPhones] = useAtom(filteredPhonesAtom)
   const [isSearching, setIsSearching] = useAtom(searchingState)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialView = searchParams.get("page") || "Phones"
+  const [itemsToView, setItemsToView] = useState(initialView)
+
+  useEffect(() => {
+    setSearchParams({ page: itemsToView });
+  }, [itemsToView, setSearchParams]);
 
   type popularPhoneInfo = {
     _id: string;
@@ -59,9 +66,16 @@ function Header() {
         </div>
 
         <div className="form-right">
-        <select name="page" id="page">
-            <option value="Games">Games</option>
-            <option value="Phones">Phones</option>
+        <select 
+        onChange={(e)=>{
+          setItemsToView(e.target.value)
+        }}
+        name="page" id="page">
+            <option 
+            value="Phones">Phones</option>
+
+            <option 
+            value="Games">Games</option>
         </select>
 
         <button type="button">

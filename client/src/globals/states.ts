@@ -10,9 +10,16 @@ type popularPhoneInfo = {
     phoneMemory: number[];
 }
 
+type itemsToView = "Phones" | "Games"
+
 type searchingStates = true | false
 
 export const searchAtom = atom<string>("")
+
 export const allPopularPhonesAtom = atom<popularPhoneInfo[]>([])
+
 export const filteredPhonesAtom = atom<popularPhoneInfo[]>([])
+
 export const searchingState = atom<searchingStates>(false)
+
+export const itemsToViewAtom = atom<itemsToView>("Phones")

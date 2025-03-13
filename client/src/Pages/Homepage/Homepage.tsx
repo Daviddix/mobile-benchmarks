@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import HomepageSkeletonLoader from "./Components/HomepageSkeletonLoader/HomepageSkeletonLoader"
 import { useAtom } from "jotai"
 import { allPopularPhonesAtom, filteredPhonesAtom, searchingState } from "../../globals/states"
+import { useSearchParams } from "react-router"
 
 function Homepage() {
   //types
@@ -26,6 +27,10 @@ function Homepage() {
   const [filteredPhones, setAllFilteredPhones] = useAtom(filteredPhonesAtom)
 
   const [isSearching, setIsSearching] = useAtom(searchingState)
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const initialView = searchParams.get("page") || "Phones"
 
   useEffect(() => {  
     getPopularPhones()
@@ -75,7 +80,9 @@ function Homepage() {
   return (
     <main className="homepage-main">
         <div className="homepage-body-inner">
-        {/* <div className="popular-games">
+          {
+            initialView == "Games"?
+        <div className="popular-games">
             <h2>Popular Games</h2>
 
             <div className="all-games-container">
@@ -84,8 +91,8 @@ function Homepage() {
                 <SingleGame />
                 <SingleGame />
             </div>
-        </div> */}
-
+        </div>
+            :
         <div className="popular-phones">
             <h2>Popular Phones</h2>
 
@@ -107,6 +114,9 @@ function Homepage() {
             }
             </div>
         </div>
+
+          }
+
 
         </div>
 
