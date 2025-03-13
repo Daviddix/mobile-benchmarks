@@ -3,6 +3,8 @@ import SingleGame from "./Components/SingleGame/SingleGame"
 import SinglePhone from "./Components/SinglePhone/SinglePhone"
 import { useEffect, useState } from "react"
 import HomepageSkeletonLoader from "./Components/HomepageSkeletonLoader/HomepageSkeletonLoader"
+import { useAtom } from "jotai"
+import { allPopularPhonesAtom, filteredPhonesAtom, searchingState } from "../../globals/states"
 
 function Homepage() {
   //types
@@ -18,7 +20,12 @@ function Homepage() {
   }
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
-  const [allPopularPhones, setAllPopularPhones] = useState<popularPhoneInfo[] | []>([])
+
+  const [allPopularPhones, setAllPopularPhones] = useAtom(allPopularPhonesAtom)
+
+  const [filteredPhones, setAllFilteredPhones] = useAtom(filteredPhonesAtom)
+
+  const [isSearching, setIsSearching] = useAtom(searchingState)
 
   useEffect(() => {  
     getPopularPhones()
@@ -42,6 +49,18 @@ function Homepage() {
   }
 
   const mappedPopularPhones = allPopularPhones.map(({_id, phoneChipset, phoneCoverImage, phoneDisplay, phoneMemory, phoneName})=>{
+    return <SinglePhone
+    _id={_id}
+    key={_id}
+    phoneChipset={phoneChipset}
+    phoneCoverImage={phoneCoverImage}
+    phoneDisplay={phoneDisplay}
+    phoneMemory={phoneMemory}
+    phoneName={phoneName}
+    />
+  })
+
+  const mappedFilteredPhones = filteredPhones.map(({_id, phoneChipset, phoneCoverImage, phoneDisplay, phoneMemory, phoneName})=>{
     return <SinglePhone
     _id={_id}
     key={_id}
@@ -78,7 +97,13 @@ function Homepage() {
               fetchingState == "error"?
               <div>Error</div>
               :
-              mappedPopularPhones
+              isSearching ?
+              mappedFilteredPhones.length == 0 ?
+              <div>Couldn't find your search</div>
+                :
+                  mappedFilteredPhones
+                  :
+                    mappedPopularPhones
             }
             </div>
         </div>
