@@ -30,4 +30,17 @@ async function getAllPhones(req, res){
     } 
 }
 
-module.exports = {addNewPhone, getAllPhones}
+async function getPhoneInfo(req, res){
+    try{
+        const {id} = req.params
+        const phoneInfo = await phoneModel.findById(id) 
+
+        res.status(200).json(phoneInfo)
+    }
+    catch(err){
+        console.log("An error occurred", err) 
+        res.status(500).json({type : "error", message : "Couldn't get phones info, please try again"})
+    } 
+}
+
+module.exports = {addNewPhone, getAllPhones, getPhoneInfo}

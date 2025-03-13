@@ -1,0 +1,37 @@
+.phone-info-inner.skeleton .phone-image.fake{
+    background: var(--sk);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+.phone-info-inner.skeleton .fake-h2{
+    height:3rem;
+    margin: 2rem 0;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    width: 27rem;
+}
+
+.phone-info-inner.skeleton .fake-h3{
+    width:7rem;
+    height:1.5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    margin: 0rem 0 1rem 0;
+}
+
+.phone-info-inner.skeleton .fake-p{
+    width:9rem;
+    height: 5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}

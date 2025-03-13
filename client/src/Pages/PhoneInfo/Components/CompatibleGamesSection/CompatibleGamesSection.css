@@ -1,0 +1,37 @@
+.compatible-games{
+    background-image : linear-gradient(to bottom right, #021815, #1a1a1a, #1a1a1a);
+}
+
+.compatible-games .compatible-games-inner{
+    margin: auto;
+    padding:1rem 0;
+    width:90vw;
+    max-width: 130rem;
+}
+
+.compatible-games-inner h1{
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding: .8rem 0;
+}
+
+@media screen and (min-width:600px) {
+    .compatible-games-inner .compatible-games-container{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+}
+
+
+@media screen and (min-width:1300px) {
+    .compatible-games .compatible-games-inner{
+        max-width: 130rem;
+    }
+
+    .compatible-games .compatible-games-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        column-gap: 2rem;
+    }
+}

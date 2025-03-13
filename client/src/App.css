@@ -25,6 +25,10 @@ html{
     --l2-elevation : #262626;
     --l3-elevation : #333333; 
     --l4-elevation : #515151;
+    --sk : linear-gradient(90deg,
+    var(--l3-elevation) 25%,
+    var(--l2-elevation)  50%,
+    var(--l3-elevation)  75%);
 
     --text-color : #fff;
     --text-secondary-color : #BABABA;
@@ -51,4 +55,19 @@ button{
 main{
     background-color: var(--bg-color);
     color: var(--text-color);
+}
+
+@keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+.load{
+    background: var(--sk);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
 }

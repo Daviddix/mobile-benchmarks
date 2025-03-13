@@ -1,85 +1,136 @@
-import CompatibleGame from "./Components/CompatibleGame/CompatibleGame";
+import { useParams } from "react-router";
 import "./PhoneInfo.css";
 import testPhoneImage from "./assets/images/phone-test.jpg";
+import { useEffect, useState } from "react";
+import CompatibleGamesSection from "./Components/CompatibleGamesSection/CompatibleGamesSection";
+import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneInfoSkeletonLoader";
 
 function PhoneInfo() {
+  const {phoneId} = useParams()
+
+  type fetchingStateType = "loading" | "error" | "completed"
+  type phoneInfoType = {
+    _id: number,
+    phoneName: string,
+    phoneChipset: string,
+    phoneCoverImage: string,
+    phoneDisplay: string[],
+    phoneMemory: number[],
+    moreInfo: {
+      generalCompatibility: number,
+      gpu: string,
+      averageRating: string[],
+      geekBench: number,
+      anTutu: number,
+      threeDMark: number,
+    }
+  }
+  
+
+  const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
+  const [phoneData, setPhoneData] = useState<phoneInfoType |null>(null)
+
+
+
+  async function getPhoneData(id : string | undefined){
+    try{
+      setFetchingState("loading")
+      const rawFetch = await fetch(`http://localhost:3000/api/phone/${id}`)
+      const responseInJson = await rawFetch.json()
+
+      if(!rawFetch.ok){
+        throw new Error("Fetching Error" , {cause : responseInJson})
+      }
+      setPhoneData(responseInJson)
+      setFetchingState("completed")
+    }
+    catch(err){
+      console.log("An error occurred", err)
+      setFetchingState("error")
+    }
+  } 
+
+  
+
+  useEffect(()=>{
+    getPhoneData(phoneId)
+  }, [])
+
   return (
+    
     <main className="phone-info-main">
-      <div className="phone-info-inner">
-        <img src={testPhoneImage} alt="phone info" className="phone-image" />
+      {
+        fetchingState == "loading" ?
+           <PhoneInfoSkeletonLoader />
+           :
+        fetchingState == "error" ?
+        <div>Error</div>
+        :
+        <div className="phone-info-inner">
+        <img src={phoneData?.phoneCoverImage} alt="phone info" className="phone-image" />
 
         <div className="phone-info-text">
-          <h2>Samsung Galaxy A15 5G</h2>
+          <h2>{phoneData?.phoneName}</h2>
 
           <div className="other-phone-info">
             <div className="single-phone-info">
               <h3>General Compatibility</h3>
-              <p>60%</p>
+              <p>{phoneData?.moreInfo.generalCompatibility}%</p>
             </div>
 
             <div className="single-phone-info">
               <h3>Storage</h3>
               <p>
-                6GB <small>RAM</small> - 128GB <small>ROM</small>
+                {phoneData?.phoneMemory[0]}GB <small>RAM</small> - {phoneData?.phoneMemory[1]}GB <small>ROM</small>
               </p>
             </div>
 
             <div className="single-phone-info">
               <h3>CPU</h3>
-              <p>Helio G99</p>
+              <p>{phoneData?.phoneChipset}</p>
             </div>
 
             <div className="single-phone-info">
               <h3>Average Rating</h3>
               <p>
-                5.5<small>(213)</small>
+                {phoneData?.moreInfo.averageRating[0]}<small>({phoneData?.moreInfo.averageRating[1]})</small>
               </p>
             </div>
 
             <div className="single-phone-info">
               <h3>GPU</h3>
-              <p>Mali-G913</p>
+              <p>{phoneData?.moreInfo.gpu}</p>
             </div>
 
             <div className="single-phone-info">
               <h3>Display</h3>
               <p>
-                1290<small>p</small> - 90<small>Hz</small>
+                {phoneData?.phoneDisplay[0]}<small>p</small> - {phoneData?.phoneDisplay[1]}<small>Hz</small>
               </p>
             </div>
 
             <div className="single-phone-info">
               <h3>Geekbench</h3>
-              <p>2850</p>
+              <p>{phoneData?.moreInfo.geekBench ||"NA"}</p>
             </div>
 
             <div className="single-phone-info">
               <h3>AnTuTu</h3>
-              <p>1234</p>
+              <p>{phoneData?.moreInfo.anTutu ||"NA"}</p>
             </div>
 
             <div className="single-phone-info">
               <h3>3D Mark</h3>
-              <p>3600</p>
+              <p>{phoneData?.moreInfo.threeDMark ||"NA"}</p>
             </div>
           </div>
         </div>
-      </div>
-
-      <section className="compatible-games">
-        <div className="compatible-games-inner">
-          <h1>Compatible Games</h1>
-
-          <div className="compatible-games-container">
-          
-          <CompatibleGame />
-          <CompatibleGame />
-
-          </div>
-
-
         </div>
-      </section>
+      }
+
+      <CompatibleGamesSection
+      phoneId={phoneId}
+      />
     </main>
   );
 }

@@ -7,16 +7,6 @@ function Homepage() {
   //types
   type fetchingStateType = "loading" | "error" | "completed"
 
-  type MorePhoneInfo = {
-    generalCompatibility: number;
-    gpu: string;
-    averageRating: string[];
-    geekBench: null;
-    anTutu: null;
-    threeDMark: null;
-    _id: string;
-  }
-
   type popularPhoneInfo = {
     _id: string;
     phoneName: string;
@@ -24,7 +14,6 @@ function Homepage() {
     phoneCoverImage: string;
     phoneDisplay: string[];
     phoneMemory: number[];
-    moreInfo: MorePhoneInfo;
   }
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
