@@ -2,8 +2,10 @@ import "./SingleGame.css"
 import ramIcon from "./assets/icons/ram-icon.svg"
 import platformIcon from "./assets/icons/platform-icon.svg"
 import categoryIcon from "./assets/icons/game-category-icon.svg"
+import { useNavigate } from "react-router"
 
 type singleGameProps = {
+        _id : string;
         gameName: string;
         gameCategory: string;
         gameSize: number;
@@ -11,12 +13,16 @@ type singleGameProps = {
         gameCoverImage: string;
 }
 
-function SingleGame({gameCategory, gameCoverImage, gameName, gamePlatform, gameSize} : singleGameProps) {
+function SingleGame({gameCategory, gameCoverImage, gameName, gamePlatform, gameSize, _id} : singleGameProps) {
+  const navigate = useNavigate()
   return (
     <div className="single-game">
                     <img src={gameCoverImage} alt={`game image for ${gameName}`}className="game-logo" />
 
-                    <div className="text">
+                    <div 
+                    onClick={()=>{
+                    navigate(`/game/${_id}`)}}
+                      className="text">
                         <h3>{gameName}</h3>
 
                         <div className="more-game-text">

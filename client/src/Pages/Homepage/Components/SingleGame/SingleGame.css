@@ -5,6 +5,10 @@
     align-items: start;
 }
 
+.single-game > div{
+    cursor: pointer;
+}
+
 .single-game .game-logo{
     height: 7rem;
     width: 7rem;

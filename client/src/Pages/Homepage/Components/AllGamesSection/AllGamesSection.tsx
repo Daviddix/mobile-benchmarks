@@ -42,7 +42,8 @@ function AllGamesSection() {
     }
 
     const mappedPopularGames = allPopularGames.map(({gameName, gameCategory, gameCoverImage, gamePlatform, gameSize, _id})=>{
-        return <SingleGame 
+        return <SingleGame
+        _id={_id} 
         key={_id}
         gameCategory={gameCategory}
         gameCoverImage={gameCoverImage}
@@ -53,7 +54,8 @@ function AllGamesSection() {
     })
 
     const mappedFilteredGames = filteredGames.map(({gameName, gameCategory, gameCoverImage, gamePlatform, gameSize, _id})=>{
-      return <SingleGame 
+      return <SingleGame
+      _id={_id} 
       key={_id}
       gameCategory={gameCategory}
       gameCoverImage={gameCoverImage}
