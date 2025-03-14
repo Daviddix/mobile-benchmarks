@@ -10,6 +10,15 @@ type popularPhoneInfo = {
     phoneMemory: number[];
 }
 
+type gameData = {
+    _id : string;
+    gameName: string;
+    gameCategory: string;
+    gameSize: number;
+    gamePlatform: string;
+    gameCoverImage: string;
+  }
+
 type itemsToView = "Phones" | "Games"
 
 type searchingStates = true | false
@@ -17,6 +26,8 @@ type searchingStates = true | false
 export const searchAtom = atom<string>("")
 
 export const allPopularPhonesAtom = atom<popularPhoneInfo[]>([])
+
+export const allPopularGamesAtom = atom<gameData[]>([])
 
 export const filteredPhonesAtom = atom<popularPhoneInfo[]>([])
 

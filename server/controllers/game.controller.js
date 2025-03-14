@@ -5,7 +5,7 @@ async function addNewGame(req, res){
         const gameInfo = req.body
 
         if(Object.keys(gameInfo).length == 0){
-            res.status(400).json({type : "error", message : "No game info found"})
+            res.status(400).json({type : "error", message : "Couldn't add game"})
         }
 
         const newGameAdded = await gameModel.create(gameInfo)

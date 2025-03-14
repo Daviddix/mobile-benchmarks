@@ -3,8 +3,8 @@ const { addNewGame, getAllGames, getGameInfo } = require("../controllers/game.co
 
 const gameRouter = express.Router()
 
-gameRouter.post("/add", addNewPhone)
-gameRouter.get("/get-all", getAllPhones)
+gameRouter.post("/add", addNewGame)
+gameRouter.get("/get-all", getAllGames)
 gameRouter.get("/:id", getGameInfo)
 
 module.exports = gameRouter

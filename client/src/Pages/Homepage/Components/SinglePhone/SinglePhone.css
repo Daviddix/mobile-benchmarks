@@ -29,8 +29,8 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: .5rem;
+    justify-content: start;
+    gap: .5rem 2rem;
 }
 
 .more-phone-text > div{

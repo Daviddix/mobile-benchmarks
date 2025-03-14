@@ -1,0 +1,30 @@
+.single-game.skeleton .fake-h3{
+    width:7rem;
+    height:1.5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    margin: 0rem 0 1rem;
+}
+
+.single-game.skeleton .fake-icon{
+    width:.8rem;
+    height:.8rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}
+
+.single-game.skeleton .fake-p{
+    width:6rem;
+    height:.8rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}

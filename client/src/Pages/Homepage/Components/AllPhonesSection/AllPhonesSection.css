@@ -1,0 +1,12 @@
+.homepage-main :is(.popular-games h2, .popular-phones h2){
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding: 1rem 0;
+    color: var(--text-secondary-color);
+}
+
+.homepage-main .all-phones-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem 1rem;
+}

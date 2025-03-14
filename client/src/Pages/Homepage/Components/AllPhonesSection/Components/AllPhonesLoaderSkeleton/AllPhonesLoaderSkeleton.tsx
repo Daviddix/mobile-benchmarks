@@ -1,6 +1,6 @@
-import "./HomepageSkeletonLoader.css"
+import "./AllPhonesLoaderSkeleton.css"
 
-function HomepageSkeletonLoader() {
+function AllPhonesLoaderSkeleton() {
   return (
     <>
     <div 
@@ -122,4 +122,4 @@ function HomepageSkeletonLoader() {
   )
 }
 
-export default HomepageSkeletonLoader
+export default AllPhonesLoaderSkeleton

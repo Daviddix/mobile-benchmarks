@@ -1,35 +1,42 @@
 import "./SingleGame.css"
-import testGameLogo from "./assets/images/logo-test.webp"
 import ramIcon from "./assets/icons/ram-icon.svg"
 import platformIcon from "./assets/icons/platform-icon.svg"
 import categoryIcon from "./assets/icons/game-category-icon.svg"
 
-function SingleGame() {
+type singleGameProps = {
+        gameName: string;
+        gameCategory: string;
+        gameSize: number;
+        gamePlatform: string;
+        gameCoverImage: string;
+}
+
+function SingleGame({gameCategory, gameCoverImage, gameName, gamePlatform, gameSize} : singleGameProps) {
   return (
     <div className="single-game">
-                    <img src={testGameLogo} alt="game image" className="game-logo" />
+                    <img src={gameCoverImage} alt={`game image for ${gameName}`}className="game-logo" />
 
                     <div className="text">
-                        <h3>Fortnite Battle Royale</h3>
+                        <h3>{gameName}</h3>
 
                         <div className="more-game-text">
                             <div className="category">
                                 <img src={categoryIcon} alt="category icon" />
-                                <p>Battle Royale</p>
+                                <p>{gameCategory}</p>
                             </div>
 
                             <div className="size">
                             <img src={ramIcon} alt="storage icon" />
-                            <p>900MB</p>
+                            <p>{gameSize}MB</p>
                             </div>
 
                             <div className="platform">
                             <img src={platformIcon} alt="platform" />
-                            <p>Android&iOS</p>
+                            <p>{gamePlatform}</p>
                             </div>
                         </div>
                     </div>
-                </div>
+    </div>
   )
 }
 
