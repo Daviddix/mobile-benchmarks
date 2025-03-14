@@ -31,6 +31,8 @@ export const allPopularGamesAtom = atom<gameData[]>([])
 
 export const filteredPhonesAtom = atom<popularPhoneInfo[]>([])
 
+export const filteredGamesAtom = atom<gameData[]>([])
+
 export const searchingState = atom<searchingStates>(false)
 
 export const itemsToViewAtom = atom<itemsToView>("Phones")

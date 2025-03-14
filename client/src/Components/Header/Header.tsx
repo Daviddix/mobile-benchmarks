@@ -4,13 +4,15 @@ import logo from "./assets/icons/logo.svg"
 import { Outlet, useSearchParams } from "react-router"
 import "./Header.css"
 import {useAtom} from "jotai"
-import { allPopularPhonesAtom, filteredPhonesAtom, itemsToViewAtom, searchAtom, searchingState } from "../../globals/states"
+import { allPopularGamesAtom, allPopularPhonesAtom, filteredGamesAtom, filteredPhonesAtom, itemsToViewAtom, searchAtom, searchingState } from "../../globals/states"
 import { useEffect, useState } from "react"
 
 function Header() {
   const [searchQuery, setSearchQuery] = useAtom(searchAtom)
   const [allPopularPhones, setAllPopularPhones] = useAtom(allPopularPhonesAtom)
+  const [allPopularGames, setAllPopularGames] = useAtom(allPopularGamesAtom)
   const [filteredPhones, setFilteredPhones] = useAtom(filteredPhonesAtom)
+  const [filteredGames, setFilteredGames] = useAtom(filteredGamesAtom)
   const [isSearching, setIsSearching] = useAtom(searchingState)
   const [searchParams, setSearchParams] = useSearchParams();
   const initialView = searchParams.get("page") || "Phones"
@@ -18,6 +20,8 @@ function Header() {
 
   useEffect(() => {
     setSearchParams({ page: itemsToView });
+    setIsSearching(false)
+    setSearchQuery("")
   }, [itemsToView, setSearchParams]);
 
   type popularPhoneInfo = {
@@ -28,6 +32,14 @@ function Header() {
     phoneDisplay: string[];
     phoneMemory: number[];
   }
+  type gameData = {
+    _id : string;
+    gameName: string;
+    gameCategory: string;
+    gameSize: number;
+    gamePlatform: string;
+    gameCoverImage: string;
+}
 
   function searchPhoneList(searchText : string, arrayToSearch : popularPhoneInfo[], arrayToUpdateSetterFunction : Function){
     if(searchText.trim() == ""){
@@ -35,6 +47,19 @@ function Header() {
     }else{
       setIsSearching(true)
       const newArray = arrayToSearch.filter((item)=> item.phoneName.toLowerCase().includes(searchText.toLowerCase()))
+  
+      arrayToUpdateSetterFunction(newArray)
+    }
+
+
+  }
+
+  function searchGameList(searchText : string, arrayToSearch : gameData[], arrayToUpdateSetterFunction : Function){
+    if(searchText.trim() == ""){
+      setIsSearching(false)
+    }else{
+      setIsSearching(true)
+      const newArray = arrayToSearch.filter((item)=> item.gameName.toLowerCase().includes(searchText.toLowerCase()))
   
       arrayToUpdateSetterFunction(newArray)
     }
@@ -58,11 +83,22 @@ function Header() {
         <input 
         onChange={(e)=>{
           setSearchQuery(e.target.value)
-          searchPhoneList(e.target.value, allPopularPhones, setFilteredPhones)
+          itemsToView == "Phones" ? 
+          searchPhoneList(
+            e.target.value, 
+          allPopularPhones, 
+          setFilteredPhones
+        ) 
+          : 
+          searchGameList(
+            e.target.value, 
+            allPopularGames,
+            setFilteredGames
+          )
         }}
         value={searchQuery}
         type="text" 
-        placeholder="Search for games" />
+        placeholder={`Search for ${itemsToView}`} />
         </div>
 
         <div className="form-right">

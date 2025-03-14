@@ -1,14 +1,18 @@
 import { useAtom } from "jotai"
 import SingleGame from "../SingleGame/SingleGame"
-import { allPopularGamesAtom, searchingState } from "../../../../globals/states"
+import { allPopularGamesAtom, filteredGamesAtom, searchingState } from "../../../../globals/states"
 import { useEffect, useState } from "react"
 import "./AllGamesSection.css"
 import AllGamesSkeletonLoader from "./Components/AllGamesSkeletonLoader/AllGamesSkeletonLoader"
 
 
 function AllGamesSection() {
-    type fetchingStateType = "loading" | "error" | "completed"
+  const [allPopularGames, setAllPopularGames] = useAtom(allPopularGamesAtom)
+  const [isSearching, setIsSearching] = useAtom(searchingState)
+  const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
+  const [filteredGames, setFilteredGames] = useAtom(filteredGamesAtom)
 
+    type fetchingStateType = "loading" | "error" | "completed"
     type gameData = {
         _id : string;
         gameName: string;
@@ -16,13 +20,8 @@ function AllGamesSection() {
         gameSize: number;
         gamePlatform: string;
         gameCoverImage: string;
-      }
+    }
 
-  const [allPopularGames, setAllPopularGames] = useAtom(allPopularGamesAtom)
-
-  const [isSearching, setIsSearching] = useAtom(searchingState)
-
-  const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
 
     async function getPopularGames(){
         try{
@@ -40,7 +39,7 @@ function AllGamesSection() {
           console.log("An error occurred", err)
           setFetchingState("error")
         }
-      }
+    }
 
     const mappedPopularGames = allPopularGames.map(({gameName, gameCategory, gameCoverImage, gamePlatform, gameSize, _id})=>{
         return <SingleGame 
@@ -51,11 +50,23 @@ function AllGamesSection() {
         gamePlatform={gamePlatform}
         gameSize={gameSize}
         /> 
-        })
+    })
 
-        useEffect(() => {  
+    const mappedFilteredGames = filteredGames.map(({gameName, gameCategory, gameCoverImage, gamePlatform, gameSize, _id})=>{
+      return <SingleGame 
+      key={_id}
+      gameCategory={gameCategory}
+      gameCoverImage={gameCoverImage}
+      gameName={gameName}
+      gamePlatform={gamePlatform}
+      gameSize={gameSize}
+      /> 
+  })
+
+    useEffect(() => {  
             getPopularGames()
-          }, [])
+    }, 
+    [])
 
   return (
     <div className="popular-games">
@@ -69,7 +80,13 @@ function AllGamesSection() {
                     fetchingState == "error"?
                     <div>Error...</div>
                     :
-                    mappedPopularGames
+                    isSearching?
+                    mappedFilteredGames.length == 0?
+                    <div>Couldn't find your game search</div>
+                      :
+                        mappedFilteredGames
+                        :
+                          mappedPopularGames
                 }
             </div>
         </div>
