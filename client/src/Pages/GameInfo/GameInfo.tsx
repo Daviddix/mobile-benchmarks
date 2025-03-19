@@ -1,13 +1,10 @@
 import "./GameInfo.css"
-import SinglePhone from "../Homepage/Components/SinglePhone/SinglePhone";
-import SingleGame from "../Homepage/Components/SingleGame/SingleGame";
-import testGameImage from "./assets/images/logo-test.webp"
 import linkIcon from "./assets/icons/link-icon.svg"
-import screenshotTest from "./assets/images/screenshot-test.webp"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import SupportedDevicesSection from "./Components/SupportedDevicesSection/SupportedDevicesSection";
 import RequirementSection from "./Components/RequirementSection/RequirementSection";
+import GameInfoLoaderSkeleton from "./Components/GameInfoLoaderSkeleton/GameInfoLoaderSkeleton";
 
 function GameInfo() {
   type fetchingStateType = "loading" | "error" | "completed"
@@ -100,11 +97,12 @@ function GameInfo() {
     <main className="game-info-main">
       {
         fetchingState == "loading"?
-        <div>Loading</div>
+        <GameInfoLoaderSkeleton />
         :
         fetchingState == "error"?
-        <div>Error</div>
+        <div>Error...</div>
         :
+        <>
         <div className="game-info-inner">
         <img
           src={gameInfo?.gameCoverImage}
@@ -170,81 +168,75 @@ function GameInfo() {
           </div>
         </div>
         </div>
+
+        <div className="bottom-game-info">
+
+  <section className="requirements">
+    <div className="tab">
+      <div className="tab-inner">
+        <button
+          onClick={() => {
+            changeTabToView("requirements");
+          }}
+          className={tabToView == "requirements" ? "active" : ""}
+        >
+          Requirements
+        </button>
+
+        <button
+          onClick={() => {
+            changeTabToView("supported");
+          }}
+          className={tabToView == "supported" ? "active" : ""}
+        >
+          Supported Devices
+        </button>
+      </div>
+    </div>
+
+    {tabToView == "requirements" ? (
+      <RequirementSection 
+      minimumRequirements={
+        gameInfo!.moreInfo.gameRequirements.minimumRequirements
+      }
+
+      recommendedRequirements={
+        gameInfo!.moreInfo.gameRequirements.recommendedRequirements
+      }
+      />
+    ) : (
+      <SupportedDevicesSection
+      allSupportedDevices={
+        gameInfo!.moreInfo.supportedDevices
+      }
+      />
+    )}
+  </section>
+
+  <section className="screenshots">
+    <div className="screenshots-inner">
+      <h2>Screenshots</h2>
+
+      <div className="slider">{mappedScreenShots}</div>
+    </div>
+  </section>
+
+  <section className="similar-games">
+    <div className="similar-games-inner">
+      <h2>Similar Games</h2>
+
+      <div className="similar-games-container">
+        {/* <SingleGame />
+    <SingleGame /> */}
+      </div>
+    </div>
+  </section>
+
+        </div>
+        </>
       }
       
 
-      <div className="bottom-game-info">
-      {
-        fetchingState == "loading"?
-        <div>Loading</div>
-        :
-        fetchingState == "error"?
-        <div>Error</div>
-        :
-        <>
-        <section className="requirements">
-          <div className="tab">
-            <div className="tab-inner">
-              <button
-                onClick={() => {
-                  changeTabToView("requirements");
-                }}
-                className={tabToView == "requirements" ? "active" : ""}
-              >
-                Requirements
-              </button>
-
-              <button
-                onClick={() => {
-                  changeTabToView("supported");
-                }}
-                className={tabToView == "supported" ? "active" : ""}
-              >
-                Supported Devices
-              </button>
-            </div>
-          </div>
-
-          {tabToView == "requirements" ? (
-            <RequirementSection 
-            minimumRequirements={
-              gameInfo!.moreInfo.gameRequirements.minimumRequirements
-            }
-
-            recommendedRequirements={
-              gameInfo!.moreInfo.gameRequirements.recommendedRequirements
-            }
-            />
-          ) : (
-            <SupportedDevicesSection
-            allSupportedDevices={
-              gameInfo!.moreInfo.supportedDevices
-            }
-            />
-          )}
-        </section>
-
-        <section className="screenshots">
-          <div className="screenshots-inner">
-            <h2>Screenshots</h2>
-
-            <div className="slider">{mappedScreenShots}</div>
-          </div>
-        </section>
-
-        <section className="similar-games">
-          <div className="similar-games-inner">
-            <h2>Similar Games</h2>
-
-            <div className="similar-games-container">
-              {/* <SingleGame />
-          <SingleGame /> */}
-            </div>
-          </div>
-        </section>
-        </>
-        }
-      </div>
     </main>
   );
 }

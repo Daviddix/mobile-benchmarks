@@ -1,0 +1,56 @@
+.game-info-inner.skeleton .fake-h1{
+    height:3rem;
+    margin:.5rem 0;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    width: 100%;
+    max-width: 24rem;
+}
+
+.game-info-inner.skeleton .game-info-text > .fake-p{
+    width:70%;
+    height: .6rem;
+    margin-block: .5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}
+
+.game-info-inner.skeleton .game-info-text .fake-p:nth-child(2){
+    width:90%;
+}
+
+.game-info-inner.skeleton .game-info-text .fake-p:nth-child(3){
+    width:80%;
+}
+
+.game-info-inner.skeleton .other-game-info{
+    margin: 2rem 0;
+}
+
+.game-info-inner.skeleton .single-game-info .fake-h3{
+    width:7rem;
+    height:1.5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    margin: 0rem 0 1rem 0;
+}
+
+
+.game-info-inner.skeleton .single-game-info .fake-p{
+    width:1rem;
+    height: 3rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+}
