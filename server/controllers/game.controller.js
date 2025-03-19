@@ -33,7 +33,7 @@ async function getAllGames(req, res){
 async function getGameInfo(req, res){
     try{
         const {id} = req.params
-        const gameInfo = await gameModel.findById(id) 
+        const gameInfo = await gameModel.findById(id).populate("moreInfo.supportedDevices")
 
         res.status(200).json(gameInfo)
     }

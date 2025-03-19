@@ -31,6 +31,17 @@ const moreInfoSchema = new mongoose.Schema({
     },
     gameScreenshots : {
         type : [String]
+    },
+    supportedDevices : {
+        type : [mongoose.Schema.Types.ObjectId], 
+        default : [],
+        ref : "Phones"
+    },
+    similarGames : {
+        type : [mongoose.Schema.Types.ObjectId], 
+        required : true,
+        default : [],
+        ref : "Games"
     }
 })
 

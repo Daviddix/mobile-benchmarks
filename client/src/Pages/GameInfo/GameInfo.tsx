@@ -22,6 +22,15 @@ function GameInfo() {
     storageSize: number;
     additionalFeatures: string;
   };
+
+  type popularPhoneInfo = {
+    _id: string;
+    phoneName: string;
+    phoneChipset: string;
+    phoneCoverImage: string;
+    phoneDisplay: string[];
+    phoneMemory: number[];
+  }
   
   type GameRequirements = {
     minimumRequirements: Requirements;
@@ -29,6 +38,8 @@ function GameInfo() {
   };
   
   type MoreInfo = {
+    supportedDevices : popularPhoneInfo[];
+    similarGames : Game[];
     gameRequirements: GameRequirements;
     gameScreenshots?: string[]; // Optional array of strings
   };
@@ -58,6 +69,7 @@ function GameInfo() {
       const rawFetch = await fetch(`http://localhost:3000/api/game/${gameId}`)
       const responseInJson : Game = await rawFetch.json()
       setGameInfo(responseInJson)
+      console.log(responseInJson)
 
 
       if(!rawFetch.ok){
@@ -157,7 +169,7 @@ function GameInfo() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
       }
       
 
@@ -196,11 +208,19 @@ function GameInfo() {
           {tabToView == "requirements" ? (
             <RequirementSection 
             minimumRequirements={
-              gameInfo!.moreInfo.gameRequirements.minimumRequirements}
-            recommendedRequirements={gameInfo!.moreInfo.gameRequirements.recommendedRequirements}
+              gameInfo!.moreInfo.gameRequirements.minimumRequirements
+            }
+
+            recommendedRequirements={
+              gameInfo!.moreInfo.gameRequirements.recommendedRequirements
+            }
             />
           ) : (
-            <SupportedDevicesSection />
+            <SupportedDevicesSection
+            allSupportedDevices={
+              gameInfo!.moreInfo.supportedDevices
+            }
+            />
           )}
         </section>
 
