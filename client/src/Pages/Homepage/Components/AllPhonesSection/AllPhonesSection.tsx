@@ -53,7 +53,7 @@ function AllPhonesSection() {
 
   async function getPopularPhones(){
     try{
-      const rawFetch = await fetch("http://localhost:3000/api/phone/get-all")
+      const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/phone/get-all")
       const responseInJson : popularPhoneInfo[] = await rawFetch.json()
 
       if(!rawFetch.ok){
