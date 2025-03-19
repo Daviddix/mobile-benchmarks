@@ -34,6 +34,11 @@
     margin: 0 0 2rem 0;
 }
 
+.game-info-text p a{
+    text-decoration: none;
+    color : inherit;
+}
+
 .game-info-text .other-game-info{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -87,14 +92,6 @@
 .tab-inner button.active{
     border-bottom: 2px solid var(--primary-400);
     color: var(--primary-200);
-}
-
-.requirements .supported-devices-inner{
-    width:90vw;
-    margin: 0 auto 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
-    gap: 2rem 1rem;
 }
 
 .screenshots .screenshots-inner,

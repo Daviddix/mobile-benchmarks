@@ -4,95 +4,227 @@ import SingleGame from "../Homepage/Components/SingleGame/SingleGame";
 import testGameImage from "./assets/images/logo-test.webp"
 import linkIcon from "./assets/icons/link-icon.svg"
 import screenshotTest from "./assets/images/screenshot-test.webp"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import SupportedDevicesSection from "./Components/SupportedDevicesSection/SupportedDevicesSection";
+import RequirementSection from "./Components/RequirementSection/RequirementSection";
 
 function GameInfo() {
+  type fetchingStateType = "loading" | "error" | "completed"
+
+  type tabTypes = "requirements" | "supported"
+
+  type Requirements = {
+    operatingSystem: string;
+    processor: string;
+    gpu: string;
+    ram: number;
+    storageSize: number;
+    additionalFeatures: string;
+  };
+  
+  type GameRequirements = {
+    minimumRequirements: Requirements;
+    recommendedRequirements: Requirements;
+  };
+  
+  type MoreInfo = {
+    gameRequirements: GameRequirements;
+    gameScreenshots?: string[]; // Optional array of strings
+  };
+  
+  type Game = {
+    gameName: string;
+    gameCategory: string;
+    gameSize: number;
+    gamePlatform: string;
+    gameCoverImage: string;
+    gameDescription: string;
+    gameYearOfRelease: number;
+    gameRating: [number, number]; // Tuple with exactly 2 numbers
+    androidDownloadLink: string;
+    iosDownloadLink: string;
+    moreInfo: MoreInfo;
+  };
+
+  const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
+  const [gameInfo, setGameInfo] = useState<Game | null>(null)
+  const [tabToView, setTabToView] = useState<tabTypes>("requirements")
+  const {gameId} = useParams()
+
+  async function getGameInformation(gameId : string | undefined) {
+    try{
+      setFetchingState("loading")
+      const rawFetch = await fetch(`http://localhost:3000/api/game/${gameId}`)
+      const responseInJson : Game = await rawFetch.json()
+      setGameInfo(responseInJson)
+
+
+      if(!rawFetch.ok){
+        throw new Error("An error occurred", {cause : responseInJson})
+      }
+      setFetchingState("completed")
+    }
+    catch(err){
+      setFetchingState("error")
+      console.log(`An error occurred when trying to get the game info with the id of : ${gameId}`, err)
+    }
+  }
+
+  function changeTabToView(nameToChangeTo : tabTypes){
+    if(tabToView !== nameToChangeTo){
+      setTabToView(nameToChangeTo)
+    }
+  }
+
+  const mappedScreenShots = gameInfo?.moreInfo.gameScreenshots?.map((screenshot)=>{
+    return <img key={screenshot} src={screenshot} alt="screenshot" />
+  })
+
+  useEffect(()=>{
+    getGameInformation(gameId)
+  }, [])
   return (
     <main className="game-info-main">
-      <div className="game-info-inner">
-        <img src={testGameImage} alt="game image" className="game-image" />
+      {
+        fetchingState == "loading"?
+        <div>Loading</div>
+        :
+        fetchingState == "error"?
+        <div>Error</div>
+        :
+        <div className="game-info-inner">
+        <img
+          src={gameInfo?.gameCoverImage}
+          alt="game image"
+          className="game-image"
+        />
 
         <div className="game-info-text">
-          <h2>Need for Speed : No Limits</h2>
+          <h2>{gameInfo?.gameName}</h2>
 
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam veritatis numquam incidunt omnis inventore corporis odio necessitatibus est consequuntur enim!</p>
+          <p>{gameInfo?.gameDescription}</p>
 
           <div className="other-game-info">
-
             <div className="single-game-info">
               <h3>Year</h3>
-              <p>2012</p>
+              <p>{gameInfo?.gameYearOfRelease}</p>
             </div>
 
             <div className="single-game-info">
               <h3>Genre</h3>
-              <p>Racing</p>
+              <p>{gameInfo?.gameCategory}</p>
             </div>
 
             <div className="single-game-info">
               <h3>Ratings</h3>
-              <p>5.5<small>(200)</small></p>
+              <p>
+                {gameInfo?.gameRating[0]}
+                <small>({gameInfo?.gameRating[1].toLocaleString()})</small>
+              </p>
             </div>
 
             <div className="single-game-info">
               <h3>Platform</h3>
-              <p>Android <small>&</small> iOS</p>
+              <p>
+                {gameInfo?.gamePlatform.split("&")[0]}
+                <small>&</small>
+                {gameInfo?.gamePlatform.split("&")[1]}
+              </p>
             </div>
 
             <div className="single-game-info">
               <h3>Download</h3>
-              <p>Playstore <img src={linkIcon} alt="link" /></p>
-              <p>Appstore <img src={linkIcon} alt="link" /></p>
-            </div>
+              <p>
+                <a
+                  href={gameInfo?.androidDownloadLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Playstore <img src={linkIcon} alt="link" />
+                </a>
+              </p>
 
+              <p>
+                <a
+                  href={gameInfo?.iosDownloadLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Appstore <img src={linkIcon} alt="link" />
+                </a>
+              </p>
+            </div>
           </div>
         </div>
-        </div>
+      </div>
+      }
+      
 
-        <div className="bottom-game-info">
-
+      <div className="bottom-game-info">
+      {
+        fetchingState == "loading"?
+        <div>Loading</div>
+        :
+        fetchingState == "error"?
+        <div>Error</div>
+        :
+        <>
         <section className="requirements">
           <div className="tab">
             <div className="tab-inner">
-            <button>Requirements</button>
-            <button className="active">Supported Devices</button>
+              <button
+                onClick={() => {
+                  changeTabToView("requirements");
+                }}
+                className={tabToView == "requirements" ? "active" : ""}
+              >
+                Requirements
+              </button>
+
+              <button
+                onClick={() => {
+                  changeTabToView("supported");
+                }}
+                className={tabToView == "supported" ? "active" : ""}
+              >
+                Supported Devices
+              </button>
             </div>
           </div>
 
-          <div className="supported-devices-container">
-            <div className="supported-devices-inner">
-            {/* <SinglePhone />
-            <SinglePhone /> */}
-            </div>
-          </div>
+          {tabToView == "requirements" ? (
+            <RequirementSection 
+            minimumRequirements={
+              gameInfo!.moreInfo.gameRequirements.minimumRequirements}
+            recommendedRequirements={gameInfo!.moreInfo.gameRequirements.recommendedRequirements}
+            />
+          ) : (
+            <SupportedDevicesSection />
+          )}
         </section>
 
         <section className="screenshots">
           <div className="screenshots-inner">
+            <h2>Screenshots</h2>
 
-          <h2>Screenshots</h2>
-
-          <div className="slider">
-            <img src={screenshotTest} alt="screenshot" />
-            <img src={screenshotTest} alt="screenshot" />
-            <img src={screenshotTest} alt="screenshot" />
-          </div>
+            <div className="slider">{mappedScreenShots}</div>
           </div>
         </section>
 
         <section className="similar-games">
-
           <div className="similar-games-inner">
             <h2>Similar Games</h2>
 
-          <div className="similar-games-container">
-          <SingleGame />
-          <SingleGame />
-          </div>
-
+            <div className="similar-games-container">
+              {/* <SingleGame />
+          <SingleGame /> */}
+            </div>
           </div>
         </section>
-      
-        </div>
+        </>
+        }
+      </div>
     </main>
   );
 }

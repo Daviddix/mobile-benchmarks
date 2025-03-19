@@ -19,31 +19,6 @@ const recommendedRequirementSchema = new mongoose.Schema({
 })
 
 const moreInfoSchema = new mongoose.Schema({
-    gameDescription : {
-        type : String,
-        required : true
-    },
-    gameYearOfRelease : {
-        type : Number,
-        required : true
-    },
-    gameRating : {
-        type : [Number],
-        validate : {
-            validator : function(arr){
-                return arr.length === 2
-            },
-            message: 'display must be a tuple of [number, number]'
-        }
-    },
-    androidDownloadLink : {
-        type : String,
-        required : true
-    },
-    iosDownloadLink : {
-        type : String,
-        required : true
-    },
     gameRequirements : {
         minimumRequirements : {
             type : minimumRequirementSchema,
@@ -80,6 +55,31 @@ const gameSchema = new mongoose.Schema({
         required : true
     },
     gameCoverImage :{
+        type : String,
+        required : true
+    },
+    gameDescription : {
+        type : String,
+        required : true
+    },
+    gameYearOfRelease : {
+        type : Number,
+        required : true
+    },
+    gameRating : {
+        type : [Number],
+        validate : {
+            validator : function(arr){
+                return arr.length === 2
+            },
+            message: 'display must be a tuple of [number, number]'
+        }
+    },
+    androidDownloadLink : {
+        type : String,
+        required : true
+    },
+    iosDownloadLink : {
         type : String,
         required : true
     },

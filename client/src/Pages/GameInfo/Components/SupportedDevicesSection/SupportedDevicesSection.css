@@ -1,0 +1,7 @@
+.requirements .supported-devices-inner{
+    width:90vw;
+    margin: 0 auto 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+    gap: 2rem 1rem;
+}

@@ -1,0 +1,63 @@
+.requirements .requirements-inner{
+    width:90vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 4rem;
+    margin: 0 auto 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.requirements-inner table{
+    border:1px solid var(--l3-elevation);
+    display: block;
+    width:100%;
+    max-width: 40rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    border-style: solid;
+    overflow : hidden;
+    background-color: var(--l2-elevation);
+}
+
+.requirements-inner table tr{
+    display:flex;
+    align-items: center;
+    justify-content : center;
+}
+
+table tr th{
+    font-size: 1.2rem;
+    font-weight: 200;
+    border-left: 1px solid #51515177;
+    background-color :var(--bg-color);
+}
+
+table .t-head{
+    justify-self: flex-start;
+    display: flex;
+}
+
+table tr td,
+table tr th
+{
+    flex:1;
+    padding:.8rem 1rem;
+}
+
+table tr td{
+    font-size: 1.2rem;
+    border-top: 1px solid #51515177;
+    border-left: 1px solid #51515177;
+}
+
+table.recommended{
+    border:1px solid var(--primary-500);
+}
+
+table.recommended tr th{
+    border-block:1px solid var(--primary-500);
+}

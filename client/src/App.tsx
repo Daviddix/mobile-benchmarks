@@ -11,7 +11,7 @@ function App(){
       <Route element={<Header />}>
       <Route path="/" element={<Homepage />} />
       <Route path="/phone/:phoneId" element={<PhoneInfo />} />
-      <Route path="/game/:gameName" element={<GameInfo />} />
+      <Route path="/game/:gameId" element={<GameInfo />} />
       </Route>
     </Routes>
   )
