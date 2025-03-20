@@ -43,7 +43,7 @@ function PhoneInfo() {
         throw new Error("Fetching Error" , {cause : responseInJson})
       }
       setPhoneData(responseInJson)
-      setFetchingState("error")
+      setFetchingState("completed")
     }
     catch(err){
       console.log("An error occurred", err)

@@ -66,13 +66,12 @@ function GameInfo() {
       setFetchingState("loading")
       const rawFetch = await fetch(`http://localhost:3000/api/game/${gameId}`)
       const responseInJson : Game = await rawFetch.json()
-      setGameInfo(responseInJson)
-
-
+      
       if(!rawFetch.ok){
         throw new Error("An error occurred", {cause : responseInJson})
       }
-      setFetchingState("error")
+      setGameInfo(responseInJson)
+      setFetchingState("completed")
     }
     catch(err){
       setFetchingState("error")
