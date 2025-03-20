@@ -4,6 +4,7 @@ import testPhoneImage from "./assets/images/phone-test.jpg";
 import { useEffect, useState } from "react";
 import CompatibleGamesSection from "./Components/CompatibleGamesSection/CompatibleGamesSection";
 import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneInfoSkeletonLoader";
+import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
 
 function PhoneInfo() {
   const {phoneId} = useParams()
@@ -42,7 +43,7 @@ function PhoneInfo() {
         throw new Error("Fetching Error" , {cause : responseInJson})
       }
       setPhoneData(responseInJson)
-      setFetchingState("completed")
+      setFetchingState("error")
     }
     catch(err){
       console.log("An error occurred", err)
@@ -64,7 +65,16 @@ function PhoneInfo() {
            <PhoneInfoSkeletonLoader />
            :
         fetchingState == "error" ?
-        <div>Error</div>
+        <div className="phone-info-inner error">
+
+          <ErrorComponent
+          errorHeading="An Error Occurred"
+          refreshFunction={getPhoneData}
+          id={phoneId}
+          errorMessage="Oops! We couldn’t get the information about that game. Please check your connection and try again. If you feel it isn't caused by your internet connection, click the retry button"
+          />
+
+        </div>
         :
         <div className="phone-info-inner">
         <img src={phoneData?.phoneCoverImage} alt="phone info" className="phone-image" />
@@ -128,9 +138,10 @@ function PhoneInfo() {
         </div>
       }
 
-      <CompatibleGamesSection
+      {fetchingState !== "error" &&
+        <CompatibleGamesSection
       phoneId={phoneId}
-      />
+      />}
     </main>
   );
 }

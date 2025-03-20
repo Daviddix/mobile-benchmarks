@@ -4,6 +4,7 @@ import AllPhonesLoaderSkeleton from './Components/AllPhonesLoaderSkeleton/AllPho
 import { useAtom } from 'jotai'
 import { allPopularPhonesAtom, filteredPhonesAtom, searchingState } from '../../../../globals/states'
 import SinglePhone from '../SinglePhone/SinglePhone'
+import ErrorComponent from '../../../../Components/ErrorComponent/ErrorComponent'
 
 function AllPhonesSection() {
   type fetchingStateType = "loading" | "error" | "completed"
@@ -75,15 +76,19 @@ function AllPhonesSection() {
 
   return (
     <div className="popular-phones">
-    <h2>Popular Phones</h2>
+    {fetchingState !== "error" && <h2>Popular Phones</h2>}
 
-    <div className="all-phones-container">
+    <div className={fetchingState == "error"? "all-phones-container error" : "all-phones-container"}>
     {
       fetchingState == "loading"?
       <AllPhonesLoaderSkeleton />
       :
       fetchingState == "error"?
-      <div>Error</div>
+      <ErrorComponent 
+                    errorHeading="An Error Occurred"
+                    errorMessage="Oops! We couldn’t load popular phones. Please check your connection and try again. If you feel it isn't caused by your internet connection, click the retry button"
+                    refreshFunction={getPopularPhones}
+                     />
       :
       isSearching ?
       mappedFilteredPhones.length == 0 ?

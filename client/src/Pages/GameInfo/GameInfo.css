@@ -8,6 +8,10 @@
     margin: auto;
 }
 
+.game-info-main:has(.game-info-inner.error){
+    min-height: 70vh;
+}
+
 .game-info-inner .game-image{
     width:100%;
     display: block;
@@ -145,6 +149,15 @@
 
     .game-info-main .game-info-inner{
         display: flex;
+        align-items: center;
+        column-gap: 2rem;
+        height: 40rem;
+        max-width: 130rem;
+    }
+
+    .game-info-main .game-info-inner.error{
+        padding: 2rem 0 0 0;
+        display: block;
         align-items: center;
         column-gap: 2rem;
         height: 40rem;

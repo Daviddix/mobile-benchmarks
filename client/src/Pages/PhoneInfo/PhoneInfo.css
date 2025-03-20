@@ -8,6 +8,10 @@
     margin: auto;
 }
 
+.phone-info-main:has(.phone-info-inner.error){
+    min-height: 70vh;
+}
+
 .phone-info-inner .phone-image{
     width:100%;
     display: block;
@@ -74,6 +78,15 @@
         width:40rem;
         height: 40rem;
         margin: 0;
+    }
+
+    .phone-info-main .phone-info-inner.error{
+        padding: 0 0 0;
+        display: block;
+        align-items: center;
+        column-gap: 2rem;
+        height: 40rem;
+        max-width: 130rem;
     }
 
     .phone-info-inner .phone-info-text{

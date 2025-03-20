@@ -1,0 +1,56 @@
+.error-container{
+    border: 1px solid var(--l4-elevation);
+    padding: 1rem;
+    background-image: linear-gradient(to bottom right, var(--l1-elevation) 60%, rgba(163, 72, 72, 0.439), var(--red-badge-text));
+    margin: 2rem 0 0;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    width:100%;
+    max-width: 50rem;
+}
+
+.error-container .image-container{
+    width: 4rem;
+    height:4rem;
+    background-color: var(--l2-elevation);
+    padding:.2rem;
+    border: 1px solid var(--l3-elevation);
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-container .image-container svg{
+    width:80%;
+}
+
+.error-container h1{
+    margin: 0 0 .5rem 0;
+}
+
+.error-container p{
+    color: var(--text-secondary-color);
+    font-size: 1.4rem;
+    margin: 0 0 1rem 0;
+}
+
+.error-container button{
+    padding:.8rem 1rem;
+    width:30%;
+    font-weight: 600;
+    border:none;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+}

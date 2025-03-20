@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import SupportedDevicesSection from "./Components/SupportedDevicesSection/SupportedDevicesSection";
 import RequirementSection from "./Components/RequirementSection/RequirementSection";
 import GameInfoLoaderSkeleton from "./Components/GameInfoLoaderSkeleton/GameInfoLoaderSkeleton";
+import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
 
 function GameInfo() {
   type fetchingStateType = "loading" | "error" | "completed"
@@ -71,7 +72,7 @@ function GameInfo() {
       if(!rawFetch.ok){
         throw new Error("An error occurred", {cause : responseInJson})
       }
-      setFetchingState("completed")
+      setFetchingState("error")
     }
     catch(err){
       setFetchingState("error")
@@ -99,7 +100,15 @@ function GameInfo() {
         <GameInfoLoaderSkeleton />
         :
         fetchingState == "error"?
-        <div>Error...</div>
+        <div className="game-info-inner error">
+          <ErrorComponent
+          id={gameId}
+          errorHeading="An Error Occurred"
+          errorMessage="Oops! We couldn’t get the information about that game. Please check your connection and try again. If you feel it isn't caused by your internet connection, click the retry button"
+          refreshFunction={getGameInformation}
+          />
+          
+        </div>
         :
         <>
         <div className="game-info-inner">

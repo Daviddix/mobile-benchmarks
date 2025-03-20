@@ -4,6 +4,7 @@ import { allPopularGamesAtom, filteredGamesAtom, searchingState } from "../../..
 import { useEffect, useState } from "react"
 import "./AllGamesSection.css"
 import AllGamesSkeletonLoader from "./Components/AllGamesSkeletonLoader/AllGamesSkeletonLoader"
+import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent"
 
 
 function AllGamesSection() {
@@ -72,7 +73,7 @@ function AllGamesSection() {
 
   return (
     <div className="popular-games">
-            <h2>Popular Games</h2>
+            {fetchingState !== "error" && <h2>Popular Games</h2>}
 
             <div className="all-games-container">
                 {
@@ -80,7 +81,11 @@ function AllGamesSection() {
                     <AllGamesSkeletonLoader />
                     :
                     fetchingState == "error"?
-                    <div>Error...</div>
+                    <ErrorComponent 
+                    errorHeading="An Error occurred"
+                    errorMessage="Oops! We couldn’t load popular games. Please check your connection and try again. If you feel it isn't caused by your internet connection, click the retry button"
+                    refreshFunction={getPopularGames}
+                     />
                     :
                     isSearching?
                     mappedFilteredGames.length == 0?
