@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CompatibleGame from "../../Components/CompatibleGame/CompatibleGame";
 import CompatibleGamesSectionSkeletonLoader from "./CompatibleGamesSectionSkeletonLoader/CompatibleGamesSectionSkeletonLoader";
 import "./CompatibleGamesSection.css"
+import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent";
 
 type compatibleGamesSectionProps = {
     phoneId : string | undefined
@@ -33,17 +34,19 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
 
   const [compatibleGameFetchingState, setCompatibleGameFetchingState] = useState<fetchingStateType>("loading")
   const [compatibleGameData, setCompatibleGameData] = useState<compatibleGame | null>(null)
+  const [length, setLength] = useState(0)
   
   async function getCompatibleGames(id : string | undefined){
     try{
       setCompatibleGameFetchingState("loading")
       const rawFetch = await fetch(`http://localhost:3000/api/compatible-game/get-games/${id}`)
-      const responseInJson = await rawFetch.json()
+      const responseInJson : compatibleGame = await rawFetch.json()
 
       if(!rawFetch.ok){
         throw new Error("Fetching Error" , {cause : responseInJson})
       }
       setCompatibleGameData(responseInJson)
+      setLength(responseInJson?.compatibleGamesInfo.length)
       setCompatibleGameFetchingState("completed")
     }
     catch(err){
@@ -82,10 +85,18 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
                 :
                 compatibleGameFetchingState == "error"?
                 <>
-                <div>An error ocurred</div>
+                <ErrorComponent
+                errorHeading="An Error Occurred"
+                errorMessage="Oops! We couldn’t get the compatible games. Please check your connection and try again. If you feel it isn't caused by your internet connection, click the retry button"
+                refreshFunction={getCompatibleGames}
+                id={phoneId}
+                />
                 </>
                 :
+                length > 0?
                 mappedCompatibleGames
+                :
+                <div>No items</div>
 
             }
           
