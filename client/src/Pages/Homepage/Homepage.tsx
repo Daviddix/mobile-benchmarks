@@ -7,15 +7,6 @@ import AllPhonesSection from "./Components/AllPhonesSection/AllPhonesSection"
 import AllGamesSection from "./Components/AllGamesSection/AllGamesSection"
 
 function Homepage() {
-  //types
-
-  type gameData = {
-    gameName: string;
-    gameCategory: string;
-    gameSize: number;
-    gamePlatform: string;
-    gameCoverImage: string;
-  }
 
   const [searchParams, setSearchParams] = useSearchParams();
 

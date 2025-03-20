@@ -1,7 +1,7 @@
 import searchIcon from "./assets/icons/search-icon.svg"
 import cameraIcon from "./assets/icons/camera-icon.svg"
 import logo from "./assets/icons/logo.svg"
-import { Outlet, useSearchParams } from "react-router"
+import { Outlet, useLocation, useSearchParams } from "react-router"
 import "./Header.css"
 import {useAtom} from "jotai"
 import { allPopularGamesAtom, allPopularPhonesAtom, filteredGamesAtom, filteredPhonesAtom, itemsToViewAtom, searchAtom, searchingState } from "../../globals/states"
@@ -17,12 +17,15 @@ function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialView = searchParams.get("page") || "Phones"
   const [itemsToView, setItemsToView] = useState(initialView)
+  const location = useLocation();
 
   useEffect(() => {
-    setSearchParams({ page: itemsToView });
+    if (location.pathname === '/') {
+      setSearchParams({ page: itemsToView });
+    }
     setIsSearching(false)
     setSearchQuery("")
-  }, [itemsToView, setSearchParams]);
+  }, [itemsToView, location.pathname, setSearchParams]);
 
   type popularPhoneInfo = {
     _id: string;
