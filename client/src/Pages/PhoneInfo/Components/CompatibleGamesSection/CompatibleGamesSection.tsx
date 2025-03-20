@@ -96,7 +96,7 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
                 length > 0?
                 mappedCompatibleGames
                 :
-                <div>No items</div>
+                <div className="empty">No items</div>
 
             }
           

@@ -178,7 +178,7 @@ function GameInfo() {
 
         <div className="bottom-game-info">
 
-  <section className="requirements">
+        <section className="requirements">
     <div className="tab">
       <div className="tab-inner">
         <button
@@ -218,17 +218,17 @@ function GameInfo() {
       }
       />
     )}
-  </section>
+        </section>
 
-  <section className="screenshots">
-    <div className="screenshots-inner">
-      <h2>Screenshots</h2>
+        <section className="screenshots">
+        <div className="screenshots-inner">
+        <h2>Screenshots</h2>
 
-      <div className="slider">{mappedScreenShots}</div>
-    </div>
-  </section>
+        <div className="slider">{mappedScreenShots}</div>
+        </div>
+        </section>
 
-  <section className="similar-games">
+        <section className="similar-games">
     <div className="similar-games-inner">
       <h2>Similar Games</h2>
 
@@ -237,7 +237,7 @@ function GameInfo() {
     <SingleGame /> */}
       </div>
     </div>
-  </section>
+        </section>
 
         </div>
         </>
