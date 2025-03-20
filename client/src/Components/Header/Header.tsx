@@ -1,7 +1,7 @@
 import searchIcon from "./assets/icons/search-icon.svg"
 import cameraIcon from "./assets/icons/camera-icon.svg"
 import logo from "./assets/icons/logo.svg"
-import { Outlet, useLocation, useSearchParams } from "react-router"
+import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router"
 import "./Header.css"
 import {useAtom} from "jotai"
 import { allPopularGamesAtom, allPopularPhonesAtom, filteredGamesAtom, filteredPhonesAtom, itemsToViewAtom, searchAtom, searchingState } from "../../globals/states"
@@ -18,6 +18,7 @@ function Header() {
   const initialView = searchParams.get("page") || "Phones"
   const [itemsToView, setItemsToView] = useState(initialView)
   const location = useLocation();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -66,64 +67,78 @@ function Header() {
   
       arrayToUpdateSetterFunction(newArray)
     }
+  }
 
-
+  function goBack(){
+    navigate(-1)
   }
 
   return (
     <>
     <header>
     <div className="homepage-inner-top">
-        <img src={logo} alt="mobile benchmarks logo" />
-        <h1>Discover Games That Run Perfectly on Your Phone</h1>
+        {
+          location.pathname === "/"?
+          <>
+         <img src={logo} alt="mobile benchmarks logo" />
+         <h1>Discover Games That Run Perfectly on Your Phone</h1>
+         </> 
+         :
+         <button
+         onClick={goBack}
+         className="back">Back</button>
+        }
     </div>
-
-    <form>
-    <div className="homepage-inner-top">
-        <div className="form-left">
-        <img src={searchIcon} alt="search-icon" />
-
-        <input 
-        onChange={(e)=>{
-          setSearchQuery(e.target.value)
-          itemsToView == "Phones" ? 
-          searchPhoneList(
-            e.target.value, 
-          allPopularPhones, 
-          setFilteredPhones
-        ) 
-          : 
-          searchGameList(
-            e.target.value, 
-            allPopularGames,
-            setFilteredGames
+        {
+          location.pathname == "/" && (
+            <form>
+            <div className="homepage-inner-top">
+                <div className="form-left">
+                <img src={searchIcon} alt="search-icon" />
+        
+                <input 
+                onChange={(e)=>{
+                  setSearchQuery(e.target.value)
+                  itemsToView == "Phones" ? 
+                  searchPhoneList(
+                    e.target.value, 
+                  allPopularPhones, 
+                  setFilteredPhones
+                ) 
+                  : 
+                  searchGameList(
+                    e.target.value, 
+                    allPopularGames,
+                    setFilteredGames
+                  )
+                }}
+                value={searchQuery}
+                type="text" 
+                placeholder={`Search for ${itemsToView}`} />
+                </div>
+        
+                <div className="form-right">
+                <select 
+                onChange={(e)=>{
+                  setItemsToView(e.target.value)
+                }}
+                name="page" id="page">
+                    <option 
+                    value="Phones">Phones</option>
+        
+                    <option 
+                    value="Games">Games</option>
+                </select>
+        
+                <button type="button">
+                <img src={cameraIcon} alt="camera-icon" />
+                </button>
+                </div>
+        
+                </div>
+            </form>
           )
-        }}
-        value={searchQuery}
-        type="text" 
-        placeholder={`Search for ${itemsToView}`} />
-        </div>
-
-        <div className="form-right">
-        <select 
-        onChange={(e)=>{
-          setItemsToView(e.target.value)
-        }}
-        name="page" id="page">
-            <option 
-            value="Phones">Phones</option>
-
-            <option 
-            value="Games">Games</option>
-        </select>
-
-        <button type="button">
-        <img src={cameraIcon} alt="camera-icon" />
-        </button>
-        </div>
-
-        </div>
-    </form>
+        }
     </header>
     
     <Outlet />
