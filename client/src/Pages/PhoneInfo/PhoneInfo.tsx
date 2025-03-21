@@ -54,6 +54,10 @@ function PhoneInfo() {
 
   useEffect(()=>{
     getPhoneData(phoneId)
+    window.scrollTo({
+      top:0,
+      left : 0
+    })
   }, [])
 
   return (
