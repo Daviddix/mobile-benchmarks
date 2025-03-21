@@ -1,6 +1,7 @@
 import searchIcon from "./assets/icons/search-icon.svg"
 import cameraIcon from "./assets/icons/camera-icon.svg"
 import logo from "./assets/icons/logo.svg"
+import backIcon from "./assets/icons/back-icon.svg"
 import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router"
 import "./Header.css"
 import {useAtom} from "jotai"
@@ -86,7 +87,9 @@ function Header() {
          :
          <button
          onClick={goBack}
-         className="back">Back</button>
+         className="back">
+          <img src={backIcon} alt="go back" />
+         </button>
         }
     </div>
         {
