@@ -124,9 +124,11 @@ function Header() {
                 }}
                 name="page" id="page">
                     <option 
+                    selected={itemsToView == "Phones"}
                     value="Phones">Phones</option>
         
                     <option 
+                    selected={itemsToView == "Games"}
                     value="Games">Games</option>
                 </select>
         
