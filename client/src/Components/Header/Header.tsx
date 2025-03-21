@@ -2,6 +2,7 @@ import searchIcon from "./assets/icons/search-icon.svg"
 import cameraIcon from "./assets/icons/camera-icon.svg"
 import logo from "./assets/icons/logo.svg"
 import backIcon from "./assets/icons/back-icon.svg"
+import toast, { Toaster } from 'react-hot-toast';
 import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router"
 import "./Header.css"
 import {useAtom} from "jotai"
@@ -20,6 +21,7 @@ function Header() {
   const [itemsToView, setItemsToView] = useState(initialView)
   const location = useLocation();
   const navigate = useNavigate()
+  const notify = () => toast('This feature is coming Soon.');
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -135,7 +137,9 @@ function Header() {
                     value="Games">Games</option>
                 </select>
         
-                <button type="button">
+                <button
+                onClick={notify}
+                type="button">
                 <img src={cameraIcon} alt="camera-icon" />
                 </button>
                 </div>
