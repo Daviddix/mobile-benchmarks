@@ -6,6 +6,7 @@ import iosIcon from "./assets/icons/ios-icon.svg";
 import batteryIcon from "./assets/icons/battery-icon.svg";
 import linkIcon from "./assets/icons/link-icon.svg";
 import fpsIcon from "./assets/icons/fps-icon.svg"
+import Badge from "./Components/Badge/Badge";
 
 type gameDataType = {
   fps: number,
@@ -30,9 +31,7 @@ function CompatibleGame({gameCoverImage, gameDescription, gameName, gameData, ga
             <div className="image">
               <img src={gameCoverImage} alt={`game image for ${gameName}`} />
               <h2>{gameName}</h2>
-              <div className="badge high">
-                <p>{gameCompatibilityRating}%</p>
-              </div>
+              <Badge rating={gameCompatibilityRating} />
             </div>
 
             <div className="text">
