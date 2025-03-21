@@ -78,7 +78,7 @@ function Header() {
 
   return (
     <>
-    <header>
+    <header className={location.pathname === "/" ? "" : "n"}>
     <div className="homepage-inner-top">
         {
           location.pathname === "/"?
