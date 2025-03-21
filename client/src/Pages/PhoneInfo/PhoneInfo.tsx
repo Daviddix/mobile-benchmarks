@@ -1,6 +1,5 @@
 import { useParams } from "react-router";
 import "./PhoneInfo.css";
-import testPhoneImage from "./assets/images/phone-test.jpg";
 import { useEffect, useState } from "react";
 import CompatibleGamesSection from "./Components/CompatibleGamesSection/CompatibleGamesSection";
 import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneInfoSkeletonLoader";
