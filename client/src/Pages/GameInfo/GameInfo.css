@@ -98,6 +98,11 @@
     color: var(--primary-200);
 }
 
+
+.screenshots-inner img{
+    object-fit: cover;
+}
+
 .screenshots .screenshots-inner,
 .similar-games .similar-games-inner
 {
