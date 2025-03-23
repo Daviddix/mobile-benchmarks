@@ -35,7 +35,7 @@ function SinglePhone({_id, phoneChipset, phoneCoverImage, phoneDisplay, phoneMem
 
             <div className="screen">
             <img src={screenIcon} alt="screen icon" />
-            <p>{phoneDisplay[0]} - {phoneDisplay[1]}</p>
+            <p>{phoneDisplay[0]}p - {phoneDisplay[1]}Hz</p>
             </div>
 
             <div className="memory">
