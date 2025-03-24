@@ -39,7 +39,7 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
   async function getCompatibleGames(id : string | undefined){
     try{
       setCompatibleGameFetchingState("loading")
-      const rawFetch = await fetch(`http://localhost:3000/api/compatible-game/get-games/${id}`)
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/compatible-game/get-games/${id}`)
       const responseInJson : compatibleGame = await rawFetch.json()
 
       if(!rawFetch.ok){

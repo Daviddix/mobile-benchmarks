@@ -27,7 +27,7 @@ function AllGamesSection() {
     async function getPopularGames(){
         try{
           setFetchingState("loading")
-          const rawFetch = await fetch("http://localhost:3000/api/game/get-all")
+          const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/game/get-all")
           const responseInJson : gameData[] = await rawFetch.json()
     
           if(!rawFetch.ok){
