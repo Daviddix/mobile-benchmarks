@@ -55,7 +55,7 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
     }
   }
 
-    const mappedCompatibleGames = compatibleGameData?.compatibleGamesInfo?.map(({gameCompatibilityRating, gameDescription, gameData, gameCoverImage, gameName})=>{
+    const mappedCompatibleGames = compatibleGameData?.compatibleGamesInfo?.sort((a,b)=>b.gameCompatibilityRating - a.gameCompatibilityRating).map(({gameCompatibilityRating, gameDescription, gameData, gameCoverImage, gameName})=>{
         return <CompatibleGame 
         key={gameName}
         gameCompatibilityRating={gameCompatibilityRating}
