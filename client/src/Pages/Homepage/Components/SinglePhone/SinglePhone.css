@@ -7,7 +7,7 @@
     width: 100%;
     object-fit: cover;
     aspect-ratio: 9/17;
-    max-height: 26rem;
+    height: 36rem;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
@@ -46,4 +46,11 @@
 .more-phone-text div p{
     font-size: 1.2rem;
     color: var(--text-secondary-color);
+}
+
+@media screen and (min-width : 450px) {
+    
+    .single-phone .phone-image{
+        max-height: 26rem;
+    }
 }
