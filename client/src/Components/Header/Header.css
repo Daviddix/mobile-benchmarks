@@ -4,11 +4,15 @@ header{
     background-repeat: no-repeat;
     background-size: cover;
     padding: 2rem 0 0 0;
+    min-height: 22rem;
+    display: flex;
+    flex-direction: column;
 }
 
 header.n{
     padding: 2rem 0 2rem 0;
     border-bottom: 1px solid var(--l3-elevation);
+    min-height: auto;
 }
 
 .homepage-inner-top{
@@ -42,7 +46,7 @@ header.n{
 
 header form{
     border-block:1.5px solid var(--l4-elevation);
-    height: 5.5rem;
+    height: 6.5rem;
     background-color: rgba(0, 0, 0, 0.295);
     display:flex;
     align-items: center;
@@ -86,7 +90,7 @@ header form .homepage-inner-top{
     min-height: 100%;
     display: flex;
     align-items: center;
-    column-gap: 1rem;
+    column-gap: 2rem;
 }
 
 .form-right select{

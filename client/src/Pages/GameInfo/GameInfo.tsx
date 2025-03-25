@@ -64,7 +64,7 @@ function GameInfo() {
   async function getGameInformation(gameId : string | undefined) {
     try{
       setFetchingState("loading")
-      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/game/${gameId}`)
+      const rawFetch = await fetch(`http://localhost:3000/api/game/${gameId}`)
       const responseInJson : Game = await rawFetch.json()
       
       if(!rawFetch.ok){
@@ -88,6 +88,20 @@ function GameInfo() {
   const mappedScreenShots = gameInfo?.moreInfo.gameScreenshots?.map((screenshot)=>{
     return <img key={screenshot} src={screenshot} alt="screenshot" />
   })
+
+  function formatSize(number : number | undefined) : string | number {
+    if(number){
+      if(number >= 1000000){
+        return (number / 1000000 + "M")
+      }else if(number >= 1000){
+        return (number / 1000 + "K")
+      }else{
+        return number
+      }
+    }else{
+      return 5
+    }
+  }
 
   useEffect(()=>{
     window.scrollTo({
@@ -141,7 +155,7 @@ function GameInfo() {
               <h3>Ratings</h3>
               <p>
                 {gameInfo?.gameRating[0]}
-                <small>({gameInfo?.gameRating[1].toLocaleString()})</small>
+                <small>({formatSize(gameInfo?.gameRating[1])})</small>
               </p>
             </div>
 
@@ -237,8 +251,7 @@ function GameInfo() {
       <h2>Similar Games</h2>
 
       <div className="similar-games-container">
-        {/* <SingleGame />
-    <SingleGame /> */}
+        [No similar Game found]
       </div>
     </div>
         </section>
