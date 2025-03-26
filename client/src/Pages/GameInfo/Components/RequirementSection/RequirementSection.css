@@ -29,11 +29,18 @@
     justify-content : center;
 }
 
+.requirements-inner table tr:has(th){
+    display: flex;
+    align-items: stretch;
+}
+
 table tr th{
     font-size: 1.2rem;
     font-weight: 200;
     border-left: 1px solid #51515177;
     background-color :var(--bg-color);
+    display: flex;
+    align-items: center;
 }
 
 table .t-head{
