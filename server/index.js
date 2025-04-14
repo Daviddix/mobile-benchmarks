@@ -10,8 +10,8 @@ const gameRouter = require("./routes/game.route");
 
 app.use(cors())
 app.use(express.json());
-
-//routers
+ 
+//routers 
 app.use("/api/phone", phoneRouter)
 app.use("/api/game", gameRouter)
 app.use("/api/compatible-game", compatibleGameRouter)

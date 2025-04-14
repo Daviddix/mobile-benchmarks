@@ -64,7 +64,7 @@ function GameInfo() {
   async function getGameInformation(gameId : string | undefined) {
     try{
       setFetchingState("loading")
-      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/game/${gameId}`)
+      const rawFetch = await fetch(`http://localhost:3000/api/game/${gameId}`)
       const responseInJson : Game = await rawFetch.json()
       
       if(!rawFetch.ok){
