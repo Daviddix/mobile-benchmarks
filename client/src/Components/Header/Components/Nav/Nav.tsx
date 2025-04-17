@@ -15,7 +15,7 @@ function Nav() {
     
     <nav className={navState == "open" ? "open" : ""}>
 
-      <button 
+      <button
       onClick={()=>{
         setNavState("close")
       }}

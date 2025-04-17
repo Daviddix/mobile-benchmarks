@@ -1,0 +1,167 @@
+.login-section .auth-image{
+    display : none;
+}
+
+.login-section .login-text-container{
+    background-color: var(--l1-elevation);
+    height: 25rem;
+}
+
+.login-text-container .login-top-text{
+    width: 90vw;
+    margin: auto;
+    padding: 2rem 0;
+}
+
+.login-top-text .logomark{
+    font-size: 1.2rem;
+    margin:0 0 1rem 0;
+    color: var(--text-color);
+}
+
+.logomark img{
+    margin: 0 .5rem 0 0;
+    max-width: 1.2rem;
+}
+
+.login-top-text h1{
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.login-top-text h1 span{
+    color: var(--primary-400);
+}
+
+.login-top-text p{
+    font-size: 1.2rem;
+    color: var(--text-secondary-color);
+}
+
+.login-section .login-form-container{
+    background-color: var(--bg-color);
+    transform: translateY(-20rem);
+    -webkit-transform: translateY(-5rem);
+    -moz-transform: translateY(-20rem);
+    -ms-transform: translateY(-20rem);
+    -o-transform: translateY(-20rem);
+    width:90vw;
+    margin: auto;
+    padding:2rem;
+    border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    -o-border-radius: 2rem;
+}
+
+.login-form-container h1{
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 0 0 2rem 0;
+}
+
+form.login > div{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 1.8rem 0;
+    row-gap: .4rem;
+}
+
+form.login label{
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+form.login input{
+    background-color: var(--l1-elevation);
+    height:4.2rem;
+    border: 1px solid #bababa3d;
+    padding: 0 0 0 .8rem;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    color: var(--text-color);
+}
+
+form.login button.primary{
+    background-color: var(--primary-700);
+    width:100%;
+    height:4.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    border: 1px solid var(--primary-200);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    margin: 0 0 3rem 0;
+}
+
+.other-login-form p.divider{
+    color: var(--text-secondary-color);
+    text-align: center;
+    margin: 0 0 1rem 0;
+    position: relative;
+}
+
+.other-login-form p.divider::before{
+    content: "";
+    height:.1rem;
+    background-color: var(--text-secondary-color);
+    position: absolute;
+    left:0;
+    width:46%;
+    top:.8rem;
+}
+
+.other-login-form p.divider::after{
+    content: "";
+    height:.1rem;
+    background-color: var(--text-secondary-color);
+    position: absolute;
+    right:0;
+    width:46%;
+    top:.8rem;
+}
+
+.other-login-form button{
+    width:100%;
+    background-color: transparent;
+    height: 4.5rem;
+    border-radius: .4rem;
+    -webkit-border-radius: .4rem;
+    -moz-border-radius: .4rem;
+    -ms-border-radius: .4rem;
+    -o-border-radius: .4rem;
+    border: 1px solid var(--l1-elevation);
+    color: var(--text-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: .5rem;
+}
+
+.other-login-form button img{
+    max-width: 1.8rem;
+
+}
+
+.other-login-form p:not(.divider){
+    color: var(--text-color);
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    margin: 1rem 0 0 0;
+}
+
+.other-login-form p:not(.divider) a{
+    color: var(--primary-300);
+        text-decoration: none;
+}
