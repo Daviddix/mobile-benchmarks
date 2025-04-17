@@ -26,10 +26,6 @@ function Login() {
           <h1>Welcome Back</h1>
 
           <form className="login">
-            <div>
-              <label htmlFor="username">Username</label>
-              <input required type="text" id="username" placeholder="Nsikan-David" />
-            </div>
 
             <div>
               <label htmlFor="email">Email address</label>
