@@ -6,7 +6,7 @@ import googleIcon from "./assets/icons/google.svg"
 
 function Login() {
   return (
-    <section className="login-section">
+    <main className="login-section">
       <div className="login-text-container">
         <div className="login-top-text">
           <div className="logomark">
@@ -53,7 +53,7 @@ function Login() {
           </div>
         </div>
       </div>
-    </section>
+    </main>
   )
 }
 

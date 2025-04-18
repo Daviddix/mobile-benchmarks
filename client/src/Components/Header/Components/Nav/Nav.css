@@ -6,24 +6,16 @@
     justify-content: space-between;
 }
 
-/* .logo-and-nav nav,
-.button-nav nav
+.logo-and-nav nav a,
+.button-nav nav a
 {
-    display: flex;
-    column-gap: 2rem;
+   opacity: .9;
 }
-
-
-
-.logo-and-nav a,
-.button-nav a
-{
-    
-} */
 
 .logo-and-nav a.active,
 .button-nav a.active{  
     color: var(--text-color);
+    opacity: 1;
 }
 
 header .menu-btn{

@@ -1,0 +1,75 @@
+.contribute-main .contribute-inner{
+    width:90vw;
+    max-width: 50rem;
+    margin: auto;
+    position: relative;
+}
+
+.contribute-inner > h1{
+    text-align: center;
+    width:80%;
+    margin: 2rem auto;
+}
+
+.contribute-inner .contribute-step{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%;
+    margin: 0 auto 4rem auto;
+}
+
+.contribute-step > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--l1-elevation);
+    height: 8rem;
+    flex:1;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+}
+
+.contribute-step > div.finished{
+    background-color: var(--primary-500);
+}
+
+.contribute-step > div.progress{
+    border: 1px solid var(--primary-400);
+}
+
+.contribute-step > div.finished > div{
+    background-color: var(--primary-800);
+}
+
+.contribute-step > div > div{
+    background-color: var(--l2-elevation);
+    width:3rem;
+    border-radius : 50%;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+}
+
+.contribute-step > div > div img{
+    width:60%;
+}
+
+.contribute-step > div p{
+    font-size: 1.2rem;
+}
+
+.contribute-step .divider{
+    height:.8rem;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}

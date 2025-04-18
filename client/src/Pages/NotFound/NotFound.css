@@ -1,0 +1,8 @@
+.not-found h1{
+    text-align: center;
+    color: var(--text-color);
+}
+
+.not-found{
+    padding: 10rem 0 0 0;
+}

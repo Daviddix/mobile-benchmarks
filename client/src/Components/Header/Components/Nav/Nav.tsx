@@ -48,7 +48,7 @@ function Nav() {
 
 
         <li>
-      <NavLink to="/contribute">
+      <NavLink to="/game/contribute">
         {({ isActive }) => (
           <>
             <ContributeIcon isActive={isActive} />

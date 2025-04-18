@@ -6,6 +6,7 @@ header{
     padding: 2rem 0 0 0;
     min-height: 22rem;
     display: flex;
+    position: relative;
     flex-direction: column;
 }
 
@@ -120,4 +121,16 @@ header form .homepage-inner-top{
     color: #fff;
     width:3.5rem;
     padding: 0 .2rem;
+}
+
+@media screen and (min-width:600px) {
+    header::after{
+        content: "";
+        position: absolute;
+        height: 100%;
+        width:450px;
+        right: 0;
+        bottom:0;
+        background-image: linear-gradient(to right, transparent, #00000070, #00000028);
+    }
 }

@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 
 function Signup() {
     return (
-        <section className="signup-section">
+        <main className="signup-section">
           <div className="signup-text-container">
             <div className="signup-top-text">
               <div className="logomark">
@@ -57,7 +57,7 @@ function Signup() {
               </div>
             </div>
           </div>
-        </section>
+        </main>
       )
 }
 
