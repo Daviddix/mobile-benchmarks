@@ -18,7 +18,7 @@ function App(){
       <Route path="/game/:gameId" element={<GameInfo />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/game/contribute" element={<ContributeGame />} />
+      <Route path="/contribute/game" element={<ContributeGame />} />
       <Route path="*" element={<NotFound />} />
       
       </Route>

@@ -1,6 +1,12 @@
+import { Link, useNavigate, useSearchParams } from "react-router"
 import "./PhoneInformation.css"
+import { useAtom } from "jotai";
+import { contributeStepAtom } from "../../shared_state/state";
 
 function PhoneInformation() {
+  const [contributeStep, setContributeStep] = useAtom(contributeStepAtom)
+  const navigate = useNavigate()
+
   return (
     <>
     <form className="contribute-phone-form">
@@ -22,7 +28,14 @@ function PhoneInformation() {
                 </div>
             </form>
 
-            <button className="next">Next</button>
+
+            <button 
+            onClick={()=>{
+              navigate(`/contribute/game?step=2`)
+            }}
+            className="next">Next</button>
+            
+
     </>
   )
 }

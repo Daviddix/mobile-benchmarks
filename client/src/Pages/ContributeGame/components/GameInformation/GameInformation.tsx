@@ -8,7 +8,8 @@ function GameInformation() {
         <div>
             <label htmlFor="game-name">Game Name</label>
 
-            <input type="text" placeholder='Super Mario' />
+            <input type="text" 
+            id="game-name" placeholder='Super Mario' />
         </div>
 
         <div>
@@ -59,7 +60,7 @@ function GameInformation() {
         </div>
 
         <div>
-            <label htmlFor="battery-drain">Game Battery Drain <small>% per hr</small>
+            <label htmlFor="battery-drain">Game Battery Drain <small>(% per hr)</small>
 
             </label>
 
