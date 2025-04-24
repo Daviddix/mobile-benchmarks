@@ -8,6 +8,7 @@ import Login from "./Pages/Login/Login"
 import Signup from "./Pages/Signup/Signup"
 import ContributeGame from "./Pages/ContributeGame/ContributeGame"
 import NotFound from "./Pages/NotFound/NotFound"
+import Leaderboard from "./Pages/Leaderboard/Leaderboard"
 
 function App(){
   return (
@@ -19,6 +20,7 @@ function App(){
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/contribute/game" element={<ContributeGame />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="*" element={<NotFound />} />
       
       </Route>

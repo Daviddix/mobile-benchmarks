@@ -24,7 +24,9 @@ function Nav() {
       </button>
 
         <ul>
-          <li>
+          <li onClick={()=>{
+            setNavState("close")
+          }}>
       <NavLink to="/">
         {({ isActive }) => (
           <>
@@ -35,7 +37,9 @@ function Nav() {
       </NavLink>
           </li>
 
-        <li>
+        <li onClick={()=>{
+          setNavState("close")
+        }}>
       <NavLink to="/leaderboard">
         {({ isActive }) => (
           <>
@@ -47,7 +51,9 @@ function Nav() {
         </li>
 
 
-        <li>
+        <li onClick={()=>{
+          setNavState("close")
+        }}>
       <NavLink to={"/contribute/game"}>
         {({ isActive }) => (
           <>
