@@ -5,6 +5,7 @@ import PhoneInformation from "./components/PhoneInformation/PhoneInformation";
 import GameInformation from "./components/GameInformation/GameInformation";
 import { useSearchParams } from "react-router";
 import { useEffect } from "react";
+import FinishedModal from "./components/FinishedModal/FinishedModal";
 
 
 function ContributeGame() {
@@ -56,7 +57,9 @@ function ContributeGame() {
                 :
                 ""
             }
+
         </div>
+            <FinishedModal />
     </main>
   )
 }
