@@ -59,7 +59,7 @@ function ContributeGame() {
             }
 
         </div>
-            <FinishedModal />
+            {/* <FinishedModal /> */}
     </main>
   )
 }

@@ -3,8 +3,44 @@ import "./Signup.css"
 import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
 import { Link } from 'react-router'
+import { useEffect } from "react"
 
 function Signup() {
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:  import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("googleBtn"),
+      { theme: "outline", size: "large" }
+    );
+  }, []);
+
+  const handleCredentialResponse = async (response : any) => {
+    try {
+      const res = await fetch("http://localhost:3000/api/user/signup/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // This is equivalent to axios's withCredentials: true
+        body: JSON.stringify({ credential: response.credential }),
+      });
+  
+      if (res.ok) {
+        // Handle success, e.g., redirect or update UI
+        console.log("Google sign-in successful");
+      } else {
+        console.error("Google sign-in failed with status:", res.status);
+      }
+    } catch (err) {
+      console.error("Google login failed", err);
+    }
+  };
+
     return (
         <main className="signup-section">
           <div className="signup-text-container">
@@ -50,8 +86,9 @@ function Signup() {
     
               
     
-              <button>
-              <img src={googleIcon} alt="google icon" />Continue with Google</button>
+              <button id="googleBtn">
+              <img src={googleIcon} alt="google icon" />Continue with Google
+              </button>
     
               <p>Already have an account? <Link to="/login">Login</Link></p>
               </div>
