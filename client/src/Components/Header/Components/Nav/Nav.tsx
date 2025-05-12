@@ -68,15 +68,17 @@ function Nav() {
       </NavLink>
         </li>
 
-        <li>
           {
+        
             (userInfo._id !== null && userInfo.username !== null) && (
-        <div className="profile-icon">
-          <p>{userInfo.username[0]}</p>
+              <li>
+              <div className="profile-icon">
+          <p>{userInfo!.username[0]}</p>
         </div>
-            )
-          }
         </li>
+            )
+        
+          }
 
         </ul> 
     </nav>

@@ -38,6 +38,8 @@ function Homepage() {
         ...responseInJson
       })
 
+      //a function that calculates dates  
+
     }
     catch(err){
       setUserInfo({
