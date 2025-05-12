@@ -2,10 +2,13 @@ import signupImage from "./assets/images/game-images.png"
 import "./Signup.css"
 import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { useEffect } from "react"
 
+declare const google: any;
+
 function Signup() {
+  const navigate = useNavigate()
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -15,7 +18,14 @@ function Signup() {
 
     google.accounts.id.renderButton(
       document.getElementById("googleBtn"),
-      { theme: "outline", size: "large" }
+      {
+        theme: "outline",         // or "filled_blue", "filled_black"
+        size: "large",            // "small" | "medium" | "large"
+        shape: "pill",            // "rectangular" | "pill" | "circle"
+        width: "100%",            // Sets the full width
+        logo_alignment: "center", // or "left"
+        text: "continue_with",    // or "signin_with", "signup_with"
+      }
     );
   }, []);
 
@@ -32,7 +42,7 @@ function Signup() {
   
       if (res.ok) {
         // Handle success, e.g., redirect or update UI
-        console.log("Google sign-in successful");
+        navigate("/")
       } else {
         console.error("Google sign-in failed with status:", res.status);
       }

@@ -6,10 +6,14 @@ import HomeIcon from "../../assets/icons/HomeIcon";
 import LeaderBoardIcon from "../../assets/icons/LeaderBoardIcon";
 import ContributeIcon from "../../assets/icons/ContributeIcon";
 import { useState } from "react";
+import { useAtom } from "jotai";
+import { userInfoAtom } from "../../../../globals/states";
 
 function Nav() {
   type navState = "open" | "close"
   const [navState, setNavState] = useState<navState>("close")
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom)
+
   return (
     <>
     
@@ -62,6 +66,16 @@ function Nav() {
           </>
         )}
       </NavLink>
+        </li>
+
+        <li>
+          {
+            (userInfo._id !== null && userInfo.username !== null) && (
+        <div className="profile-icon">
+          <p>{userInfo.username[0]}</p>
+        </div>
+            )
+          }
         </li>
 
         </ul> 

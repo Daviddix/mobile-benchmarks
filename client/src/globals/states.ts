@@ -19,6 +19,13 @@ type gameData = {
     gameCoverImage: string;
   }
 
+
+type userInfo = {
+  username : string | null;
+  _id : string | null;
+  loading : boolean;
+  error : boolean;
+}  
 type itemsToView = "Phones" | "Games"
 
 type searchingStates = true | false
@@ -36,3 +43,10 @@ export const filteredGamesAtom = atom<gameData[]>([])
 export const searchingState = atom<searchingStates>(false)
 
 export const itemsToViewAtom = atom<itemsToView>("Phones")
+
+export const userInfoAtom = atom<userInfo>({
+  username : null,
+  _id : null,
+  loading : true,
+  error : false
+})

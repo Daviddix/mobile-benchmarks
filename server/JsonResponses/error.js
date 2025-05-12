@@ -28,4 +28,21 @@ const googleTokenError = {
     message : "Seems like an error occurred while we were trying to create your account. Please try again later"
 }
 
-module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError}
+const jwtTokenError = {
+    status : "error",
+    type : "JWT error",
+    message : "Seems like an error occurred while we were trying to work with your JWT token"
+}
+
+const noJwtToken = {
+    status : "error",
+    type : "no JWT",
+    message : "Seems like a JWT token wasn't provided"
+}
+
+const userNotFoundInDataBase = {
+    status : "error",
+    type : "user not found",
+    message : "This user cannot be found in the database"
+}
+module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken}

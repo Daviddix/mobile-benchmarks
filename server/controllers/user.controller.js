@@ -4,6 +4,7 @@ const {
   noBodyDataError,
   unknownError,
   googleTokenError,
+  userNotFoundInDataBase,
 } = require("../JsonResponses/error");
 const { userCreated } = require("../JsonResponses/Success");
 const userModel = require("../models/user.model");
@@ -66,6 +67,20 @@ async function createNewUser(req, res) {
   }
 }
 
+async function getUserDetails(req, res){
+  try{
+    const id = req.user.userId
+    const userInDb = await userModel.findById(id, ["username"])
+    if(!userInDb){
+        return res.status(404).json(userNotFoundInDataBase)
+    }
+    res.status(200).json(userInDb)
+    }
+    catch(err){
+        res.status(500).json(unknownError)
+    }
+}
+
 async function createNewUserFromGoogle(req, res){
     const { credential } = req.body; // This is the ID token from Google
 
@@ -117,4 +132,4 @@ async function createNewUserFromGoogle(req, res){
   }
 }
 
-module.exports = {createNewUser, createNewUserFromGoogle}
+module.exports = {createNewUser, createNewUserFromGoogle, getUserDetails}
