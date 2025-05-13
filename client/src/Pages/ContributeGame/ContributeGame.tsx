@@ -3,14 +3,18 @@ import smallPhoneIcon from "./assets/icons/small-phone-icon.svg"
 import smallPadIcon from "./assets/icons/small-pad-icon.svg"
 import PhoneInformation from "./components/PhoneInformation/PhoneInformation";
 import GameInformation from "./components/GameInformation/GameInformation";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { useEffect } from "react";
 import FinishedModal from "./components/FinishedModal/FinishedModal";
+import { useAtomValue } from "jotai";
+import { userInfoAtom } from "../../globals/states";
 
 
 function ContributeGame() {
     const [searchParams, setSearchParams] = useSearchParams()
     const t : any = searchParams.get('step')
+    const userInfo = useAtomValue(userInfoAtom)
+    const navigate = useNavigate()
 
     const step = parseInt(t)
   
@@ -21,6 +25,17 @@ function ContributeGame() {
       }
     }, [searchParams, setSearchParams])
 
+
+    if(userInfo.error){
+      navigate("/signup")
+      return null
+    }
+
+    if(userInfo.loading){
+      return <div className="loading-container">
+        <div className="loading">Loadin...</div>
+      </div>
+    }
 
   return (
     <main className="contribute-main">

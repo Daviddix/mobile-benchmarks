@@ -3,12 +3,26 @@ import "./Signup.css"
 import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
 import { Link, useNavigate } from 'react-router'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 declare const google: any;
+type userSignupDetails = {
+  username : string;
+  password: string;
+  email : string;
+}
+type signupFetchType = "loading" | "error" | "completed"
 
 function Signup() {
   const navigate = useNavigate()
+  const [userDetails, setUserDetails] = useState<userSignupDetails >({
+    username : "",
+    email : "",
+    password : ""
+  })
+  const [signupFetchStatus, setSignupFetchStatus] = useState<signupFetchType>("completed")
+  const [signupErrorMessage, setSignupErrorMessage] = useState("")
+  
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -51,6 +65,34 @@ function Signup() {
     }
   };
 
+  async function signUserUp(){
+    try{
+      setSignupFetchStatus("loading")
+      setSignupErrorMessage("")
+      const rawFetch = await fetch("http://localhost:3000/api/user/signup", {
+        method : "POST",
+        body : JSON.stringify(userDetails),
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        credentials : "include"
+      })
+
+      const responseInJson = await rawFetch.json()
+
+      if(!rawFetch.ok){
+        setSignupErrorMessage(responseInJson.message)
+        throw new Error("Signup Error", {cause : responseInJson})
+      }
+
+      console.log("signup successful")
+      setSignupFetchStatus("completed")
+      navigate("/")
+    }catch(err){
+      setSignupFetchStatus("error")
+    }
+  }
+
     return (
         <main className="signup-section">
           <div className="signup-text-container">
@@ -71,23 +113,66 @@ function Signup() {
             <div className="signup-form-inner">
               <h1>Create an Account!</h1>
     
-              <form className="signup">
+              <form
+              onSubmit={(e)=>{
+                e.preventDefault()
+                signUserUp()
+              }}
+              className="signup">
               <div>
                   <label htmlFor="username">Username</label>
-                  <input required type="text" id="username" placeholder="david445" />
+                  <input 
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
+                    setUserDetails((prev)=>({
+                      ...prev,
+                      [e.target.name] : e.target.value
+                    }))
+                  }}
+                  value={userDetails.username}
+                  required type="text" id="username" name="username" placeholder="david445" />
                 </div>
     
                 <div>
                   <label htmlFor="email">Email address</label>
-                  <input required type="email" id="email" placeholder="Nsikandavid@gmail.com" />
+                  <input 
+                   onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
+                    setUserDetails((prev)=>({
+                      ...prev,
+                      [e.target.name] : e.target.value
+                    }))
+                  }}
+                  value={userDetails.email}
+                  name="email"
+                  required type="email" id="email" placeholder="Nsikandavid@gmail.com" />
                 </div>
     
                 <div>
                   <label htmlFor="password">Password</label>
-                  <input required type="password" id="password" />
+                  <input required 
+                   onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
+                    setUserDetails((prev)=>({
+                      ...prev,
+                      [e.target.name] : e.target.value
+                    }))
+                  }}
+                  value={userDetails.password}
+                  name="password"
+                  type="password" id="password" />
                 </div>
+
+                {
+                  signupErrorMessage !== "" && 
+                  <p className="error">{signupErrorMessage}</p>
+                }
     
-                <button className="primary">Signup</button>
+                <button disabled={signupFetchStatus === "loading"} className="primary">
+                  {
+                    signupFetchStatus == "loading" ? 
+                    "Loading..."
+                    :
+                    "Signup"
+                  }
+                  </button>
               </form>
     
               <div className="other-signup-form">

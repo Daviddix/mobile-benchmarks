@@ -103,6 +103,12 @@ form.signup button.primary {
     margin: 0 0 3rem 0;
 }
 
+form.signup .error{
+    font-size: 1.4rem;
+    margin: 0 0 1rem 0;
+    color: var(--red-badge-text);
+}
+
 .other-signup-form p.divider {
     color: var(--text-secondary-color);
     text-align: center;
