@@ -4,14 +4,32 @@ import smallPadIcon from "./assets/icons/small-pad-icon.svg"
 import PhoneInformation from "./components/PhoneInformation/PhoneInformation";
 import GameInformation from "./components/GameInformation/GameInformation";
 import { useNavigate, useSearchParams } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FinishedModal from "./components/FinishedModal/FinishedModal";
 import { useAtomValue } from "jotai";
 import { userInfoAtom } from "../../globals/states";
 
+type contributeGameDataType = {
+  phoneInfo : {
+    phoneName : string;
+    phoneRam : number;
+    phoneRom : number;
+  };
+  gameInfo : {
+    gameName: string;
+    gameFps: [number, string];
+    gmeFrameRate: [number, string];
+    gameGraphics: [string, string];
+    gameBatteryDrain: number;
+    gameCompatibility: number;
+
+  }
+}
+
 
 function ContributeGame() {
     const [searchParams, setSearchParams] = useSearchParams()
+    const [contributeGameData, setContributeGameData] = useState<contributeGameDataType | {}>({})
     const t : any = searchParams.get('step')
     const userInfo = useAtomValue(userInfoAtom)
     const navigate = useNavigate()
@@ -21,9 +39,12 @@ function ContributeGame() {
     // Redirect to step=1 if no step param
     useEffect(() => {
       if (!searchParams.get('step')) {
-        setSearchParams({ step: '1' })
+        const currentStep = searchParams.get('step');
+        if (!currentStep) {
+          setSearchParams({ step: '1' }, { replace: true }); // Use replace to avoid adding to history
+        }
       }
-    }, [searchParams, setSearchParams])
+    }, [searchParams, setSearchParams]);
 
 
     if(userInfo.error){
@@ -43,7 +64,7 @@ function ContributeGame() {
             <h1>Contribute Information About a Game You Played on Your Device</h1>
 
             <div className="contribute-step">
-                <div className="phone-info-container finished">
+                <div className={step == 1 ?"phone-info-container progress" : "phone-info-container finished"}>
                     <div>
                         <img src={smallPhoneIcon} alt="phone icon" />
                         </div>
@@ -54,7 +75,7 @@ function ContributeGame() {
 
                 <div className="divider"></div>
                 
-                <div className="game-info-container">
+                <div className={step == 2 ? "game-info-container progress" : "game-info-container"}>
                     <div>
                         <img src={smallPadIcon} alt="game icon" />
                     </div>
@@ -65,7 +86,9 @@ function ContributeGame() {
 
             {
                 step == 1?
-                <PhoneInformation />
+                <PhoneInformation 
+                setContributeGameData={setContributeGameData} 
+                contributeGameData={contributeGameData} />
                 :
                 step == 2 ? 
                 <GameInformation />
