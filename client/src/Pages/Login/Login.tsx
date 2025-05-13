@@ -3,16 +3,18 @@ import loginImage from "./assets/images/game-images.png"
 import "./Login.css"
 import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+
+declare const google: any;
+
+type userLoginDetails = {
+  password: string;
+  email : string;
+}
+
+type loginFetchType = "loading" | "error" | "completed"
 
 function Login() {
-  type userLoginDetails = {
-    password: string;
-    email : string;
-  }
-
-  type loginFetchType = "loading" | "error" | "completed"
-
   const navigate = useNavigate()
   const [userDetails, setUserDetails] = useState<userLoginDetails >({
     email : "",
@@ -48,6 +50,48 @@ function Login() {
       setLoginFetchStatus("error")
     }
   }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:  import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("loginGoogleBtn"),
+      {
+        theme: "outline",         // or "filled_blue", "filled_black"
+        size: "large",            // "small" | "medium" | "large"
+        shape: "pill",            // "rectangular" | "pill" | "circle"
+        width: "100%",            // Sets the full width
+        logo_alignment: "center", // or "left"
+        text: "continue_with",    // or "signin_with", "signup_with"
+      }
+    );
+  }, []);
+
+  const handleCredentialResponse = async (response : any) => {
+    try {
+      const res = await fetch("http://localhost:3000/api/user/login/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // This is equivalent to axios's withCredentials: true
+        body: JSON.stringify({ credential: response.credential }),
+      });
+  
+      if (res.ok) {
+        // Handle success, e.g., redirect or update UI
+        navigate("/")
+      } else {
+        console.error("Google log-in failed with status:", res.status);
+      }
+    } catch (err) {
+      console.error("Google login failed", err);
+    }
+  };
 
 
   return (
@@ -131,7 +175,7 @@ function Login() {
 
           
 
-          <button>
+          <button id="loginGoogleBtn">
           <img src={googleIcon} alt="google icon" />Continue with Google</button>
 
           <p>Don't have an account? <Link to="/signup">Signup</Link></p>

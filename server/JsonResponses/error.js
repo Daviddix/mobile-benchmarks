@@ -45,4 +45,10 @@ const userNotFoundInDataBase = {
     type : "user not found",
     message : "This user cannot be found in the database"
 }
-module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken}
+
+const switchToGoogleAccount = {
+    status : "error",
+    type : "login error",
+    message : "Seems like a google account already exists with that email, try logging in with Google"
+}
+module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken, switchToGoogleAccount}

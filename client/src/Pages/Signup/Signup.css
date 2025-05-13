@@ -136,7 +136,9 @@ form.signup .error{
     top: .8rem;
 }
 
-.other-signup-form button#googleBtn {
+button#googleBtn,
+button#loginGoogleBtn
+{
     width: 100%;
     background-color: transparent;
     height: 4.5rem;
