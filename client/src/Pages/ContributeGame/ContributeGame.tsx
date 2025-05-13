@@ -18,7 +18,7 @@ type contributeGameDataType = {
   gameInfo : {
     gameName: string;
     gameFps: [number, string];
-    gmeFrameRate: [number, string];
+    gameFrameRate: [string, string];
     gameGraphics: [string, string];
     gameBatteryDrain: number;
     gameCompatibility: number;
@@ -88,10 +88,14 @@ function ContributeGame() {
                 step == 1?
                 <PhoneInformation 
                 setContributeGameData={setContributeGameData} 
-                contributeGameData={contributeGameData} />
+                contributeGameData={contributeGameData} 
+                />
                 :
                 step == 2 ? 
-                <GameInformation />
+                <GameInformation 
+                setContributeGameData={setContributeGameData} 
+                contributeGameData={contributeGameData} 
+                />
                 :
                 ""
             }

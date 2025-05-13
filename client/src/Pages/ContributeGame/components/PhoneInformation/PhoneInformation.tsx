@@ -33,7 +33,6 @@ type phoneInformationDataType = {
 }
 
 function PhoneInformation({contributeGameData, setContributeGameData} : phoneInformationProps) {
-  const [contributeStep, setContributeStep] = useAtom(contributeStepAtom)
   const [phoneInformationData, setPhoneInformationData] = useState<phoneInformationDataType>({phoneName : "", phoneRam : 0, phoneRom : 0})
   const [phoneInformationDataError, setPhoneInformationDataError] = useState("")
   const navigate = useNavigate()
