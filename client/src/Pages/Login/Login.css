@@ -103,6 +103,12 @@ form.login button.primary{
     margin: 0 0 3rem 0;
 }
 
+form.login .error{
+    font-size: 1.4rem;
+    margin: 0 0 1rem 0;
+    color: var(--red-badge-text);
+}
+
 .other-login-form p.divider{
     color: var(--text-secondary-color);
     text-align: center;

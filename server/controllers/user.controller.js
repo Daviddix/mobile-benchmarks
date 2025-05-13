@@ -6,7 +6,7 @@ const {
   googleTokenError,
   userNotFoundInDataBase,
 } = require("../JsonResponses/error");
-const { userCreated } = require("../JsonResponses/Success");
+const { userCreated, loginSuccessful } = require("../JsonResponses/Success");
 const userModel = require("../models/user.model");
 const {
   checkForDuplicateUsername,
@@ -64,6 +64,44 @@ async function createNewUser(req, res) {
   } catch (err) {
     console.log(err)
     res.status(400).json(unknownError);
+  }
+}
+
+async function logUserIn(req, res){
+  try{
+    const {email, password} = req.body
+
+    if(!email || !password){
+      res.status(400).json(noBodyDataError)
+      return
+    }
+
+          const userInDb = await userModel.findOne({email})
+          if(!userInDb){
+            return res.status(404).json(userNotFoundInDataBase)
+          }
+          
+          const passwordIsCorrect = await bcrypt.compare(password, userInDb.password)
+          
+          if(!passwordIsCorrect){
+              return res.status(401).json(wrongPassword)
+          }
+
+          const userToken = await generateJwtToken(userInDb._id)
+          
+          res.cookie("jwt", userToken, {
+              httpOnly: true,
+              maxAge: timeBeforeItExpires,
+              path : "/",
+              secure: true,
+              sameSite: 'None' 
+            })
+          res.status(200).json(loginSuccessful)
+
+  }
+  catch(e){
+    console.log(e)
+      res.status(400).json(unknownError)
   }
 }
 
@@ -132,4 +170,4 @@ async function createNewUserFromGoogle(req, res){
   }
 }
 
-module.exports = {createNewUser, createNewUserFromGoogle, getUserDetails}
+module.exports = {createNewUser, createNewUserFromGoogle, getUserDetails, logUserIn}

@@ -129,7 +129,11 @@ function Signup() {
                     }))
                   }}
                   value={userDetails.username}
-                  required type="text" id="username" name="username" placeholder="david445" />
+                  required 
+                  type="text" 
+                  id="username" 
+                  name="username" 
+                  placeholder="david445" />
                 </div>
     
                 <div>
@@ -148,7 +152,8 @@ function Signup() {
     
                 <div>
                   <label htmlFor="password">Password</label>
-                  <input required 
+                  <input 
+                  required 
                    onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
                     setUserDetails((prev)=>({
                       ...prev,
@@ -157,7 +162,8 @@ function Signup() {
                   }}
                   value={userDetails.password}
                   name="password"
-                  type="password" id="password" />
+                  type="password" 
+                  id="password" />
                 </div>
 
                 {

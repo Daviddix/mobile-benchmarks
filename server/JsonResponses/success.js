@@ -4,4 +4,10 @@ const userCreated = {
     message : "A user has successfully been created"
 }
 
-module.exports = {userCreated}
+const loginSuccessful = {
+    status : "success", 
+    type : "Login Successful", 
+    message : "You have successfully been logged in"
+}
+
+module.exports = {userCreated, loginSuccessful}
