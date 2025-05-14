@@ -13,7 +13,7 @@ type contributeGameDataType = {
   gameInfo : {
     gameName: string;
     gameFps: [number, string];
-    gmeFrameRate: [number, string];
+    gameFrameRate: [number, string];
     gameGraphics: [string, string];
     gameBatteryDrain: number;
     gameCompatibility: number;

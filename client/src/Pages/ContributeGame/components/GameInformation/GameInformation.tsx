@@ -12,7 +12,7 @@ type contributeGameDataType = {
   gameInfo: {
     gameName: string;
     gameFps: [number, string];
-    gmeFrameRate: [number, string];
+    gameFrameRate: [number, string];
     gameGraphics: [string, string];
     gameBatteryDrain: number;
     gameCompatibility: number;
@@ -29,11 +29,13 @@ type gameInformationProps = {
 type gameInformationDataType = {
   gameName: string;
   gameFps: [number, string];
-  gmeFrameRate: [number, string];
+  gameFrameRate: [string, string];
   gameGraphics: [string, string];
   gameBatteryDrain: number;
   gameCompatibility: number;
 };
+
+type TupleKeys = 'gameFps' | 'gameFrameRate' | 'gameGraphics';
 
 function GameInformation({
   contributeGameData,
@@ -44,14 +46,16 @@ function GameInformation({
       gameName: "",
       gameBatteryDrain: 0,
       gameFps: [0, ""],
-      gmeFrameRate: [0, ""],
+      gameFrameRate: ["", ""],
       gameGraphics: ["", ""],
-      gameCompatibility: 0,
+      gameCompatibility: 1,
     });
   const [gameInformationError, setGameInformationError] = useState("");
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, key : keyof gameInformationDataType) => {
-    console.log(gameInformationData[key])
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    key: TupleKeys
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -76,7 +80,7 @@ function GameInformation({
       const reader = new FileReader();
       reader.onload = () => {
         const target = e.target as HTMLDivElement;
-        const key = target.id as keyof gameInformationDataType
+        const key = target.id as TupleKeys;
         setGameInformationData((prev) => ({
           ...prev,
           [key]: [gameInformationData[key][0], reader.result as string],
@@ -86,8 +90,8 @@ function GameInformation({
     }
   };
 
-  const handleClick = () => {
-    document.getElementById("fileInput")?.click();
+  const handleClick = (fileInputId: string) => {
+    document.getElementById(fileInputId)?.click();
   };
 
   return (
@@ -137,7 +141,9 @@ function GameInformation({
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-            onClick={handleClick}
+            onClick={() => {
+              handleClick("fileInputFps");
+            }}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             id="gameFps"
@@ -155,12 +161,12 @@ function GameInformation({
             )}
 
             <input
-              id="fileInput"
+              id="fileInputFps"
               type="file"
               accept="image/*"
               style={{ display: "none" }}
-              onChange={(e)=>{
-                handleFileChange(e, "gameFps")
+              onChange={(e) => {
+                handleFileChange(e, "gameFps");
               }}
             />
           </div>
@@ -172,19 +178,56 @@ function GameInformation({
 
         <div className="bigger-input">
           <input
+            onChange={(e) => {
+              setGameInformationData((prev) => ({
+                ...prev,
+                [e.target.name]: [
+                  e.target.value,
+                  gameInformationData.gameFrameRate[1],
+                ],
+              }));
+            }}
+            value={gameInformationData.gameFrameRate[0]}
+            name="gameFrameRate"
             type="text"
             placeholder="Medium"
-            name="game-frame-rate"
             id="game-frame-rate"
           />
 
-          <div className="attach">
-            <img src={pictureIcon} alt="image icon" />
+          <div
+            style={{
+              backgroundImage: `url(${gameInformationData.gameFrameRate[1]}`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              handleClick("fileInputFrameRate");
+            }}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            id="gameFrameRate"
+            className="attach"
+          >
+            {!gameInformationData.gameFrameRate[1] && (
+              <>
+                <img src={pictureIcon} alt="image icon" />
 
-            <p>
-              Attach a screenshot showing a gameplay with the Frame Rate you
-              played on
-            </p>
+                <p>
+                  Attach a screenshot showing a gameplay with the Frame Rate you
+                  played on
+                </p>
+              </>
+            )}
+
+            <input
+              id="fileInputFrameRate"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                handleFileChange(e, "gameFrameRate");
+              }}
+            />
           </div>
         </div>
       </div>
@@ -194,18 +237,55 @@ function GameInformation({
 
         <div className="bigger-input">
           <input
+          onChange={(e) => {
+            setGameInformationData((prev) => ({
+              ...prev,
+              [e.target.name]: [
+                e.target.value,
+                gameInformationData.gameGraphics[1],
+              ],
+            }));
+          }}
+          value={gameInformationData.gameGraphics[0]}
+          name="gameGraphics"
             type="text"
             placeholder="Ultra"
-            name="game-graphics"
             id="game-graphics"
           />
 
-          <div className="attach">
+          <div
+           style={{
+            backgroundImage: `url(${gameInformationData.gameGraphics[1]}`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          onClick={() => {
+            handleClick("fileInputGraphics");
+          }}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          id="gameFps"
+          className="attach">
+            {
+              !gameInformationData.gameGraphics[1] && (
+                <>
             <img src={pictureIcon} alt="image icon" />
 
             <p>
               Attach a screenshot showing the Graphics Settings you played on
             </p>
+                
+                </>
+              )}
+
+<input
+              id="fileInputGraphics"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                handleFileChange(e, "gameGraphics");
+              }} />
           </div>
         </div>
       </div>
@@ -215,13 +295,37 @@ function GameInformation({
           Game Battery Drain <small>(% per hr)</small>
         </label>
 
-        <input type="number" placeholder="60" min={1} max={90} />
+        <input 
+        value={gameInformationData.gameBatteryDrain}
+        onChange={(e)=>{
+          setGameInformationData((prev)=>({
+            ...prev,
+            [e.target.name]: e.target.valueAsNumber
+          }))
+        }}
+        name="gameBatteryDrain"
+        type="number" 
+        placeholder="60" 
+        min={1} 
+        max={90} />
       </div>
 
       <div>
         <label htmlFor="general">General Compatibility</label>
 
-        <input id="general" type="range" />
+        <small>{gameInformationData.gameCompatibility}</small>
+
+        <input 
+        id="general" 
+        value={gameInformationData.gameCompatibility}
+        onChange={(e)=>{
+          setGameInformationData((prev)=>({
+            ...prev,
+            [e.target.name]: e.target.valueAsNumber
+          }))
+        }}
+        name="gameCompatibility"
+        type="range" />
       </div>
 
       <button className="more-games">
@@ -234,3 +338,4 @@ function GameInformation({
 }
 
 export default GameInformation;
+``;
