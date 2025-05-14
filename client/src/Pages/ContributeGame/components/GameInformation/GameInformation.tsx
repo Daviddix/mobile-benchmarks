@@ -3,29 +3,6 @@ import "./GameInformation.css";
 import pictureIcon from "./assets/icons/picture-icon.svg";
 import plusIcon from "./assets/icons/plus-icon.svg";
 
-type contributeGameDataType = {
-  phoneInfo: {
-    phoneName: string;
-    phoneRam: number;
-    phoneRom: number;
-  };
-  gameInfo: {
-    gameName: string;
-    gameFps: [number, string];
-    gameFrameRate: [number, string];
-    gameGraphics: [string, string];
-    gameBatteryDrain: number;
-    gameCompatibility: number;
-  };
-};
-
-type gameInformationProps = {
-  contributeGameData: contributeGameDataType | {};
-  setContributeGameData: React.Dispatch<
-    React.SetStateAction<{} | contributeGameDataType>
-  >;
-};
-
 type gameInformationDataType = {
   gameName: string;
   gameFps: [number, string];
@@ -33,6 +10,22 @@ type gameInformationDataType = {
   gameGraphics: [string, string];
   gameBatteryDrain: number;
   gameCompatibility: number;
+};
+
+type contributeGameDataType = {
+  phoneInfo: {
+    phoneName: string;
+    phoneRam: number;
+    phoneRom: number;
+  };
+  gameInfo: gameInformationDataType
+};
+
+type gameInformationProps = {
+  contributeGameData: contributeGameDataType | {};
+  setContributeGameData: React.Dispatch<
+    React.SetStateAction<{} | contributeGameDataType>
+  >;
 };
 
 type TupleKeys = 'gameFps' | 'gameFrameRate' | 'gameGraphics';
@@ -62,7 +55,7 @@ function GameInformation({
       reader.onload = () => {
         setGameInformationData((prev) => ({
           ...prev,
-          [key]: [gameInformationData[key][0], reader.result as string],
+          [key]: [prev[key][0], reader.result as string],
         }));
       };
       reader.readAsDataURL(file);
@@ -83,7 +76,7 @@ function GameInformation({
         const key = target.id as TupleKeys;
         setGameInformationData((prev) => ({
           ...prev,
-          [key]: [gameInformationData[key][0], reader.result as string],
+          [key]: [prev[key][0], reader.result as string],
         }));
       };
       reader.readAsDataURL(file);
@@ -264,7 +257,7 @@ function GameInformation({
           }}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          id="gameFps"
+          id="gameGraphics"
           className="attach">
             {
               !gameInformationData.gameGraphics[1] && (
@@ -328,7 +321,7 @@ function GameInformation({
         type="range" />
       </div>
 
-      <button className="more-games">
+      <button type="button" className="more-games">
         <img src={plusIcon} alt="plus icon" /> Add More Games
       </button>
 
@@ -338,4 +331,3 @@ function GameInformation({
 }
 
 export default GameInformation;
-``;
