@@ -6,25 +6,6 @@ import GameInformation from "./components/GameInformation/GameInformation";
 import { useNavigate, useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import FinishedModal from "./components/FinishedModal/FinishedModal";
-import { useAtomValue } from "jotai";
-import { userInfoAtom } from "../../globals/states";
-
-type contributeGameDataType = {
-  phoneInfo : {
-    phoneName : string;
-    phoneRam : number;
-    phoneRom : number;
-  };
-  gameInfo : {
-    gameName: string;
-    gameFps: [number, string];
-    gameFrameRate: [string, string];
-    gameGraphics: [string, string];
-    gameBatteryDrain: number;
-    gameCompatibility: number;
-
-  }
-}
 
 
 function ContributeGame() {
