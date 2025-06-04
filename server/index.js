@@ -8,7 +8,7 @@ const phoneRouter = require("./routes/phone.route")
 const compatibleGameRouter = require("./routes/compatible-game.route");
 const gameRouter = require("./routes/game.route");
 const userRouter = require("./routes/user.route");
-const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser"); 
 
 const allowedOrigins = ["http://localhost:5173", "https://mobile-benchmarks.vercel.app"]; // Add more for prod if needed
 
