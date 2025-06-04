@@ -31,8 +31,6 @@ function ContributeGame() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [contributeGameData, setContributeGameData] = useState<contributeGameDataType | {}>({})
     const t : any = searchParams.get('step')
-    const userInfo = useAtomValue(userInfoAtom)
-    const navigate = useNavigate()
 
     const step = parseInt(t)
   
@@ -45,18 +43,6 @@ function ContributeGame() {
         }
       }
     }, [searchParams, setSearchParams]);
-
-
-    if(userInfo.error){
-      navigate("/signup")
-      return null
-    }
-
-    if(userInfo.loading){
-      return <div className="loading-container">
-        <div className="loading">Loadin...</div>
-      </div>
-    }
 
   return (
     <main className="contribute-main">

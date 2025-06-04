@@ -12,6 +12,7 @@ import Leaderboard from "./Pages/Leaderboard/Leaderboard"
 import { useEffect } from "react"
 import { useAtom } from "jotai"
 import { userInfoAtom } from "./globals/states"
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 
 function App(){
   const [userInfo, setUserInfo] = useAtom(userInfoAtom)
@@ -28,15 +29,11 @@ function App(){
         throw new Error("Fetching error", {cause : responseInJson})
       }
 
-      console.log(responseInJson)
-
       setUserInfo({
         loading : false,
         error : false,
         ...responseInJson
       })
-
-      //a function that calculates dates  
 
     }
     catch(err){
@@ -64,7 +61,9 @@ function App(){
       <Route path="/game/:gameId" element={<GameInfo />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+          <Route element={<ProtectedRoute />}>
       <Route path="/contribute/game" element={<ContributeGame />} />
+          </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="*" element={<NotFound />} />
       
