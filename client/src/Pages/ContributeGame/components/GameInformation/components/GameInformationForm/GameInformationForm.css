@@ -67,6 +67,13 @@
     cursor: pointer;
 }
 
+.contribute-game-form .form-error{
+    color: var(--red-badge-bg);
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin: .5rem 0;
+}
+
 .bigger-input .attach img{
     width:1.8rem;
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./GameInformationForm.css";
 import pictureIcon from "../../assets/icons/picture-icon.svg";
 import plusIcon from "../../assets/icons/plus-icon.svg";
+import ErrorText from "./components/ErrorText";
 
 type gameInformationProps = {
   contributeGameData: contributeGameDataType | {};
@@ -247,6 +248,7 @@ function GameInformationForm({
           id="game-name"
           placeholder="Super Mario"
         />
+        {gameInformationError?.gameNameError && <ErrorText error={gameInformationError?.gameNameError} />}
       </div>
 
       <div>
@@ -306,6 +308,8 @@ function GameInformationForm({
             />
           </div>
         </div>
+
+        {gameInformationError?.gameFpsError && <ErrorText error={gameInformationError?.gameFpsError} />}
       </div>
 
       <div>
@@ -365,6 +369,8 @@ function GameInformationForm({
             />
           </div>
         </div>
+
+        {gameInformationError?.gameFrameRateError && <ErrorText error={gameInformationError?.gameFrameRateError} />}
       </div>
 
       <div>
@@ -445,6 +451,8 @@ function GameInformationForm({
           min={1}
           max={90}
         />
+
+      {gameInformationError?.gameBatteryDrainError && <ErrorText error={gameInformationError?.gameBatteryDrainError} />}
       </div>
 
       <div>
@@ -464,6 +472,8 @@ function GameInformationForm({
           name="gameCompatibility"
           type="range"
         />
+
+    {gameInformationError?.gameCompatibilityError && <ErrorText error={gameInformationError?.gameCompatibilityError} />}
       </div>
 
       {isLast ? (
