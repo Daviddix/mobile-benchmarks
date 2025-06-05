@@ -1,10 +1,10 @@
 type gameInformationDataType = {
     gameName: string;
-    gameFps: [number, string];
+    gameFps: [number | undefined, string];
     gameFrameRate: [string, string];
     gameGraphics: [string, string];
-    gameBatteryDrain: number;
-    gameCompatibility: number;
+    gameBatteryDrain: number | undefined;
+    gameCompatibility: number | undefined;
   };
 
 type contributeGameDataType = {

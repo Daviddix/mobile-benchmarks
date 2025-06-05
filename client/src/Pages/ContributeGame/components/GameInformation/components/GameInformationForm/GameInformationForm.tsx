@@ -44,11 +44,11 @@ function GameInformationForm({
   const [gameInformationData, setGameInformationData] =
     useState<gameInformationDataType>({
       gameName: "",
-      gameBatteryDrain: 0,
-      gameFps: [0, ""],
+      gameBatteryDrain: undefined,
+      gameFps: [undefined, ""],
       gameFrameRate: ["", ""],
       gameGraphics: ["", ""],
-      gameCompatibility: 1,
+      gameCompatibility: undefined,
     });
 
   const [gameInformationError, setGameInformationError] = useState<contributeGameDataError | null>(null);
@@ -371,6 +371,7 @@ function GameInformationForm({
           type="text"
           id="game-name"
           placeholder="Super Mario"
+          minLength={1}
         />
         {gameInformationError?.gameNameError && <ErrorText error={gameInformationError?.gameNameError} />}
       </div>
