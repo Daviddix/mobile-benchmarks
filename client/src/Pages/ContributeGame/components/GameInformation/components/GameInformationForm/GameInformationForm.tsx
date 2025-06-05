@@ -23,6 +23,15 @@ type gameInformationProps = {
 
 type TupleKeys = "gameFps" | "gameFrameRate" | "gameGraphics";
 
+type contributeGameDataError = {
+  gameNameError? : string;
+  gameFpsError? : string;
+  gameFrameRateError? : string;
+  gameGraphicsError? : string;
+  gameBatteryDrainError? : string;
+  gameCompatibilityError? : string;
+}
+
 function GameInformationForm({
   contributeGameData,
   setContributeGameData,
@@ -41,7 +50,7 @@ function GameInformationForm({
       gameCompatibility: 1,
     });
 
-  const [gameInformationError, setGameInformationError] = useState("");
+  const [gameInformationError, setGameInformationError] = useState<contributeGameDataError | null>(null);
 
   function validateInput(){
     setGameInformationError("")
@@ -76,14 +85,66 @@ function GameInformationForm({
   }
 
   function validateInputBeforeAddingNewGameSection(){
-    setGameInformationError("")
+    setGameInformationError(null)
+    let isError = false
 
     const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
 
-    if(gameName.trim() == "" || (gameFps[0] == 0 || typeof gameFps[0] !== "number") || (gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string")){
-      setGameInformationError("Seems like there's an error in the information you entered, Please check it and try again")
-      return
-    }
+    const defaultMessage = "An error occurred with the value you entered, please check it and try again"
+
+    if(gameName.trim() == "" || typeof gameName !== "string"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameNameError : defaultMessage
+        }
+      })
+      isError = true
+    }else if(gameFps[0] == 0 || typeof gameFps[0] !== "number"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameFpsError : defaultMessage
+        }
+      })
+      isError = true
+    }else if(gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameFrameRateError : defaultMessage
+        }
+      })
+      isError = true
+    }else if(gameGraphics[0] == "" || typeof gameGraphics[0] !== "string"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameGraphicsError : defaultMessage
+        }
+      })
+      isError = true
+      }else if(gameBatteryDrain == 0 || typeof gameBatteryDrain !== "number"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+            gameBatteryDrainError : defaultMessage
+          }
+        })
+        isError = true
+      }else{
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+            gameCompatibilityError : defaultMessage
+          }
+        })
+        isError = true
+      }
+
+      if(isError){
+        return
+      }
 
     setContributeGameData((prev : any)=>{
       console.log(prev)
