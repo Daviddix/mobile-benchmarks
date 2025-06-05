@@ -54,35 +54,94 @@ function GameInformationForm({
   const [gameInformationError, setGameInformationError] = useState<contributeGameDataError | null>(null);
 
   function validateInput(){
-    setGameInformationError("")
+    setGameInformationError(null)
+    let isError = false
 
     const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
 
-    if(gameName.trim() == "" || (gameFps[0] == 0 || typeof gameFps[0] !== "number") || (gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string")){
-      setGameInformationError("Seems like there's an error in the information you entered, Please check it and try again")
-      return false
-    }
+    const defaultMessage = "An error occurred with the value you entered, please check it and try again"
 
-    setContributeGameData((prev)=>{
-      console.log(prev)
-      let oldData: contributeGameDataType | [] = []
-      if("gameinfo" in prev){
-        const oldData = prev.gameinfo
+    if(gameName.trim() == "" || typeof gameName !== "string"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameNameError : defaultMessage
+        }
+      })
+      isError = true
+    }else if(gameFps[0] == 0 || typeof gameFps[0] !== "number"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameFpsError : defaultMessage
+        }
+      })
+      isError = true
+    }else if(gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameFrameRateError : defaultMessage
+        }
+      })
+      isError = true
+    }else if(gameGraphics[0] == "" || typeof gameGraphics[0] !== "string"){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameGraphicsError : defaultMessage
+        }
+      })
+      isError = true
+      }else if(gameBatteryDrain == 0 || typeof gameBatteryDrain !== "number"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+            gameBatteryDrainError : defaultMessage
+          }
+        })
+        isError = true
+      }else{
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+            gameCompatibilityError : defaultMessage
+          }
+        })
+        isError = true
       }
-      return {
-        ...prev,
-        gameInfo: [...oldData, {
-          gameName,
-          gameFps,
-          gameFrameRate,
-          gameGraphics,
-          gameBatteryDrain,
-          gameCompatibility,
-        }]
-      };
-    })
 
-    return true
+      if(isError){
+        return
+      }
+
+      setContributeGameData((prev : any)=>{
+        if(prev.gameInfo){
+          return {
+            ...prev,
+            gameInfo: [...(prev.gameInfo), {
+              gameName,
+              gameFps,
+              gameFrameRate,
+              gameGraphics,
+              gameBatteryDrain,
+              gameCompatibility,
+            }]
+          };
+        }else{
+          return {
+            ...prev,
+            gameInfo: [{
+              gameName,
+              gameFps,
+              gameFrameRate,
+              gameGraphics,
+              gameBatteryDrain,
+              gameCompatibility,
+            }]
+          }
+        }
+      })
   }
 
   function validateInputBeforeAddingNewGameSection(){
@@ -148,7 +207,6 @@ function GameInformationForm({
       }
 
     setContributeGameData((prev : any)=>{
-      console.log(prev)
       if(prev.gameInfo){
         return {
           ...prev,
@@ -184,8 +242,39 @@ function GameInformationForm({
     event: React.ChangeEvent<HTMLInputElement>,
     key: TupleKeys
   ) => {
+    setGameInformationError(null)
     const file = event.target.files?.[0];
-    if (file) {
+    if (!file) return 
+
+    const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
+
+    const sizeErrorMessage = "oops, seems like the screenshot you selected is too large, You can try compressing it before uploading"
+
+    if (file.size > maxSizeInBytes) {
+      if(key == "gameFrameRate"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+           gameFrameRateError : sizeErrorMessage
+          }
+        })
+      }else if(key == "gameFps"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+           gameFpsError : sizeErrorMessage
+          }
+        })
+      }else if(key == "gameGraphics"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+           gameGraphicsError : sizeErrorMessage
+          }
+        })
+      }
+      
+    }else{
       const reader = new FileReader();
       reader.onload = () => {
         setGameInformationData((prev) => ({
@@ -195,6 +284,7 @@ function GameInformationForm({
       };
       reader.readAsDataURL(file);
     }
+    
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -202,13 +292,45 @@ function GameInformationForm({
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    setGameInformationError(null)
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
-    if (file) {
+    const target = e.target as HTMLDivElement;
+    const key = target.id as TupleKeys;
+
+    if (!file) return 
+
+    const maxSizeInBytes = 2 * 1024 * 1024; // 2 MB
+
+    const sizeErrorMessage = "oops, seems like the screenshot you selected is too large, You can try compressing it before uploading"
+
+    if (file.size > maxSizeInBytes) {
+      if(key == "gameFrameRate"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+           gameFrameRateError : sizeErrorMessage
+          }
+        })
+      }else if(key == "gameFps"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+           gameFpsError : sizeErrorMessage
+          }
+        })
+      }else if(key == "gameGraphics"){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+           gameGraphicsError : sizeErrorMessage
+          }
+        })
+      }
+      
+    }else{
       const reader = new FileReader();
       reader.onload = () => {
-        const target = e.target as HTMLDivElement;
-        const key = target.id as TupleKeys;
         setGameInformationData((prev) => ({
           ...prev,
           [key]: [prev[key][0], reader.result as string],
@@ -216,6 +338,7 @@ function GameInformationForm({
       };
       reader.readAsDataURL(file);
     }
+    
   };
 
   const handleClick = (fileInputId: string) => {
@@ -237,6 +360,7 @@ function GameInformationForm({
 
         <input
           onChange={(e) => {
+            setGameInformationError(null)
             setGameInformationData((prev) => ({
               ...prev,
               [e.target.name]: e.target.value,
@@ -258,6 +382,7 @@ function GameInformationForm({
           <input
             type="number"
             onChange={(e) => {
+              setGameInformationError(null)
               setGameInformationData((prev) => ({
                 ...prev,
                 [e.target.name]: [
@@ -318,6 +443,7 @@ function GameInformationForm({
         <div className="bigger-input">
           <input
             onChange={(e) => {
+              setGameInformationError(null)
               setGameInformationData((prev) => ({
                 ...prev,
                 [e.target.name]: [
@@ -379,6 +505,7 @@ function GameInformationForm({
         <div className="bigger-input">
           <input
             onChange={(e) => {
+              setGameInformationError(null)
               setGameInformationData((prev) => ({
                 ...prev,
                 [e.target.name]: [
@@ -440,6 +567,7 @@ function GameInformationForm({
         <input
           value={gameInformationData.gameBatteryDrain}
           onChange={(e) => {
+            setGameInformationError(null)
             setGameInformationData((prev) => ({
               ...prev,
               [e.target.name]: e.target.valueAsNumber,
@@ -464,6 +592,7 @@ function GameInformationForm({
           id="general"
           value={gameInformationData.gameCompatibility}
           onChange={(e) => {
+            setGameInformationError(null)
             setGameInformationData((prev) => ({
               ...prev,
               [e.target.name]: e.target.valueAsNumber,
