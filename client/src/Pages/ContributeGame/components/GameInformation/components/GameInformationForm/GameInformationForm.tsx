@@ -5,6 +5,7 @@ import plusIcon from "../../assets/icons/plus-icon.svg";
 
 type gameInformationProps = {
   contributeGameData: contributeGameDataType | {};
+
   setContributeGameData: React.Dispatch<
     React.SetStateAction<{} | contributeGameDataType>
   >;
@@ -27,7 +28,7 @@ function GameInformationForm({
   setContributeGameData,
   setFormAmount,
   isLast,
-  id
+  id,
 }: gameInformationProps) {
 
   const [gameInformationData, setGameInformationData] =
@@ -72,6 +73,49 @@ function GameInformationForm({
     })
 
     return true
+  }
+
+  function validateInputBeforeAddingNewGameSection(){
+    setGameInformationError("")
+
+    const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
+
+    if(gameName.trim() == "" || (gameFps[0] == 0 || typeof gameFps[0] !== "number") || (gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string")){
+      setGameInformationError("Seems like there's an error in the information you entered, Please check it and try again")
+      return
+    }
+
+    setContributeGameData((prev : any)=>{
+      console.log(prev)
+      if(prev.gameInfo){
+        return {
+          ...prev,
+          gameInfo: [...(prev.gameInfo), {
+            gameName,
+            gameFps,
+            gameFrameRate,
+            gameGraphics,
+            gameBatteryDrain,
+            gameCompatibility,
+          }]
+        };
+      }else{
+        return {
+          ...prev,
+          gameInfo: [{
+            gameName,
+            gameFps,
+            gameFrameRate,
+            gameGraphics,
+            gameBatteryDrain,
+            gameCompatibility,
+          }]
+        }
+      }
+    })
+
+    addNewForm()
+    return
   }
 
   const handleFileChange = (
@@ -365,7 +409,7 @@ function GameInformationForm({
         <>
           <button
             onClick={() => {
-              addNewForm();
+              validateInputBeforeAddingNewGameSection()
             }}
             type="button"
             className="more-games"
