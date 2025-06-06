@@ -3,6 +3,7 @@ import "./GameInformationForm.css";
 import pictureIcon from "../../assets/icons/picture-icon.svg";
 import plusIcon from "../../assets/icons/plus-icon.svg";
 import ErrorText from "./components/ErrorText";
+import DeleteFormButton from "./components/DeleteFormButton/DeleteFormButton";
 
 type gameInformationProps = {
   contributeGameData: contributeGameDataType | {};
@@ -10,6 +11,10 @@ type gameInformationProps = {
   setContributeGameData: React.Dispatch<
     React.SetStateAction<{} | contributeGameDataType>
   >;
+  formAmount : {
+    id: number;
+    isLast: boolean;
+}[]
   setFormAmount: React.Dispatch<
     React.SetStateAction<
       {
@@ -18,6 +23,7 @@ type gameInformationProps = {
       }[]
     >
   >;
+
   isLast: boolean;
   id : number
 };
@@ -39,6 +45,7 @@ function GameInformationForm({
   setFormAmount,
   isLast,
   id,
+  formAmount
 }: gameInformationProps) {
 
   const [gameInformationData, setGameInformationData] =
@@ -342,6 +349,13 @@ function GameInformationForm({
 
   return (
     <form className="contribute-game-form">
+      {id !== formAmount[0].id && <DeleteFormButton 
+      formAmount={formAmount}
+      contributeGameData={contributeGameData}
+      setContributeGameData={setContributeGameData} 
+      setFormAmount={setFormAmount} 
+      id={id} />}
+
       <div>
         <label htmlFor="game-name">Game Name</label>
 

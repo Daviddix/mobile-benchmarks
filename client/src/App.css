@@ -11,6 +11,10 @@ html{
     background-color: var(--bg-color);
 }
 
+html::selection{
+    background-color: var(--primary-600);
+}
+
 :root{
     --primary-100 : #D0FBF6;
     --primary-200 : #A2F6EC;
@@ -69,6 +73,10 @@ button{
 button:disabled{
     opacity: .5;
     pointer-events: none;
+}
+
+input{
+    caret-color: var(--primary-500);
 }
 
 main{

@@ -19,6 +19,7 @@ function GameInformation({
     return <GameInformationForm 
     key={id}
     id={id}
+    formAmount={formAmount}
     isLast={isLast}
     setFormAmount={setFormAmount}
     contributeGameData={contributeGameData}

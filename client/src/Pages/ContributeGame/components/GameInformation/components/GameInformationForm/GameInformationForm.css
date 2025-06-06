@@ -5,6 +5,26 @@
     row-gap: .4rem;
 }
 
+.contribute-game-form .delete-form{
+    padding: .2rem;
+    aspect-ratio: 1/1;
+    height:4rem;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--l1-elevation);
+    border: 2px solid var(--l3-elevation);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    color: var(--text-color);
+    font-family: inherit;
+    margin: 0 0 2rem auto;
+}
+
 .contribute-game-form label{
     color: var(--text-color);
     font-size: 1.2rem;
