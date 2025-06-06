@@ -53,11 +53,8 @@ function GameInformationForm({
 
   const [gameInformationError, setGameInformationError] = useState<contributeGameDataError | null>(null);
 
-  function validateInput(){
-    setGameInformationError(null)
-    let isError = false
-
-    const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
+  function inputHasErrors(gameData : gameInformationDataType){
+    const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameData
 
     const defaultMessage = "An error occurred with the value you entered, please check it and try again"
 
@@ -68,7 +65,7 @@ function GameInformationForm({
           gameNameError : defaultMessage
         }
       })
-      isError = true
+      return true
     }else if(gameFps[0] == 0 || typeof gameFps[0] !== "number"){
       setGameInformationError((prev)=>{
         return {
@@ -76,7 +73,15 @@ function GameInformationForm({
           gameFpsError : defaultMessage
         }
       })
-      isError = true
+      return true
+    }else if(gameFps[1].trim() == ""){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameFpsError : "Please attach a screenshot showing a gameplay with the FPS count showing"
+        }
+      })
+      return true
     }else if(gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string"){
       setGameInformationError((prev)=>{
         return {
@@ -84,7 +89,15 @@ function GameInformationForm({
           gameFrameRateError : defaultMessage
         }
       })
-      isError = true
+      return true
+    }else if(gameFrameRate[1].trim() == ""){
+      setGameInformationError((prev)=>{
+        return {
+          ...prev,
+          gameFrameRateError : "Please attach a screenshot showing a gameplay with the frame rate you played on"
+        }
+      })
+      return true
     }else if(gameGraphics[0] == "" || typeof gameGraphics[0] !== "string"){
       setGameInformationError((prev)=>{
         return {
@@ -92,7 +105,15 @@ function GameInformationForm({
           gameGraphicsError : defaultMessage
         }
       })
-      isError = true
+      return true
+      }else if(gameGraphics[1].trim() == ""){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+            gameGraphicsError : "Please attach a screenshot showing the graphics settings you played on"
+          }
+        })
+        return true
       }else if(gameBatteryDrain == 0 || typeof gameBatteryDrain !== "number"){
         setGameInformationError((prev)=>{
           return {
@@ -100,16 +121,33 @@ function GameInformationForm({
             gameBatteryDrainError : defaultMessage
           }
         })
-        isError = true
-      }else{
+        return true
+      }else if(gameCompatibility == 0 || typeof gameCompatibility !== "number"){
         setGameInformationError((prev)=>{
           return {
             ...prev,
             gameCompatibilityError : defaultMessage
           }
         })
-        isError = true
+        return true
+      }else if(gameBatteryDrain < 1 || gameBatteryDrain > 50){
+        setGameInformationError((prev)=>{
+          return {
+            ...prev,
+            gameBatteryDrainError : "Battery drain should be between 1 and 50%"
+          }
+        })
+        return true
       }
+
+      return false
+  }
+
+  function validateInput(){
+    setGameInformationError(null)
+    const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
+
+    const isError = inputHasErrors(gameInformationData)
 
       if(isError){
         return
@@ -146,61 +184,9 @@ function GameInformationForm({
 
   function validateInputBeforeAddingNewGameSection(){
     setGameInformationError(null)
-    let isError = false
-
     const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
 
-    const defaultMessage = "An error occurred with the value you entered, please check it and try again"
-
-    if(gameName.trim() == "" || typeof gameName !== "string"){
-      setGameInformationError((prev)=>{
-        return {
-          ...prev,
-          gameNameError : defaultMessage
-        }
-      })
-      isError = true
-    }else if(gameFps[0] == 0 || typeof gameFps[0] !== "number"){
-      setGameInformationError((prev)=>{
-        return {
-          ...prev,
-          gameFpsError : defaultMessage
-        }
-      })
-      isError = true
-    }else if(gameFrameRate[0] == "" || typeof gameFrameRate[0] !== "string"){
-      setGameInformationError((prev)=>{
-        return {
-          ...prev,
-          gameFrameRateError : defaultMessage
-        }
-      })
-      isError = true
-    }else if(gameGraphics[0] == "" || typeof gameGraphics[0] !== "string"){
-      setGameInformationError((prev)=>{
-        return {
-          ...prev,
-          gameGraphicsError : defaultMessage
-        }
-      })
-      isError = true
-      }else if(gameBatteryDrain == 0 || typeof gameBatteryDrain !== "number"){
-        setGameInformationError((prev)=>{
-          return {
-            ...prev,
-            gameBatteryDrainError : defaultMessage
-          }
-        })
-        isError = true
-      }else{
-        setGameInformationError((prev)=>{
-          return {
-            ...prev,
-            gameCompatibilityError : defaultMessage
-          }
-        })
-        isError = true
-      }
+    const isError = inputHasErrors(gameInformationData)
 
       if(isError){
         return
@@ -347,9 +333,10 @@ function GameInformationForm({
 
   function addNewForm() {
     setFormAmount((prev) => {
-      prev.forEach((oldObj) => (oldObj.isLast = false));
-      const newObj = { id: prev.length + 1, isLast: true };
-      return [...prev, newObj];
+      const newPrev = prev
+      newPrev.forEach((oldObj) => (oldObj.isLast = false));
+      const newObj = { id: newPrev.length + 1, isLast: true };
+      return [...newPrev, newObj];
     });
   }
 
@@ -558,6 +545,8 @@ function GameInformationForm({
             />
           </div>
         </div>
+
+        {gameInformationError?.gameGraphicsError && <ErrorText error={gameInformationError?.gameGraphicsError} />}
       </div>
 
       <div>
@@ -576,9 +565,9 @@ function GameInformationForm({
           }}
           name="gameBatteryDrain"
           type="number"
-          placeholder="60"
+          placeholder="5"
           min={1}
-          max={90}
+          max={50}
         />
 
       {gameInformationError?.gameBatteryDrainError && <ErrorText error={gameInformationError?.gameBatteryDrainError} />}
@@ -587,7 +576,7 @@ function GameInformationForm({
       <div>
         <label htmlFor="general">General Compatibility</label>
 
-        <small>{gameInformationData.gameCompatibility}</small>
+        <small>{gameInformationData.gameCompatibility ?? "Scroll Slider to set"}</small>
 
         <input
           id="general"
@@ -601,6 +590,8 @@ function GameInformationForm({
           }}
           name="gameCompatibility"
           type="range"
+          min={10}
+          max={100}
         />
 
     {gameInformationError?.gameCompatibilityError && <ErrorText error={gameInformationError?.gameCompatibilityError} />}
