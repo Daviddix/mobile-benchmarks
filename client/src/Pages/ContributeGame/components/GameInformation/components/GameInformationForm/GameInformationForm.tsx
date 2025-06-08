@@ -150,7 +150,7 @@ function GameInformationForm({
       return false
   }
 
-  function validateInput(){
+  function submitInformation(){
     setGameInformationError(null)
     const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameInformationData
 
@@ -160,33 +160,55 @@ function GameInformationForm({
         return
       }
 
-      setContributeGameData((prev : any)=>{
-        if(prev.gameInfo){
-          return {
-            ...prev,
-            gameInfo: [...(prev.gameInfo), {
-              gameName,
-              gameFps,
-              gameFrameRate,
-              gameGraphics,
-              gameBatteryDrain,
-              gameCompatibility,
-            }]
-          };
-        }else{
-          return {
-            ...prev,
-            gameInfo: [{
-              gameName,
-              gameFps,
-              gameFrameRate,
-              gameGraphics,
-              gameBatteryDrain,
-              gameCompatibility,
-            }]
-          }
-        }
-      })
+      if(contributeGameData.gameInfo){
+        const dataToSubmitWithArray = contributeGameData?.gameInfo 
+        dataToSubmitWithArray.push({
+          gameName,
+          gameFps,
+          gameFrameRate,
+          gameGraphics,
+          gameBatteryDrain,
+          gameCompatibility,
+        })
+      }else{
+        const dataToSubmitWithoutArray = contributeGameData
+        dataToSubmitWithoutArray.gameInfo = [{
+          gameName,
+          gameFps,
+          gameFrameRate,
+          gameGraphics,
+          gameBatteryDrain,
+          gameCompatibility,
+        }]
+      }
+
+      // setContributeGameData((prev : any)=>{
+      //   if(prev.gameInfo){
+      //     return {
+      //       ...prev,
+      //       gameInfo: [...(prev.gameInfo), {
+      //         gameName,
+      //         gameFps,
+      //         gameFrameRate,
+      //         gameGraphics,
+      //         gameBatteryDrain,
+      //         gameCompatibility,
+      //       }]
+      //     };
+      //   }else{
+      //     return {
+      //       ...prev,
+      //       gameInfo: [{
+      //         gameName,
+      //         gameFps,
+      //         gameFrameRate,
+      //         gameGraphics,
+      //         gameBatteryDrain,
+      //         gameCompatibility,
+      //       }]
+      //     }
+      //   }
+      // })
   }
 
   function validateInputBeforeAddingNewGameSection(){
@@ -626,7 +648,7 @@ function GameInformationForm({
           <button
           onClick={(e)=>{
             e.preventDefault()
-            validateInput()
+            submitInformation()
           }}
           className="primary">Submit</button>
         </>

@@ -51,4 +51,10 @@ const switchToGoogleAccount = {
     type : "login error",
     message : "Seems like a google account already exists with that email, try logging in with Google"
 }
-module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken, switchToGoogleAccount}
+
+const invalidDataSubmitted = {
+    status : "error",
+    type : "invalid data submitted",
+    message : "Seems like data that is not valid. Please crosscheck every value passed before submitting"
+}
+module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken, switchToGoogleAccount, invalidDataSubmitted}

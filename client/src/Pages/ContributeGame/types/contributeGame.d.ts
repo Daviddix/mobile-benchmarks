@@ -15,4 +15,3 @@ type contributeGameDataType = {
     };
     gameInfo : gameInformationDataType[]
   }
-

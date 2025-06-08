@@ -8,9 +8,11 @@ const phoneRouter = require("./routes/phone.route")
 const compatibleGameRouter = require("./routes/compatible-game.route");
 const gameRouter = require("./routes/game.route");
 const userRouter = require("./routes/user.route");
+const submittedGameRouter = require("./routes/submitted-game.route")
 const cookieParser = require("cookie-parser"); 
 
-const allowedOrigins = ["http://localhost:5173", "https://mobile-benchmarks.vercel.app"]; // Add more for prod if needed
+
+const allowedOrigins = ["http://localhost:5173", "https://mobile-benchmarks.vercel.app", ]; // Add more for prod if needed
 
 app.use(cors({
   origin: allowedOrigins,
@@ -23,6 +25,7 @@ app.use(cookieParser())
 app.use("/api/phone", phoneRouter)
 app.use("/api/game", gameRouter)
 app.use("/api/compatible-game", compatibleGameRouter)
+app.use("/api/submit-game", submittedGameRouter)
 app.use("/api/user", userRouter)
 
 app.listen(PORT, async () => {
