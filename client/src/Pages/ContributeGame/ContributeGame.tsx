@@ -10,7 +10,7 @@ import FinishedModal from "./components/FinishedModal/FinishedModal";
 
 function ContributeGame() {
     const [searchParams, setSearchParams] = useSearchParams()
-    const [contributeGameData, setContributeGameData] = useState<contributeGameDataType | {}>({})
+    const [contributeGameData, setContributeGameData] = useState<contributeGameDataType | null>(null)
     const t : any = searchParams.get('step')
 
     const step = parseInt(t)

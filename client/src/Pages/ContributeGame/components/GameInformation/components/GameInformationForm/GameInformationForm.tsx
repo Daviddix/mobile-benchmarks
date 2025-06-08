@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./GameInformationForm.css";
 import pictureIcon from "../../assets/icons/picture-icon.svg";
 import plusIcon from "../../assets/icons/plus-icon.svg";
 import ErrorText from "./components/ErrorText";
 import DeleteFormButton from "./components/DeleteFormButton/DeleteFormButton";
+import { useNavigate } from "react-router";
 
 type gameInformationProps = {
-  contributeGameData: contributeGameDataType | {};
+  contributeGameData: contributeGameDataType | null;
 
   setContributeGameData: React.Dispatch<
-    React.SetStateAction<{} | contributeGameDataType>
+    React.SetStateAction<null | contributeGameDataType>
   >;
   formAmount : {
     id: number;
@@ -38,6 +39,7 @@ type contributeGameDataError = {
   gameBatteryDrainError? : string;
   gameCompatibilityError? : string;
 }
+
 
 function GameInformationForm({
   contributeGameData,
@@ -160,9 +162,9 @@ function GameInformationForm({
         return
       }
 
-      if(contributeGameData.gameInfo){
-        const dataToSubmitWithArray = contributeGameData?.gameInfo 
-        dataToSubmitWithArray.push({
+      if(contributeGameData?.gameInfo){
+        const dataToSubmitWithArray = contributeGameData 
+        dataToSubmitWithArray.gameInfo.push({
           gameName,
           gameFps,
           gameFrameRate,
@@ -170,9 +172,10 @@ function GameInformationForm({
           gameBatteryDrain,
           gameCompatibility,
         })
+        console.log(dataToSubmitWithArray)
       }else{
         const dataToSubmitWithoutArray = contributeGameData
-        dataToSubmitWithoutArray.gameInfo = [{
+        dataToSubmitWithoutArray!.gameInfo = [{
           gameName,
           gameFps,
           gameFrameRate,
@@ -222,10 +225,10 @@ function GameInformationForm({
       }
 
     setContributeGameData((prev : any)=>{
-      if(prev.gameInfo){
+      if(prev?.gameInfo){
         return {
           ...prev,
-          gameInfo: [...(prev.gameInfo), {
+          gameInfo: [...(prev?.gameInfo), {
             gameName,
             gameFps,
             gameFrameRate,
@@ -304,13 +307,14 @@ function GameInformationForm({
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    event.currentTarget.classList.add("drag-over")
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     setGameInformationError(null)
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
-    const target = e.target as HTMLDivElement;
+    const target = e.currentTarget as HTMLDivElement;
     const key = target.id as TupleKeys;
 
     if (!file) return 
@@ -364,10 +368,18 @@ function GameInformationForm({
     setFormAmount((prev) => {
       const newPrev = prev
       newPrev.forEach((oldObj) => (oldObj.isLast = false));
-      const newObj = { id: newPrev.length + 1, isLast: true };
+      const newObj = { id: newPrev[newPrev.length - 1].id + 1 , isLast: true };
       return [...newPrev, newObj];
     });
   }
+
+  const navigate = useNavigate()
+
+
+  useEffect(()=>{
+    if(!contributeGameData?.phoneInfo) navigate(`/contribute/game?step=1`)
+  },
+   [])
 
   return (
     <form className="contribute-game-form">
@@ -542,7 +554,7 @@ function GameInformationForm({
             name="gameGraphics"
             type="text"
             placeholder="Ultra"
-            id="game-graphics"
+            id="gameGraphics"
           />
 
           <div

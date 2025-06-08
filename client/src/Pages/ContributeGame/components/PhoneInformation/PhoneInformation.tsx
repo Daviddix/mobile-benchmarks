@@ -1,130 +1,175 @@
-import { Link, useNavigate, useSearchParams } from "react-router"
-import "./PhoneInformation.css"
+import { Link, useNavigate, useSearchParams } from "react-router";
+import "./PhoneInformation.css";
 import { useAtom } from "jotai";
 import { contributeStepAtom } from "../../shared_state/state";
 import { useState } from "react";
-
-type contributeGameDataType = {
-  phoneInfo : {
-    phoneName : string;
-    phoneRam : number;
-    phoneRom : number;
-  };
-  gameInfo : {
-    gameName: string;
-    gameFps: [number, string];
-    gameFrameRate: [number, string];
-    gameGraphics: [string, string];
-    gameBatteryDrain: number;
-    gameCompatibility: number;
-
-  }
-}
+import ErrorText from "../GameInformation/components/GameInformationForm/components/ErrorText";
 
 type phoneInformationProps = {
-  contributeGameData : contributeGameDataType | {};
-  setContributeGameData : React.Dispatch<React.SetStateAction<{} | contributeGameDataType>>;
-}
+  contributeGameData: contributeGameDataType | null;
+  setContributeGameData: React.Dispatch<
+    React.SetStateAction<contributeGameDataType | null>
+  >;
+};
 
 type phoneInformationDataType = {
-  phoneName : string;
-    phoneRam : number;
-    phoneRom : number;
-}
+  phoneName: string;
+  phoneRam: number | undefined;
+  phoneRom: number | undefined;
+};
 
-function PhoneInformation({contributeGameData, setContributeGameData} : phoneInformationProps) {
-  const [phoneInformationData, setPhoneInformationData] = useState<phoneInformationDataType>({phoneName : "", phoneRam : 0, phoneRom : 0})
-  const [phoneInformationDataError, setPhoneInformationDataError] = useState("")
-  const navigate = useNavigate()
+type contributePhoneDataError = {
+  phoneNameError?: string;
+  phoneRamError?: string;
+  phoneRomError?: string;
+};
 
-  function validateInput(){
-    setPhoneInformationDataError("")
+function PhoneInformation({
+  contributeGameData,
+  setContributeGameData,
+}: phoneInformationProps) {
+  const [phoneInformationData, setPhoneInformationData] =
+    useState<phoneInformationDataType>({
+      phoneName: "",
+      phoneRam: undefined,
+      phoneRom: undefined,
+    });
+  const [phoneInformationDataError, setPhoneInformationDataError] =
+    useState<contributePhoneDataError | null>(null);
+  const navigate = useNavigate();
 
-    const {phoneName, phoneRam, phoneRom } = phoneInformationData
+  function inputHasErrors(phoneData: phoneInformationDataType) {
+    const { phoneName, phoneRam, phoneRom } = phoneData;
 
-    if(phoneName.trim() == "" || (phoneRam == 0 || typeof phoneRam !== "number") || (phoneRom == 0 || typeof phoneRom !== "number")){
-      setPhoneInformationDataError("Seems like there's an error in the information you entered, Please check it and try again")
-      return false
+    const defaultMessage =
+      "An error occurred with the value you entered, please check it and try again";
+
+    if (phoneName.trim() == "" || typeof phoneName !== "string") {
+      setPhoneInformationDataError((prev) => {
+        return {
+          ...prev,
+          phoneNameError: defaultMessage,
+        };
+      });
+      return true;
+    } else if (phoneRam == 0 || typeof phoneRam !== "number") {
+      setPhoneInformationDataError((prev) => {
+        return {
+          ...prev,
+          phoneRamError: "An error occurred with the RAM value you entered, Please check the value and try again",
+        };
+      });
+      return true;
+    } else if (phoneRom == 0 || typeof phoneRom !== "number") {
+      setPhoneInformationDataError((prev) => {
+        return {
+          ...prev,
+          phoneRomError: "An error occurred with the ROM value you entered, Please check the value and try again",
+        };
+      });
+      return true;
+    }
+
+    return false;
+  }
+
+  function validateInput() {
+    setPhoneInformationDataError(null);
+
+    const isError = inputHasErrors(phoneInformationData);
+
+    if (isError) {
+      return;
     }
 
     setContributeGameData({
-      phoneInfo : {...phoneInformationData}
-    })
+      phoneInfo: { ...phoneInformationData },
+      gameInfo: [],
+    });
 
-    return true
+    return true;
   }
 
   return (
     <>
-    <form className="contribute-phone-form">
-                <div>
-                    <label htmlFor="phone-name">Phone Name</label>
-                    <input 
-                    required 
-                    type="text" 
-                    name="phoneName" 
-                    onChange={(e)=>{
-                      setPhoneInformationData((prev)=>({
-                        ...prev,
-                        [e.target.name] : e.target.value
-                     }))
-                    }}
-                    value={phoneInformationData.phoneName}
-                    id="phone-name" 
-                    placeholder='Samsung Galaxy A15' />
-                </div>
-
-                <div className='two-input'>
-                    <label htmlFor="storage">Storage Variant</label>
-
-                    <div>
-                    <input 
-                    required
-                    id="storage"
-                    onChange={(e)=>{
-                      setPhoneInformationData((prev)=>({
-                        ...prev,
-                        [e.target.name] : e.target.valueAsNumber
-                     }))
-                    }}
-                    value={phoneInformationData.phoneRam}
-                    type="number" 
-                    name="phoneRam"
-                    placeholder='RAM' />
-
-                    <input 
-                    required 
-                    onChange={(e)=>{
-                      setPhoneInformationData((prev)=>({
-                        ...prev,
-                        [e.target.name] : e.target.valueAsNumber
-                     }))
-                    }}
-                    value={phoneInformationData.phoneRom}
-                    type="number" 
-                    name="phoneRom"
-                    placeholder='ROM' />    
-                    </div>
-                </div>
-
-                {
-                  phoneInformationDataError && <p className="error">{phoneInformationDataError}</p>
-                }
-            </form>
-
-
-            <button 
-            onClick={()=>{
-              validateInput() ? 
-              navigate(`/contribute/game?step=2`)
-              :
-              ""
+      <form className="contribute-phone-form">
+        <div>
+          <label htmlFor="phone-name">Phone Name</label>
+          <input
+            required
+            type="text"
+            name="phoneName"
+            onChange={(e) => {
+              setPhoneInformationDataError(null)
+              setPhoneInformationData((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }));
             }}
-            className="next">Next</button>
-            
+            value={phoneInformationData.phoneName}
+            id="phone-name"
+            placeholder="Samsung Galaxy A15"
+          />
 
+          {phoneInformationDataError?.phoneNameError && (
+            <ErrorText error={phoneInformationDataError?.phoneNameError} />
+          )}
+        </div>
+
+        <div className="two-input">
+          <label htmlFor="storage">Storage Variant</label>
+
+          <div>
+            <input
+              required
+              id="storage"
+              onChange={(e) => {
+                setPhoneInformationDataError(null)
+                setPhoneInformationData((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.valueAsNumber,
+                }));
+              }}
+              value={phoneInformationData.phoneRam}
+              type="number"
+              name="phoneRam"
+              placeholder="RAM"
+            />
+
+            <input
+              required
+              onChange={(e) => {
+                setPhoneInformationDataError(null)
+                setPhoneInformationData((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.valueAsNumber,
+                }));
+              }}
+              value={phoneInformationData.phoneRom}
+              type="number"
+              name="phoneRom"
+              placeholder="ROM"
+            />
+          </div>
+        </div>
+        {phoneInformationDataError?.phoneRamError && (
+          <ErrorText error={phoneInformationDataError?.phoneRamError} />
+        )}
+        {phoneInformationDataError?.phoneRomError && (
+          <ErrorText error={phoneInformationDataError?.phoneRomError} />
+        )}
+      </form>
+
+      <button
+        onClick={() => {
+          validateInput() ? navigate(`/contribute/game?step=2`) : "";
+        }}
+        className="next"
+      >
+        Next
+      </button>
     </>
-  )
+  );
 }
 
-export default PhoneInformation
+export default PhoneInformation;

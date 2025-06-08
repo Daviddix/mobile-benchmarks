@@ -10,8 +10,8 @@ type gameInformationDataType = {
 type contributeGameDataType = {
     phoneInfo : {
       phoneName : string;
-      phoneRam : number;
-      phoneRom : number;
+      phoneRam : number | undefined;
+      phoneRom : number | undefined;
     };
     gameInfo : gameInformationDataType[]
   }

@@ -3,9 +3,9 @@ import "./GameInformation.css"
 import GameInformationForm from './components/GameInformationForm/GameInformationForm'
 
 type gameInformationProps = {
-  contributeGameData: contributeGameDataType | {};
+  contributeGameData: contributeGameDataType | null;
   setContributeGameData: React.Dispatch<
-    React.SetStateAction<{} | contributeGameDataType>
+    React.SetStateAction<null | contributeGameDataType>
   >;
 };
 

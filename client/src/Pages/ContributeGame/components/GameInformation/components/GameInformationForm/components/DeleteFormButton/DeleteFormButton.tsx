@@ -12,13 +12,13 @@ type deleteFormButtonProps = {
     >
   >;
   setContributeGameData: React.Dispatch<
-    React.SetStateAction<{} | contributeGameDataType>
+    React.SetStateAction<null | contributeGameDataType>
   >;
   formAmount: {
     id: number;
     isLast: boolean;
   }[];
-  contributeGameData: {} | contributeGameDataType;
+  contributeGameData: null | contributeGameDataType;
 };
 
 function DeleteFormButton({
@@ -46,15 +46,19 @@ function DeleteFormButton({
     setFormAmount(updatedFormAmount);
 
     // If contributeGameData is populated, update its gameInfo
-    if ("gameInfo" in contributeGameData) {
+    if (contributeGameData && contributeGameData.gameInfo) {
       const updatedGameInfo = contributeGameData.gameInfo?.filter(
         (_: any, index: number) => index !== formId - 1
       );
 
-      setContributeGameData((prev) => ({
-        ...prev,
-        gameInfo: updatedGameInfo,
-      }));
+      setContributeGameData((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          gameInfo: updatedGameInfo,
+          phoneInfo: prev.phoneInfo, // Ensure phoneInfo is preserved
+        };
+      });
     }
   }
 
