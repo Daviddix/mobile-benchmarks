@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./GameInformation.css"
 import GameInformationForm from './components/GameInformationForm/GameInformationForm'
+import FinishedModal from "../FinishedModal/FinishedModal";
 
 type gameInformationProps = {
   contributeGameData: contributeGameDataType | null;
@@ -15,6 +16,8 @@ function GameInformation({
 }: gameInformationProps) {
   const [formAmount, setFormAmount] = useState([{id : 1, isLast : true}])
 
+  
+
   const mappedForm = formAmount.map(({id, isLast})=>{
     return <GameInformationForm 
     key={id}
@@ -28,6 +31,7 @@ function GameInformation({
   })
   return (
     <>
+    <FinishedModal />
     {mappedForm}
     </>
   )

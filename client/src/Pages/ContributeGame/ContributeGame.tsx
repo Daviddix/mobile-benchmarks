@@ -6,12 +6,16 @@ import GameInformation from "./components/GameInformation/GameInformation";
 import { useNavigate, useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import FinishedModal from "./components/FinishedModal/FinishedModal";
+import { useAtomValue } from "jotai";
+import { showFinishedModalAtom } from "./shared_state/state";
 
 
 function ContributeGame() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [contributeGameData, setContributeGameData] = useState<contributeGameDataType | null>(null)
+    const showFinishedModal = useAtomValue(showFinishedModalAtom)
     const t : any = searchParams.get('step')
+
 
     const step = parseInt(t)
   
@@ -68,7 +72,7 @@ function ContributeGame() {
             }
 
         </div>
-            {/* <FinishedModal /> */}
+            {showFinishedModal && <FinishedModal />}
     </main>
   )
 }

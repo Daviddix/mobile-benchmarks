@@ -5,6 +5,8 @@ import plusIcon from "../../assets/icons/plus-icon.svg";
 import ErrorText from "./components/ErrorText";
 import DeleteFormButton from "./components/DeleteFormButton/DeleteFormButton";
 import { useNavigate } from "react-router";
+import { useAtom } from "jotai";
+import { showFinishedModalAtom } from "../../../../shared_state/state";
 
 type gameInformationProps = {
   contributeGameData: contributeGameDataType | null;
@@ -40,6 +42,7 @@ type contributeGameDataError = {
   gameCompatibilityError? : string;
 }
 
+type submissionStatusType = "submitting" | "submitted" | "error"
 
 function GameInformationForm({
   contributeGameData,
@@ -61,6 +64,10 @@ function GameInformationForm({
     });
 
   const [gameInformationError, setGameInformationError] = useState<contributeGameDataError | null>(null);
+
+  const [showFinishedModal, setShowFinishedModal] = useAtom(showFinishedModalAtom)
+
+  const [submissionStatus, setSubmissionStatus] = useState<submissionStatusType>("submitted")
 
   function inputHasErrors(gameData : gameInformationDataType){
     const {gameName, gameFps, gameBatteryDrain, gameCompatibility, gameFrameRate, gameGraphics} = gameData
@@ -172,7 +179,7 @@ function GameInformationForm({
           gameBatteryDrain,
           gameCompatibility,
         })
-        console.log(dataToSubmitWithArray)
+        sendInformationToBackend(dataToSubmitWithArray)
       }else{
         const dataToSubmitWithoutArray = contributeGameData
         dataToSubmitWithoutArray!.gameInfo = [{
@@ -183,35 +190,36 @@ function GameInformationForm({
           gameBatteryDrain,
           gameCompatibility,
         }]
+        sendInformationToBackend(dataToSubmitWithoutArray)
+      }
+  }
+
+  async function sendInformationToBackend(data : contributeGameDataType | null){
+    if(!data) return
+    try{
+      setSubmissionStatus("submitting")
+      const response = await fetch("http://localhost:3000/api/submit-game/submit", {
+        body : JSON.stringify(data),
+        credentials : "include",
+        method : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+
+      const responseInJson = await response.json()
+
+      if(!response.ok){
+        throw new Error("An error occurred while trying to submit the review", {cause : responseInJson})
       }
 
-      // setContributeGameData((prev : any)=>{
-      //   if(prev.gameInfo){
-      //     return {
-      //       ...prev,
-      //       gameInfo: [...(prev.gameInfo), {
-      //         gameName,
-      //         gameFps,
-      //         gameFrameRate,
-      //         gameGraphics,
-      //         gameBatteryDrain,
-      //         gameCompatibility,
-      //       }]
-      //     };
-      //   }else{
-      //     return {
-      //       ...prev,
-      //       gameInfo: [{
-      //         gameName,
-      //         gameFps,
-      //         gameFrameRate,
-      //         gameGraphics,
-      //         gameBatteryDrain,
-      //         gameCompatibility,
-      //       }]
-      //     }
-      //   }
-      // })
+      setShowFinishedModal(true)
+      setContributeGameData(null)
+    }catch(err : any){
+      setSubmissionStatus("error")
+      console.log(err.cause ?? err)
+      setShowFinishedModal(false)
+    }
   }
 
   function validateInputBeforeAddingNewGameSection(){

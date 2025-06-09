@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import "./FinishedModal.css"
 
 function FinishedModal() {
@@ -12,9 +13,13 @@ function FinishedModal() {
 
             <p>Thanks for contributing! Your submission is under review and will appear on the site soon</p>
 
+            <Link to="/contribute">
             <button>Add Another Game</button>
-
+            </Link>
+            
+            <Link to="/">
             <button>Go Home</button>
+            </Link>
         </div>
     </div>
   )

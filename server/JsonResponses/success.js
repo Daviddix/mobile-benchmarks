@@ -10,4 +10,10 @@ const loginSuccessful = {
     message : "You have successfully been logged in"
 }
 
-module.exports = {userCreated, loginSuccessful}
+const gameSubmitted = {
+    status : "success",
+    type : "Game Submitted",
+    message : "Your game information has been submitted for review. Thank you for your service"
+}
+
+module.exports = {userCreated, loginSuccessful, gameSubmitted}
