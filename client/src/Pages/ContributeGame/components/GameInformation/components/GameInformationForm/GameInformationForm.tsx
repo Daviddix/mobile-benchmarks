@@ -666,11 +666,18 @@ function GameInformationForm({
           </button>
 
           <button
+          disabled={submissionStatus == "submitting"}
           onClick={(e)=>{
             e.preventDefault()
             submitInformation()
           }}
-          className="primary">Submit</button>
+          className="primary">
+            {submissionStatus == "submitting" ? 
+            <div className="circular-loader"></div>
+            :
+            "Submit"
+            }
+            </button>
         </>
       ) : (
         <hr />

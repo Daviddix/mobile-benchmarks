@@ -4,10 +4,10 @@ const submittedGameModel = require("../models/submitted-game.model")
 
 async function submitGameForReview(req, res){
     try{
-        console.log(req.body)
         const {gameInfo, phoneInfo} = req.body
-
-        const userId = req.user._id
+        
+        const userId = req.userId
+        console.log(req.user)
 
         if(!gameInfo || !phoneInfo || !userId){
             return res.status(400).json(noBodyDataError)

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./GameInformation.css"
 import GameInformationForm from './components/GameInformationForm/GameInformationForm'
-import FinishedModal from "../FinishedModal/FinishedModal";
 
 type gameInformationProps = {
   contributeGameData: contributeGameDataType | null;
@@ -31,7 +30,6 @@ function GameInformation({
   })
   return (
     <>
-    <FinishedModal />
     {mappedForm}
     </>
   )

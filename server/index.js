@@ -18,7 +18,8 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true, // crucial for cookies and headers to work across origins
 }));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser())
  
 //routers 
