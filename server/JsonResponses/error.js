@@ -57,4 +57,11 @@ const invalidDataSubmitted = {
     type : "invalid data submitted",
     message : "Seems like data that is not valid. Please crosscheck every value passed before submitting"
 }
-module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken, switchToGoogleAccount, invalidDataSubmitted}
+
+const imageUploadError = {
+    status :"error",
+    type: "cloudinary error",
+    message : "Sorry,an error occurred and we couldn't upload your image"
+}
+
+module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken, switchToGoogleAccount, invalidDataSubmitted, imageUploadError}
