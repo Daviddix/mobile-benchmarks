@@ -6,6 +6,9 @@ import SupportedDevicesSection from "./Components/SupportedDevicesSection/Suppor
 import RequirementSection from "./Components/RequirementSection/RequirementSection";
 import GameInfoLoaderSkeleton from "./Components/GameInfoLoaderSkeleton/GameInfoLoaderSkeleton";
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
+import menuIcon from "./assets/icons/menu-icon.svg"
+import reportIcon from "./assets/icons/report-icon.svg"
+
 
 function GameInfo() {
   type fetchingStateType = "loading" | "error" | "completed"
@@ -59,6 +62,7 @@ function GameInfo() {
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [gameInfo, setGameInfo] = useState<Game | null>(null)
   const [tabToView, setTabToView] = useState<tabTypes>("requirements")
+   const [showReportButton, setShowReportButton] = useState(false)
   const {gameId} = useParams()
 
   async function getGameInformation(gameId : string | undefined) {
@@ -136,7 +140,22 @@ function GameInfo() {
         />
 
         <div className="game-info-text">
+          <div className="heading-and-button">
           <h2>{gameInfo?.gameName}</h2>
+
+          <button className="report-inaccurate-info-button">
+          <img
+          onClick={()=>{
+            setShowReportButton((prev)=> !prev)
+          }}
+          src={menuIcon} alt="report inaccurate info icon" />
+          </button>
+
+          {showReportButton && <button className="report">
+            <img src={reportIcon} alt="report icon" />
+            Report inaccurate information</button>}
+
+          </div>
 
           <p>{gameInfo?.gameDescription}</p>
 

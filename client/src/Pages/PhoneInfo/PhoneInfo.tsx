@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import CompatibleGamesSection from "./Components/CompatibleGamesSection/CompatibleGamesSection";
 import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneInfoSkeletonLoader";
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
+import menuIcon from "./assets/icons/menu-icon.svg"
+import reportIcon from "./assets/icons/report-icon.svg"
 
 function PhoneInfo() {
   const {phoneId} = useParams()
@@ -29,6 +31,8 @@ function PhoneInfo() {
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [phoneData, setPhoneData] = useState<phoneInfoType |null>(null)
+
+  const [showReportButton, setShowReportButton] = useState(false)
 
 
 
@@ -83,7 +87,21 @@ function PhoneInfo() {
         <img src={phoneData?.phoneCoverImage} alt="phone info" className="phone-image" />
 
         <div className="phone-info-text">
+          <div className="heading-and-button">
+
           <h2>{phoneData?.phoneName}</h2>
+          <button className="report-inaccurate-info-button">
+          <img
+          onClick={()=>{
+            setShowReportButton((prev)=> !prev)
+          }}
+          src={menuIcon} alt="report inaccurate info icon" />
+          </button>
+
+          {showReportButton && <button className="report">
+            <img src={reportIcon} alt="report icon" />
+            Report inaccurate information</button>}
+          </div>
 
           <div className="other-phone-info">
             <div className="single-phone-info">
