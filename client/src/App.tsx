@@ -13,6 +13,7 @@ import { useEffect } from "react"
 import { useAtom } from "jotai"
 import { userInfoAtom } from "./globals/states"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
+import AdminGameReview from "./Pages/Admin/AdminGameReview"
 
 function App(){
   const [userInfo, setUserInfo] = useAtom(userInfoAtom)
@@ -65,6 +66,7 @@ function App(){
       <Route path="/contribute/game" element={<ContributeGame />} />
           </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/admin/review/game" element={<AdminGameReview />} />
       <Route path="*" element={<NotFound />} />
       
       </Route>
