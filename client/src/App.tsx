@@ -14,6 +14,7 @@ import { useAtom } from "jotai"
 import { userInfoAtom } from "./globals/states"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import AdminGameReview from "./Pages/Admin/AdminGameReview"
+import ProtectedAdminRoute from "./Components/ProtectedAdminRoute/ProtectedAdminRoute"
 
 function App(){
   const [userInfo, setUserInfo] = useAtom(userInfoAtom)
@@ -66,7 +67,10 @@ function App(){
       <Route path="/contribute/game" element={<ContributeGame />} />
           </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
-      <Route path="/admin/review/game" element={<AdminGameReview />} />
+
+        <Route element={<ProtectedAdminRoute />}>
+          <Route path="/admin/review/game" element={<AdminGameReview />} />
+        </Route>
       <Route path="*" element={<NotFound />} />
       
       </Route>

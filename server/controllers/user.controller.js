@@ -110,7 +110,7 @@ async function logUserIn(req, res) {
 async function getUserDetails(req, res) {
   try {
     const id = req.user.userId;
-    const userInDb = await userModel.findById(id, ["username"]);
+    const userInDb = await userModel.findById(id, ["username", "email"]);
     if (!userInDb) {
       return res.status(404).json(userNotFoundInDataBase);
     }

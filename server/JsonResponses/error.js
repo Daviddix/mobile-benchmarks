@@ -64,4 +64,20 @@ const imageUploadError = {
     message : "Sorry,an error occurred and we couldn't upload your image"
 }
 
-module.exports = {duplicateUsername, duplicateEmail, noBodyDataError, unknownError, googleTokenError, userNotFoundInDataBase, jwtTokenError, noJwtToken, switchToGoogleAccount, invalidDataSubmitted, imageUploadError}
+const notAuthorized = {
+    status : "error",
+    type : "unauthorized access",
+    message : "Sorry, you are not allowed to access that resource"
+}
+
+module.exports = {
+    duplicateUsername, 
+    duplicateEmail, 
+    noBodyDataError, unknownError, 
+    googleTokenError, 
+    notAuthorized, 
+    userNotFoundInDataBase, 
+    jwtTokenError, noJwtToken, switchToGoogleAccount, 
+    invalidDataSubmitted,
+     imageUploadError
+    }
