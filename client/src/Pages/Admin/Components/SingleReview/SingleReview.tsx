@@ -33,11 +33,13 @@ function SingleReview({numberOfGames, fpsImage, frameRateImage, graphicsImage, p
             <hr />
 
             <div className="buttons">
-                <Link to={`/admin/review/${submissionId}`}>
+                <Link to={`/admin/review/game/${submissionId}`}>
               <button>
                 More Info
                 </button>
               </Link>
+
+              {/* //TODO:IMPLEMENT APPROVE AND DECLINE BUTTONS */}
 
 
               <button className="approve">Approve</button>
