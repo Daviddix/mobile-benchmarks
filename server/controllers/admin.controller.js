@@ -33,6 +33,16 @@ async function getSubmittedGamesFromSubmissionId(req, res){
   }
 }
 
+async function approveSubmission(req, res){
+  try{
+    //remove the submission from the submission db then add it to the games db
+    
+  }
+  catch(err){
+
+  }
+}
+
 module.exports = {
     getAllSubmissions,
     getSubmittedGamesFromSubmissionId

@@ -5,6 +5,7 @@
     -webkit-border-radius: .8rem;
     -moz-border-radius: .8rem;
     -ms-border-radius: .8rem;
+    overflow: hidden;
     -o-border-radius: .8rem;
 }
 

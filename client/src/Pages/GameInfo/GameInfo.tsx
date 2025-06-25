@@ -8,6 +8,7 @@ import GameInfoLoaderSkeleton from "./Components/GameInfoLoaderSkeleton/GameInfo
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
 import menuIcon from "./assets/icons/menu-icon.svg"
 import reportIcon from "./assets/icons/report-icon.svg"
+import ReportModal from "../../Components/ReportModal/ReportModal";
 
 
 function GameInfo() {
@@ -279,6 +280,7 @@ function GameInfo() {
         </>
       }
       
+      <ReportModal />
 
     </main>
   );

@@ -10,6 +10,15 @@ type singleGameSubmissionProps = {
 }
 
 function SingleGameSubmission({gameName, gameBatteryDrain, gameCompatibility, gameFps, gameFrameRate, gameGraphics} : singleGameSubmissionProps) {
+
+    async function approveGame(){
+        try{
+            
+        }
+        catch(err){
+
+        }
+    }
   return (
     <div className="single-submission-game">
                         <div className="game-name-heading">
