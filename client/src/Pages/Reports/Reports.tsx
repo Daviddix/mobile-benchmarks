@@ -53,7 +53,7 @@ function Reports() {
         <div className="reports-inner">
             <div className="title">
             <h1>Reports</h1>
-            <small>4</small>
+            <small>{allReports.length}</small>
             </div>
 
             <div className="all-reports-container">

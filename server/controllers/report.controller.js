@@ -7,7 +7,6 @@ async function getAllReports(req, res){
     try{
         const allReports = await reportModel.find({}).limit(10).populate("userInfo", ["username"])
 
-        console.log(allReports)
 
         for (const report of allReports) {
       if (report.reportType === "Phones") {

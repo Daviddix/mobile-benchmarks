@@ -6,6 +6,7 @@ import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneI
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
 import menuIcon from "./assets/icons/menu-icon.svg"
 import reportIcon from "./assets/icons/report-icon.svg"
+import ReportModal from "../../Components/ReportModal/ReportModal";
 
 function PhoneInfo() {
   const {phoneId} = useParams()
@@ -31,10 +32,12 @@ function PhoneInfo() {
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [phoneData, setPhoneData] = useState<phoneInfoType |null>(null)
-
+  const [showReportModal, setShowReportModal] = useState(false)
   const [showReportButton, setShowReportButton] = useState(false)
 
-
+    function closeReportModal(){
+    setShowReportModal(false)
+    }
 
   async function getPhoneData(id : string | undefined){
     try{
@@ -98,7 +101,12 @@ function PhoneInfo() {
           src={menuIcon} alt="report inaccurate info icon" />
           </button>
 
-          {showReportButton && <button className="report">
+          {showReportButton && <button 
+           onClick={()=>{
+            setShowReportModal(true)
+            setShowReportButton(false)
+          }}
+          className="report">
             <img src={reportIcon} alt="report icon" />
             Report inaccurate information</button>}
           </div>
@@ -162,6 +170,13 @@ function PhoneInfo() {
       {fetchingState !== "error" &&
         <CompatibleGamesSection
       phoneId={phoneId}
+      />}
+
+      {showReportModal && <ReportModal
+      closeFn={closeReportModal}
+      reportTypeName={phoneData?.phoneName || ""}
+      reportType="Phones"
+      reportTypeId={phoneId || "1234"}
       />}
     </main>
   );
