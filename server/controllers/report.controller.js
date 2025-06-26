@@ -7,9 +7,21 @@ async function getAllReports(req, res){
     try{
         const allReports = await reportModel.find({}).limit(10).populate("userInfo", ["username"])
 
+        console.log(allReports)
+
+        for (const report of allReports) {
+      if (report.reportType === "Phones") {
+        await report.populate("reportTypeId", ["phoneName", "phoneCoverImage"]);
+      } else if (report.reportType === "Games") {
+        await report.populate("reportTypeId", ["gameName", "gameCoverImage"]);
+      }
+    }
+
         res.status(200).json(allReports)
     }catch(err){
-        res.status(500).json(unknownError)
+        res.status(500).json({
+          specific : err,
+          generic : unknownError})
     }
 }
 

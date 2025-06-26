@@ -1,6 +1,53 @@
+import { useEffect, useState } from "react"
+import SingleReport from "./components/SingleReport/SingleReport"
 import "./Reports.css"
+import { populatedReportTypeInfo } from "./types/reportTypes"
 
 function Reports() {
+    
+
+    type reportType = {
+        _id : string,
+        reportType : "Games" | "Phones",
+        reportTypeId : populatedReportTypeInfo,
+        reasonForReport: string,
+        userInfo : populatesUserInfoType
+    }
+    const [allReports, setAllReports] = useState<reportType[]>([])
+
+    async function getAllReports(){
+        try{
+            const rawFetch = await fetch("http://localhost:3000/api/report/all-reports", {
+                credentials: "include",
+            })
+
+            const responseInJson = await rawFetch.json()
+
+            if(!rawFetch.ok){
+                throw new Error(responseInJson.message)
+            }
+
+            setAllReports(responseInJson)
+        }
+        catch(err){
+            console.error("Error fetching reports:", err)
+            alert("Failed to fetch reports. Please try again later.")
+        }
+    }
+
+    useEffect(()=>{
+        getAllReports()
+    }, [])
+
+    const mappedReports = allReports.map((report)=>{
+        return <SingleReport
+        reasonForReport={report.reasonForReport}
+        populatedReportTypeInfo={report.reportTypeId}
+        reportType={report.reportType}
+        userInfo={report.userInfo}
+        key={report._id}
+        />
+    })
   return (
     <main className='reports-main'>
         <div className="reports-inner">
@@ -10,109 +57,9 @@ function Reports() {
             </div>
 
             <div className="all-reports-container">
-                <div className="single-report">
-                    <div className="report-top">
-                        <img src="" alt="main img" />
-                        <div className="report-top-right">
-                            <h2>Need for Speed: No Limits</h2>
-                            <div className="report-chips-container">
-                                <span>Game</span>
-                                <span>By Emmanuel Nsikan-David</span>
-                            </div>
-                        </div>
-                    </div>
+                
+                {mappedReports}
 
-                    <div className="report-reason">
-                        <div className="report-reason-header">
-                            <h3>Reason for Report</h3>
-                        </div>
-
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate illo itaque magni impedit? Totam odit quasi possimus. Laboriosam, atque impedit.</p>
-                    </div>
-
-                    <div className="report-buttons">
-                        <button className='report-button-view'>View Game</button>
-                        <button className='report-button-resolved'>Resolved</button>
-                    </div>
-                </div>
-
-                <div className="single-report">
-                    <div className="report-top">
-                        <img src="" alt="main img" />
-                        <div className="report-top-right">
-                            <h2>Need for Speed: No Limits</h2>
-                            <div className="report-chips-container">
-                                <span>Game</span>
-                                <span>By Emmanuel Nsikan-David</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="report-reason">
-                        <div className="report-reason-header">
-                            <h3>Reason for Report</h3>
-                        </div>
-                        
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate illo itaque magni impedit? Totam odit quasi possimus. Laboriosam, atque impedit.</p>
-                    </div>
-
-                    <div className="report-buttons">
-                        <button className='report-button-view'>View Game</button>
-                        <button className='report-button-resolved'>Resolved</button>
-                    </div>
-                </div>
-
-                <div className="single-report">
-                    <div className="report-top">
-                        <img src="" alt="main img" />
-                        <div className="report-top-right">
-                            <h2>Need for Speed: No Limits</h2>
-                            <div className="report-chips-container">
-                                <span>Game</span>
-                                <span>By Emmanuel Nsikan-David</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="report-reason">
-                        <div className="report-reason-header">
-                            <h3>Reason for Report</h3>
-                        </div>
-                        
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate illo itaque magni impedit? Totam odit quasi possimus. Laboriosam, atque impedit.</p>
-                    </div>
-
-                    <div className="report-buttons">
-                        <button className='report-button-view'>View Game</button>
-                        <button className='report-button-resolved'>Resolved</button>
-                    </div>
-                </div>
-
-                <div className="single-report">
-                    <div className="report-top">
-                        <img src="" alt="main img" />
-                        <div className="report-top-right">
-                            <h2>Need for Speed: No Limits</h2>
-                            <div className="report-chips-container">
-                                <span>Game</span>
-                                <span>By Emmanuel Nsikan-David</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="report-reason">
-                        <div className="report-reason-header">
-                            <h3>Reason for Report</h3>
-                        </div>
-                        
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate illo itaque magni impedit? Totam odit quasi possimus. Laboriosam, atque impedit.</p>
-                    </div>
-
-                    <div className="report-buttons">
-                        <button className='report-button-view'>View Game</button>
-                        <button className='report-button-resolved'>Resolved</button>
-                    </div>
-                </div>
             </div>
         </div>
     </main>

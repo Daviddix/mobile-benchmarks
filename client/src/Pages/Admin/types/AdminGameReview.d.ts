@@ -17,8 +17,5 @@ type submissionData = {
     _id : string;
     gameInfo: submittedGameInfo[];
     phoneInfo: submittedPhoneInfo;
-    userInfo: {
-      _id : string;
-      username : string;
-    };
+    userInfo: populatesUserInfoType;
 }
