@@ -16,6 +16,7 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import AdminGameReview from "./Pages/Admin/AdminGameReview"
 import ProtectedAdminRoute from "./Components/ProtectedAdminRoute/ProtectedAdminRoute"
 import GameToReviewInfo from "./Pages/GameToReviewInfo/GameToReviewInfo"
+import Reports from "./Pages/Reports/Reports"
 
 function App(){
   const [userInfo, setUserInfo] = useAtom(userInfoAtom)
@@ -71,6 +72,7 @@ function App(){
 
         <Route element={<ProtectedAdminRoute />}>
           <Route path="/admin/review/game" element={<AdminGameReview />} />
+          <Route path="/admin/reports" element={<Reports />} />
           <Route path="/admin/review/game/:gameId" element={<GameToReviewInfo />} />
         </Route>
       <Route path="*" element={<NotFound />} />
