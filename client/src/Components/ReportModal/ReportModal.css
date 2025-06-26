@@ -90,7 +90,9 @@
 }
 
 .main-report-modal form .submit-report-button{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width:100%;
     color: var(--text-secondary-color);
     font-weight: 600;

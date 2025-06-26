@@ -16,4 +16,10 @@ const gameSubmitted = {
     message : "Your game information has been submitted for review. Thank you for your service"
 }
 
-module.exports = {userCreated, loginSuccessful, gameSubmitted}
+const reportSubmitted = {
+    status : "success",
+    type : "Report Submitted",
+    message : "The report you just made has been submitted successfully and will be reviewed. Thank you"
+}
+
+module.exports = {userCreated, reportSubmitted, loginSuccessful, gameSubmitted}

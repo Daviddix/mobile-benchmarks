@@ -63,7 +63,8 @@ function GameInfo() {
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [gameInfo, setGameInfo] = useState<Game | null>(null)
   const [tabToView, setTabToView] = useState<tabTypes>("requirements")
-   const [showReportButton, setShowReportButton] = useState(false)
+  const [showReportButton, setShowReportButton] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
   const {gameId} = useParams()
 
   async function getGameInformation(gameId : string | undefined) {
@@ -106,6 +107,10 @@ function GameInfo() {
     }else{
       return 5
     }
+  }
+
+  function closeReportModal(){
+    setShowReportModal(false)
   }
 
   useEffect(()=>{
@@ -152,7 +157,12 @@ function GameInfo() {
           src={menuIcon} alt="report inaccurate info icon" />
           </button>
 
-          {showReportButton && <button className="report">
+          {showReportButton && <button 
+          onClick={()=>{
+            setShowReportModal(true)
+            setShowReportButton(false)
+          }}
+          className="report">
             <img src={reportIcon} alt="report icon" />
             Report inaccurate information</button>}
 
@@ -280,7 +290,12 @@ function GameInfo() {
         </>
       }
       
-      <ReportModal />
+      {showReportModal && <ReportModal
+      closeFn={closeReportModal}
+      reportTypeName={gameInfo?.gameName || ""}
+      reportType="Games"
+      reportTypeId={gameId || "1234"}
+      />}
 
     </main>
   );

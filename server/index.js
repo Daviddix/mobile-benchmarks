@@ -11,6 +11,7 @@ const userRouter = require("./routes/user.route");
 const submittedGameRouter = require("./routes/submitted-game.route")
 const cookieParser = require("cookie-parser"); 
 const adminRouter = require("./routes/admin.route");
+const reportRouter = require("./routes/report.route");
 
 
 const allowedOrigins = ["http://localhost:5173", "https://mobile-benchmarks.vercel.app", ]; // Add more for prod if needed
@@ -30,6 +31,7 @@ app.use("/api/compatible-game", compatibleGameRouter)
 app.use("/api/submit-game", submittedGameRouter)
 app.use("/api/user", userRouter)
 app.use("/api/admin", adminRouter)
+app.use("/api/report", reportRouter)
 
 app.listen(PORT, async () => {
     try{

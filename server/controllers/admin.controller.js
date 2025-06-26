@@ -43,7 +43,8 @@ async function approveSubmission(req, res){
   }
 }
 
+
 module.exports = {
     getAllSubmissions,
-    getSubmittedGamesFromSubmissionId
+    getSubmittedGamesFromSubmissionId,
 }

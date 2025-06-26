@@ -106,6 +106,19 @@ function Header() {
 
   return (
     <>
+    <Toaster
+      toastOptions={
+        {
+          style : {
+            "fontSize" : "1.2rem",
+            "backgroundColor" : "var(--l1-elevation)",
+            "color" : "var(--text-color)",
+            "border" : "1px solid var(--l3-elevation)"
+          }
+        }
+      }
+                position="bottom-right"
+                 />
       <header className={location.pathname === "/" ? "" : "n"}>
         <div className="homepage-inner-top">
           {location.pathname === "/" ? (

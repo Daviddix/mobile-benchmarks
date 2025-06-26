@@ -7,7 +7,7 @@ const {
   userNotFoundInDataBase,
   switchToGoogleAccount,
 } = require("../JsonResponses/error");
-const { userCreated, loginSuccessful } = require("../JsonResponses/Success");
+const { userCreated, loginSuccessful, reportSubmitted } = require("../JsonResponses/Success");
 const userModel = require("../models/user.model");
 const {
   checkForDuplicateUsername,
