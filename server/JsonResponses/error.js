@@ -70,14 +70,24 @@ const notAuthorized = {
     message : "Sorry, you are not allowed to access that resource"
 }
 
+const missingData = {
+    status : "error",
+    type : "missing data",
+    message : "Seems like one or more data fields are missing. Please make sure all fields are filled before submitting"
+}
+
 module.exports = {
     duplicateUsername, 
-    duplicateEmail, 
-    noBodyDataError, unknownError, 
+    duplicateEmail,
+    missingData, 
+    noBodyDataError,
+    unknownError, 
     googleTokenError, 
     notAuthorized, 
     userNotFoundInDataBase, 
-    jwtTokenError, noJwtToken, switchToGoogleAccount, 
+    jwtTokenError, 
+    noJwtToken, 
+    switchToGoogleAccount, 
     invalidDataSubmitted,
-     imageUploadError
+    imageUploadError
     }

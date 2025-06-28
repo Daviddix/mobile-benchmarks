@@ -22,4 +22,10 @@ const reportSubmitted = {
     message : "The report you just made has been submitted successfully and will be reviewed. Thank you"
 }
 
-module.exports = {userCreated, reportSubmitted, loginSuccessful, gameSubmitted}
+const successfullyDeletedItem = {
+    status : "success",
+    type : "Item Deleted",
+    message : "The item has been successfully deleted"
+}
+
+module.exports = {userCreated, reportSubmitted, loginSuccessful, gameSubmitted, successfullyDeletedItem}
