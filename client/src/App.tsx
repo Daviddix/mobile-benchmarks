@@ -72,8 +72,8 @@ function App(){
 
         <Route element={<ProtectedAdminRoute />}>
           <Route path="/admin/review/game" element={<AdminGameReview />} />
-          <Route path="/admin/reports" element={<Reports />} />
           <Route path="/admin/review/game/:gameId" element={<GameToReviewInfo />} />
+          <Route path="/admin/reports" element={<Reports />} />
         </Route>
       <Route path="*" element={<NotFound />} />
       

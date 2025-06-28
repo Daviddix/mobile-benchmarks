@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import "./SingleReview.css"
+import "./SingleSubmission.css"
 
 type singleReviewProps = {
   phoneName: string;
@@ -9,9 +9,11 @@ type singleReviewProps = {
   frameRateImage: string;
   username: string;
   submissionId: string;
+  approveFunction: (submissionId: string) => void;
+  declineFunction: (submissionId: string) => void;
 }
 
-function SingleReview({numberOfGames, fpsImage, frameRateImage, graphicsImage, phoneName, submissionId, username} : singleReviewProps) {
+function SingleSubmission({numberOfGames, approveFunction, declineFunction, fpsImage, frameRateImage, graphicsImage, phoneName, submissionId, username} : singleReviewProps) {
   return (
     <div className="single-review">
             <div className="image-grid">
@@ -42,11 +44,16 @@ function SingleReview({numberOfGames, fpsImage, frameRateImage, graphicsImage, p
               {/* //TODO:IMPLEMENT APPROVE AND DECLINE BUTTONS */}
 
 
-              <button className="approve">Approve</button>
-              <button className="decline">Decline</button>
+              <button 
+              onClick={() => approveFunction(submissionId)}
+              className="approve">Approve</button>
+
+              <button
+              onClick={() => declineFunction(submissionId)}
+              className="decline">Decline</button>
             </div>
           </div>
   )
 }
 
-export default SingleReview
+export default SingleSubmission

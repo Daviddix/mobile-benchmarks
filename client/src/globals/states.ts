@@ -1,4 +1,4 @@
-import {atom} from "jotai"
+import {atom, useAtom} from "jotai"
 
 //types
 type popularPhoneInfo = {
@@ -50,3 +50,5 @@ export const userInfoAtom = atom<userInfo>({
   loading : true,
   error : false
 })
+
+export const isAdminAtom = atom(false)

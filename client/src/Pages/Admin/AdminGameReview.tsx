@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./AdminGameReview.css";
-import SingleReview from "./Components/SingleReview/SingleReview";
+import SingleSubmission from "./Components/SingleSubmission/SingleSubmission";
 
 function AdminGameReview() {
   const [submissions, setSubmissions] = useState<submissionData[]>([]);
@@ -19,9 +19,45 @@ function AdminGameReview() {
     }
   }
 
+  async function approveSubmission(submissionId: string){
+    try{
+      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+        method : "DELETE",
+        credentials : "include"
+      })
+      const responseInJson = await rawFetch.json()
+      if(!rawFetch.ok){
+        throw new Error("Error approving submission", {cause : responseInJson})
+      }
+      console.log("Submission approved successfully")
+      getAllSubmissions() // Refresh the list after approval
+    }catch(err){
+      console.log("Error approving submission")
+      console.log(err)
+  }}
+
+  async function declineSubmission(submissionId: string){
+    try{
+      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+        method : "DELETE",
+        credentials : "include"
+      })
+      const responseInJson = await rawFetch.json()
+      if(!rawFetch.ok){
+        throw new Error("Error declining submission", {cause : responseInJson})
+      }
+      console.log("Submission approved successfully")
+      getAllSubmissions() // Refresh the list after approval
+    }catch(err){
+      console.log("Error declining submission")
+      console.log(err)
+  }}
+
   const mappedSubmissions = submissions.map((submission) => {
     return (
-      <SingleReview 
+      <SingleSubmission 
+      approveFunction={approveSubmission}
+      declineFunction={declineSubmission}
       submissionId={submission._id}
       phoneName={submission.phoneInfo.phoneName}
       numberOfGames={submission.gameInfo.length}
@@ -43,7 +79,7 @@ function AdminGameReview() {
       <div className="admin-panel-inner">
         <div className="title">
           <h1>Games for Review</h1>
-          <small>{submissions.length || "Loading"}</small>
+          <small>{submissions.length || 0}</small>
         </div>
 
         <div className="all-games-to-review-container">

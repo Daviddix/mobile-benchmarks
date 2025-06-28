@@ -58,9 +58,34 @@ async function approveSubmission(req, res){
   }
 }
 
+async function declineSubmission(req, res){
+  try{
+    //remove the submission from the submission db then add it to the games db
+    const {submissionId} = req.params;
+
+    if(!submissionId){
+      return res.status(400).json(missingData);
+    }
+
+    const submittedGame = await submittedGameModel.findById(submissionId);
+    if(!submittedGame){
+      return res.status(404).json(invalidDataSubmitted);
+    }
+    //remove the submission
+    await submittedGameModel.findByIdAndDelete(submissionId);
+    //add the game to the games db
+    res.status(200).json(successfullyDeletedItem)
+  }
+  catch(err){
+    res.status(500).json({easy : err.message, generic : unknownError})
+
+  }
+}
+
 
 module.exports = {
     getAllSubmissions,
     getSubmittedGamesFromSubmissionId,
-    approveSubmission
+    approveSubmission,
+    declineSubmission
 }
