@@ -41,8 +41,6 @@ function SingleSubmission({numberOfGames, approveFunction, declineFunction, fpsI
                 </button>
               </Link>
 
-              {/* //TODO:IMPLEMENT APPROVE AND DECLINE BUTTONS */}
-
 
               <button 
               onClick={() => approveFunction(submissionId)}

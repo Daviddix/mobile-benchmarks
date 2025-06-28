@@ -7,9 +7,10 @@ type singleReportProps = {
         reasonForReport: string,
         populatedReportTypeInfo : populatedReportTypeInfo
         userInfo : populatesUserInfoType
+        resolveFunction : (reportId: string, reportInfo: populatedReportTypeInfo) => void
 }
 
-function SingleReport({reportType, reasonForReport, userInfo, populatedReportTypeInfo} : singleReportProps) {
+function SingleReport({reportType, resolveFunction, reasonForReport, userInfo, populatedReportTypeInfo} : singleReportProps) {
   return (
     <div className="single-report">
                     <div className="report-top">
@@ -53,7 +54,9 @@ function SingleReport({reportType, reasonForReport, userInfo, populatedReportTyp
                             </Link>
                         }
                         
-                        <button className='report-button-resolved'>Resolved</button>
+                        <button
+                       onClick={() => resolveFunction(populatedReportTypeInfo._id, populatedReportTypeInfo)}
+                        className='report-button-resolved'>Resolved</button>
                     </div>
                 </div>
   )

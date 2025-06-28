@@ -1,5 +1,5 @@
-const { unknownError } = require("../JsonResponses/error")
-const { reportSubmitted } = require("../JsonResponses/Success")
+const { unknownError, missingData, itemNotFound } = require("../JsonResponses/error");
+const { reportSubmitted } = require("../JsonResponses/Success");
 const reportModel = require("../models/reports.model")
 
 
@@ -44,11 +44,39 @@ async function reportInaccurateInfo(req, res) {
   }
   catch (err) {
     console.log(err);
-    res.status(500).json(unknownError);
+    res.status(500).json({
+          specific : err,
+          generic : unknownError})
   }
+}
+
+async function resolveReport(req, res){
+    try{
+        const {reportId} = req.params;
+
+        if(!reportId){
+            return res.status(400).json(missingData);
+        }
+
+        const report = await reportModel.findById(reportId);
+
+        if(!report){
+            return res.status(404).json(itemNotFound);
+        }
+
+        await reportModel.findByIdAndDelete(reportId);
+
+        res.status(200).json({message : "Report resolved successfully"});
+    }catch(err){
+        console.log(err);
+        res.status(500).json({
+          specific : err,
+          generic : unknownError})
+    }
 }
 
 module.exports = {
     getAllReports,
-    reportInaccurateInfo
+    reportInaccurateInfo,
+    resolveReport
 }

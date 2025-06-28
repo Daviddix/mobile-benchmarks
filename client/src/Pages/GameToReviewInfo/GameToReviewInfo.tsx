@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import "./GameToReviewInfo.css";
 import { useEffect, useState } from "react";
 import SingleGameSubmission from "./SingleGameSubmission/SingleGameSubmission";
@@ -6,6 +6,7 @@ import SingleGameSubmission from "./SingleGameSubmission/SingleGameSubmission";
 function GameToReviewInfo() {
     const {gameId} = useParams();
     const [info, setInfo] = useState<submissionData | null>(null);
+    const navigate = useNavigate();
     const mappedSingleGamesSubmissions = info?.gameInfo.map((game) => {
         return (
             <SingleGameSubmission 
@@ -40,6 +41,40 @@ function GameToReviewInfo() {
         }
     }
 
+     async function approveSubmission(submissionId: string){
+    try{
+      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+        method : "DELETE",
+        credentials : "include"
+      })
+      const responseInJson = await rawFetch.json()
+      if(!rawFetch.ok){
+        throw new Error("Error approving submission", {cause : responseInJson})
+      }
+      console.log("Submission approved successfully")
+      navigate(-1) // Refresh the list after approval
+    }catch(err){
+      console.log("Error approving submission")
+      console.log(err)
+  }}
+
+  async function declineSubmission(submissionId: string){
+    try{
+      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+        method : "DELETE",
+        credentials : "include"
+      })
+      const responseInJson = await rawFetch.json()
+      if(!rawFetch.ok){
+        throw new Error("Error declining submission", {cause : responseInJson})
+      }
+      console.log("Submission approved successfully")
+      navigate(-1) // Refresh the list after approval
+    }catch(err){
+      console.log("Error declining submission")
+      console.log(err)
+  }}
+
     useEffect(() => {
         getGamesFromSubmission()
     }, [gameId]);
@@ -56,8 +91,9 @@ function GameToReviewInfo() {
                 </div>
 
                 <div className="right">
-                    <button className="approve">Approve</button>
-                    <button className="decline">Decline</button>
+                    <button onClick={()=> approveSubmission(gameId as string)} className="approve">Approve</button>
+                    
+                    <button onClick={()=> declineSubmission(gameId as string)} className="decline">Decline</button>
                 </div>
             </div>
         </div>

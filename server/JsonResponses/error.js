@@ -76,6 +76,12 @@ const missingData = {
     message : "Seems like one or more data fields are missing. Please make sure all fields are filled before submitting"
 }
 
+const itemNotFound = {
+    status : "error",
+    type : "item not found",
+    message : "The item you are looking for cannot be found"
+}
+
 module.exports = {
     duplicateUsername, 
     duplicateEmail,
@@ -89,5 +95,6 @@ module.exports = {
     noJwtToken, 
     switchToGoogleAccount, 
     invalidDataSubmitted,
-    imageUploadError
+    imageUploadError,
+    itemNotFound
     }

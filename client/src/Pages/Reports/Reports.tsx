@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import SingleReport from "./components/SingleReport/SingleReport"
 import "./Reports.css"
 import { populatedReportTypeInfo } from "./types/reportTypes"
+import toast from "react-hot-toast"
 
 function Reports() {
     
@@ -35,6 +36,27 @@ function Reports() {
         }
     }
 
+    async function markAsResolved(reportId: string, reportInfo: populatedReportTypeInfo){
+        try{
+            const rawFetch = await fetch(`http://localhost:3000/api/report/resolve/${reportId}`, {
+                method: "PUT",
+                credentials: "include"
+            })
+
+            const responseInJson = await rawFetch.json()
+
+            if(!rawFetch.ok){
+                throw new Error(responseInJson)
+            }
+
+            getAllReports()
+            toast(`Successfully marked ${(reportInfo.phoneName || reportInfo.gameName)} report as resolved`)
+        }
+        catch(err){
+            console.error("Error marking report as resolved:", err)
+            alert("Failed to mark report as resolved. Please try again later.")
+    }}
+
     useEffect(()=>{
         getAllReports()
     }, [])
@@ -46,6 +68,7 @@ function Reports() {
         reportType={report.reportType}
         userInfo={report.userInfo}
         key={report._id}
+        resolveFunction={() => markAsResolved(report._id, report.reportTypeId)}
         />
     })
   return (
