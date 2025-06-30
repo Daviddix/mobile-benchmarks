@@ -1,8 +1,8 @@
 .single-game{
-    column-gap: .5rem;
+    column-gap: .8rem;
     display: flex;
     min-width: 300px;
-    align-items: start;
+    align-items: center;
 }
 
 .single-game > div{
@@ -34,6 +34,38 @@
     max-width: 15rem;
 }
 
+.single-game .size .android-ios-size{
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+    column-gap: .2rem;
+}
+
+.android-ios-size > div p{
+    display: flex;
+    column-gap: .3rem;
+    align-items: baseline;
+    flex: 1;
+    justify-content: space-between;
+
+    small{
+        font-weight: 600;
+        opacity: .7;
+        font-size: .8rem;
+    }
+}
+
+.android-ios-size hr{
+    width: 1rem;
+    color: var(--text-secondary-color);
+    opacity: .8;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+
 .more-game-text > div{
     display: flex;
     align-items: center;
@@ -45,6 +77,6 @@
 }
 
 .more-game-text div p{
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--text-secondary-color);
 }

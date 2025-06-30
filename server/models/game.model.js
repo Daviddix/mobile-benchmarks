@@ -1,11 +1,23 @@
 const mongoose = require("mongoose")
 
+const androidAndIosSizeSchema = new mongoose.Schema({
+    androidSize : {
+        type : Number,
+    },
+    iosSize : {
+        type : Number,
+    }
+})
+
 const minimumRequirementSchema = new mongoose.Schema({
     operatingSystem : {type: String, required : true},
     processor : {type : String, required : true},
     gpu : {type : String, required : true},
     ram : {type : Number, required : true},
-    storageSize : {type : Number, required : true},
+    storageSize : {
+        type :androidAndIosSizeSchema,
+        required : true
+    },
     additionalFeatures : {type : String, required : true}
 })
 
@@ -14,7 +26,10 @@ const recommendedRequirementSchema = new mongoose.Schema({
     processor : {type : String, required : true},
     gpu : {type : String, required : true},
     ram : {type : Number, required : true},
-    storageSize : {type : Number, required : true},
+    storageSize : {
+        type :androidAndIosSizeSchema,
+        required : true
+    },
     additionalFeatures : {type : String, required : true}
 })
 
@@ -58,7 +73,7 @@ const gameSchema = new mongoose.Schema({
         required : true
     },
     gameSize : {
-        type : Number,
+        type :androidAndIosSizeSchema,
         required : true
     },
     gamePlatform : {

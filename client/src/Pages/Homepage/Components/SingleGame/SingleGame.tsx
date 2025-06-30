@@ -4,11 +4,16 @@ import platformIcon from "./assets/icons/platform-icon.svg";
 import categoryIcon from "./assets/icons/game-category-icon.svg";
 import { useNavigate } from "react-router";
 
+type storageSizeType = {
+      androidSize : number,
+      iosSize : number
+    }
+
 type singleGameProps = {
   _id: string;
   gameName: string;
   gameCategory: string;
-  gameSize: number;
+  gameSize: storageSizeType;
   gamePlatform: string;
   gameCoverImage: string;
 };
@@ -54,7 +59,17 @@ function SingleGame({
 
           <div className="size">
             <img src={ramIcon} alt="storage icon" />
-            <p>{formatSize(gameSize)}</p>
+            <div className="android-ios-size">
+              <div className="android-size">
+                <p>{formatSize(gameSize.androidSize)} <small>Android</small></p>
+              </div>
+
+              <hr />
+
+              <div className="ios-size">
+                <p>{formatSize(gameSize.iosSize)} <small>iOS</small></p>
+              </div>
+            </div>
           </div>
 
           <div className="platform">

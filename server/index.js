@@ -14,10 +14,10 @@ const adminRouter = require("./routes/admin.route");
 const reportRouter = require("./routes/report.route");
 const googlePlay = require("google-play-scraper").default;
 
-googlePlay.app({appId: 'com.google.android.apps.translate'})
-  .then(console.log, console.log);
+// googlePlay.app({appId: 'com.google.android.apps.translate'})
+//   .then(console.log, console.log);
 
-console.log(googlePlay)
+// console.log(googlePlay)
 
 
 const allowedOrigins = ["http://localhost:5173", "https://mobile-benchmarks.vercel.app", ]; // Add more for prod if needed

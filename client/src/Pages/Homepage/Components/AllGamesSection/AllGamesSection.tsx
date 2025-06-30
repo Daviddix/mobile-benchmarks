@@ -14,11 +14,15 @@ function AllGamesSection() {
   const [filteredGames, setFilteredGames] = useAtom(filteredGamesAtom)
 
     type fetchingStateType = "loading" | "error" | "completed"
+    type storageSizeType = {
+      androidSize : number,
+      iosSize : number
+    }
     type gameData = {
         _id : string;
         gameName: string;
         gameCategory: string;
-        gameSize: number;
+        gameSize: storageSizeType;
         gamePlatform: string;
         gameCoverImage: string;
     }

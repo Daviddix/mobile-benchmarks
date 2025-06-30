@@ -20,7 +20,7 @@ async function addNewGame(req, res){
 
 async function getAllGames(req, res){
     try{
-        const allGames = await gameModel.find({}).limit(10) 
+        const allGames = await gameModel.find({}).limit(20) 
 
         res.status(200).json(allGames)
     }

@@ -10,11 +10,16 @@ type popularPhoneInfo = {
     phoneMemory: number[];
 }
 
+type storageSizeType = {
+      androidSize : number,
+      iosSize : number
+    }
+
 type gameData = {
     _id : string;
     gameName: string;
     gameCategory: string;
-    gameSize: number;
+    gameSize: storageSizeType;
     gamePlatform: string;
     gameCoverImage: string;
   }
