@@ -1,3 +1,4 @@
+import { formatSize } from "../../../../libs/size";
 import "./RequirementSection.css"
 
 type Requirements = {
@@ -5,7 +6,10 @@ type Requirements = {
     processor: string;
     gpu: string;
     ram: number;
-    storageSize: number;
+    storageSize: {
+      androidSize : number,
+      iosSize : number
+    };
     additionalFeatures: string;
   };
 
@@ -48,7 +52,19 @@ function RequirementSection({minimumRequirements, recommendedRequirements} : req
           </tr>
           <tr>
             <td>Storage(GB)</td>
-            <td>{minimumRequirements.storageSize}</td>
+            <td>
+              <div className="android-ios-size">
+              <div className="android-size">
+                <p>{formatSize(minimumRequirements?.storageSize?.androidSize)}<small>Android</small></p>
+              </div>
+
+              <hr />
+
+              <div className="ios-size">
+                <p>{formatSize(minimumRequirements?.storageSize?.iosSize)}<small>iOS</small></p>
+              </div>
+            </div>
+            </td>
           </tr>
           <tr>
             <td>Additional Features</td>
@@ -83,8 +99,22 @@ function RequirementSection({minimumRequirements, recommendedRequirements} : req
             <td>{recommendedRequirements.ram}</td>
           </tr>
           <tr>
-            <td>Storage(GB)</td>
-            <td>{recommendedRequirements.storageSize}</td>
+            <td>Storage</td>
+            <td>
+
+              <div className="android-ios-size">
+              <div className="android-size">
+                <p>{formatSize(recommendedRequirements?.storageSize?.androidSize)}<small>Android</small></p>
+              </div>
+
+              <hr />
+
+              <div className="ios-size">
+                <p>{formatSize(recommendedRequirements?.storageSize?.iosSize)}<small>iOS</small></p>
+              </div>
+
+            </div>
+            </td>
           </tr>
           <tr>
             <td>Additional Features</td>

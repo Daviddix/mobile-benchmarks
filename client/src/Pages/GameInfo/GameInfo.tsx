@@ -21,7 +21,10 @@ function GameInfo() {
     processor: string;
     gpu: string;
     ram: number;
-    storageSize: number;
+    storageSize: {
+      androidSize : number,
+      iosSize: number
+    };
     additionalFeatures: string;
   };
 

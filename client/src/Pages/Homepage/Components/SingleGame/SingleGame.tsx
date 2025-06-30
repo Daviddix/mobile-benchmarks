@@ -3,6 +3,7 @@ import ramIcon from "./assets/icons/ram-icon.svg";
 import platformIcon from "./assets/icons/platform-icon.svg";
 import categoryIcon from "./assets/icons/game-category-icon.svg";
 import { useNavigate } from "react-router";
+import { formatSize } from "../../../../libs/size";
 
 type storageSizeType = {
       androidSize : number,
@@ -28,13 +29,7 @@ function SingleGame({
 }: singleGameProps) {
   const navigate = useNavigate();
 
-  function formatSize(size : number){
-    if(size >= 1000){
-      return size / 1000 + "GB"
-    }else{
-      return size + "MB"
-    }
-  }
+
   return (
     <div className="single-game">
       <img
