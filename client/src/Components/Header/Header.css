@@ -46,7 +46,7 @@ header.n{
 }
 
 header form{
-    border-block:1.5px solid var(--l4-elevation);
+    border-block:1.5px solid #5151515e;
     height: 6.5rem;
     background-color: rgba(0, 0, 0, 0.295);
     display:flex;
