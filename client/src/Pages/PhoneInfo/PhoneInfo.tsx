@@ -12,26 +12,10 @@ function PhoneInfo() {
   const {phoneId} = useParams()
 
   type fetchingStateType = "loading" | "error" | "completed"
-  type phoneInfoType = {
-    _id: number,
-    phoneName: string,
-    phoneChipset: string,
-    phoneCoverImage: string,
-    phoneDisplay: string[],
-    phoneMemory: number[],
-    moreInfo: {
-      generalCompatibility: number,
-      gpu: string,
-      averageRating: string[],
-      geekBench: number,
-      anTutu: number,
-      threeDMark: number,
-    }
-  }
   
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
-  const [phoneData, setPhoneData] = useState<phoneInfoType |null>(null)
+  const [phoneData, setPhoneData] = useState<phoneData |null>(null)
   const [showReportModal, setShowReportModal] = useState(false)
   const [showReportButton, setShowReportButton] = useState(false)
 

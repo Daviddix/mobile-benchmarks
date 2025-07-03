@@ -4,36 +4,31 @@ import logo from "./assets/icons/logo.svg";
 import backIcon from "./assets/icons/back-icon.svg";
 import toast, { Toaster } from "react-hot-toast";
 import {
-  Link,
   Outlet,
   useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router";
 import "./Header.css";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import {
   allPopularGamesAtom,
   allPopularPhonesAtom,
   filteredGamesAtom,
   filteredPhonesAtom,
-  itemsToViewAtom,
   searchAtom,
   searchingState,
 } from "../../globals/states";
 import { useEffect, useState } from "react";
-import HomeIcon from "./assets/icons/HomeIcon";
-import LeaderBoardIcon from "./assets/icons/LeaderBoardIcon";
-import ContributeIcon from "./assets/icons/ContributeIcon";
 import Nav from "./Components/Nav/Nav";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useAtom(searchAtom);
-  const [allPopularPhones, setAllPopularPhones] = useAtom(allPopularPhonesAtom);
-  const [allPopularGames, setAllPopularGames] = useAtom(allPopularGamesAtom);
-  const [filteredPhones, setFilteredPhones] = useAtom(filteredPhonesAtom);
-  const [filteredGames, setFilteredGames] = useAtom(filteredGamesAtom);
-  const [isSearching, setIsSearching] = useAtom(searchingState);
+  const allPopularPhones = useAtomValue(allPopularPhonesAtom);
+  const allPopularGames = useAtomValue(allPopularGamesAtom);
+  const setFilteredPhones = useSetAtom(filteredPhonesAtom);
+  const setFilteredGames = useSetAtom(filteredGamesAtom);
+  const setIsSearching = useSetAtom(searchingState);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialView = searchParams.get("page") || "Phones";
   const [itemsToView, setItemsToView] = useState(initialView);
@@ -49,26 +44,9 @@ function Header() {
     setSearchQuery("");
   }, [itemsToView, location.pathname, setSearchParams]);
 
-  type popularPhoneInfo = {
-    _id: string;
-    phoneName: string;
-    phoneChipset: string;
-    phoneCoverImage: string;
-    phoneDisplay: string[];
-    phoneMemory: number[];
-  };
-  type gameData = {
-    _id: string;
-    gameName: string;
-    gameCategory: string;
-    gameSize: number;
-    gamePlatform: string;
-    gameCoverImage: string;
-  };
-
   function searchPhoneList(
     searchText: string,
-    arrayToSearch: popularPhoneInfo[],
+    arrayToSearch: phoneData[],
     arrayToUpdateSetterFunction: Function
   ) {
     if (searchText.trim() == "") {

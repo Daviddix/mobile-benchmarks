@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import "./AllGamesSection.css"
 import AllGamesSkeletonLoader from "./Components/AllGamesSkeletonLoader/AllGamesSkeletonLoader"
 import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent"
+import { gameData } from "../../../../globals/types"
 
 
 function AllGamesSection() {
@@ -14,18 +15,6 @@ function AllGamesSection() {
   const [filteredGames, setFilteredGames] = useAtom(filteredGamesAtom)
 
     type fetchingStateType = "loading" | "error" | "completed"
-    type storageSizeType = {
-      androidSize : number,
-      iosSize : number
-    }
-    type gameData = {
-        _id : string;
-        gameName: string;
-        gameCategory: string;
-        gameSize: storageSizeType;
-        gamePlatform: string;
-        gameCoverImage: string;
-    }
 
 
     async function getPopularGames(){

@@ -16,18 +16,6 @@ function GameInfo() {
 
   type tabTypes = "requirements" | "supported"
 
-  type Requirements = {
-    operatingSystem: string;
-    processor: string;
-    gpu: string;
-    ram: number;
-    storageSize: {
-      androidSize : number,
-      iosSize: number
-    };
-    additionalFeatures: string;
-  };
-
   type popularPhoneInfo = {
     _id: string;
     phoneName: string;
@@ -36,35 +24,9 @@ function GameInfo() {
     phoneDisplay: string[];
     phoneMemory: number[];
   }
-  
-  type GameRequirements = {
-    minimumRequirements: Requirements;
-    recommendedRequirements: Requirements;
-  };
-  
-  type MoreInfo = {
-    supportedDevices : popularPhoneInfo[];
-    similarGames : Game[];
-    gameRequirements: GameRequirements;
-    gameScreenshots?: string[]; // Optional array of strings
-  };
-  
-  type Game = {
-    gameName: string;
-    gameCategory: string;
-    gameSize: number;
-    gamePlatform: string;
-    gameCoverImage: string;
-    gameDescription: string;
-    gameYearOfRelease: number;
-    gameRating: [number, number]; // Tuple with exactly 2 numbers
-    androidDownloadLink: string;
-    iosDownloadLink: string;
-    moreInfo: MoreInfo;
-  };
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
-  const [gameInfo, setGameInfo] = useState<Game | null>(null)
+  const [gameInfo, setGameInfo] = useState<gameData | null>(null)
   const [tabToView, setTabToView] = useState<tabTypes>("requirements")
   const [showReportButton, setShowReportButton] = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
@@ -74,7 +36,7 @@ function GameInfo() {
     try{
       setFetchingState("loading")
       const rawFetch = await fetch(`http://localhost:3000/api/game/${gameId}`)
-      const responseInJson : Game = await rawFetch.json()
+      const responseInJson : gameData = await rawFetch.json()
       
       if(!rawFetch.ok){
         throw new Error("An error occurred", {cause : responseInJson})

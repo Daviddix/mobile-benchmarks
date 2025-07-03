@@ -6,8 +6,9 @@ import { Link, useNavigate } from 'react-router'
 import { useEffect, useState } from "react"
 
 declare const google: any;
+
 type userSignupDetails = {
-  username : string;
+  username : string; 
   password: string;
   email : string;
 }
@@ -24,23 +25,23 @@ function Signup() {
   const [signupErrorMessage, setSignupErrorMessage] = useState("")
   
   useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id:  import.meta.env.VITE_GOOGLE_CLIENT_ID,
-      callback: handleCredentialResponse,
-    });
-
-    google.accounts.id.renderButton(
-      document.getElementById("googleBtn"),
-      {
-        theme: "outline",         // or "filled_blue", "filled_black"
-        size: "large",            // "small" | "medium" | "large"
-        shape: "pill",            // "rectangular" | "pill" | "circle"
-        width: "100%",            // Sets the full width
-        logo_alignment: "center", // or "left"
-        text: "continue_with",    // or "signin_with", "signup_with"
-      }
-    );
+      google?.accounts.id.initialize({
+        client_id:  import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+      });
+  
+      google?.accounts.id.renderButton(
+        document.getElementById("googleBtn"),
+        {
+          theme: "outline",         // or "filled_blue", "filled_black"
+          size: "large",            // "small" | "medium" | "large"
+          shape: "pill",            // "rectangular" | "pill" | "circle"
+          width: "100%",            // Sets the full width
+          logo_alignment: "center", // or "left"
+          text: "continue_with",    // or "signin_with", "signup_with"
+        }
+      );
+ 
   }, []);
 
   const handleCredentialResponse = async (response : any) => {
