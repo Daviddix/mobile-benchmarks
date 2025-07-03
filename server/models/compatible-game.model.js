@@ -6,6 +6,7 @@ const compatibleGameSchema = new mongoose.Schema({
         required : true,
         ref : "Phones"
     },
+    
     compatibleGamesInfo: [{
     game: { 
         type: mongoose.Schema.Types.ObjectId, 

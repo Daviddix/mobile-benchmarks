@@ -72,3 +72,21 @@ type userInfo = {
   loading : boolean;
   error : boolean;
 }
+
+type GameSubset = Pick<gameData, '_id' | 'gameName' | 'gameCoverImage' | 'gameDescription' | "androidDownloadLink" | "iosDownloadLink">;
+
+type compatibleGame = {
+  phone: string;
+  compatibleGamesInfo : [
+    {
+      game : GameSubset;
+      gameCompatibilityRating: number;
+      gamePerformanceStats : {
+        fps: number;
+        frameRate: string;
+        graphicsQuality: string;
+        batteryUsagePerHour: number;
+      }
+    }
+  ]
+}

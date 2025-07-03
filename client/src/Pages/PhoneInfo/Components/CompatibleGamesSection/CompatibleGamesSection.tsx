@@ -11,26 +11,6 @@ type compatibleGamesSectionProps = {
 function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {    
     type fetchingStateType = "loading" | "error" | "completed"
 
-    type compatibleGame = {
-        _id: string,
-        phone: string,
-        compatibleGamesInfo: [
-          {
-            gameCoverImage: string,
-            gameName:string,
-            gameCompatibilityRating: number,
-            gameDescription:string,
-            gameData: {
-              fps: number,
-              frameRate: string,
-              playStoreDownloadLink: string,
-              iosDownloadLink: string,
-              graphicsQuality: string,
-              batteryUsagePerHour: number,
-            }
-          }
-        ]
-      }
 
   const [compatibleGameFetchingState, setCompatibleGameFetchingState] = useState<fetchingStateType>("loading")
   const [compatibleGameData, setCompatibleGameData] = useState<compatibleGame | null>(null)
@@ -55,14 +35,16 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
     }
   }
 
-    const mappedCompatibleGames = compatibleGameData?.compatibleGamesInfo?.sort((a,b)=>b.gameCompatibilityRating - a.gameCompatibilityRating).map(({gameCompatibilityRating, gameDescription, gameData, gameCoverImage, gameName})=>{
+    const mappedCompatibleGames = compatibleGameData?.compatibleGamesInfo?.sort((a,b)=>b.gameCompatibilityRating - a.gameCompatibilityRating).map(({gameCompatibilityRating, game, gamePerformanceStats})=>{
         return <CompatibleGame 
-        key={gameName}
+        key={game.gameName}
         gameCompatibilityRating={gameCompatibilityRating}
-        gameData={gameData}
-        gameCoverImage={gameCoverImage}
-        gameName={gameName}
-        gameDescription={gameDescription}
+        gamePerformanceStats={gamePerformanceStats}
+        gameCoverImage={game.gameCoverImage}
+        gameName={game.gameName}
+        gameIosLink={game.iosDownloadLink}
+        gameAndroidLink={game.androidDownloadLink}
+        gameDescription={game.gameDescription}
         />
       })
 
