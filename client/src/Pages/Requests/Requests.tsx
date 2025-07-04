@@ -7,6 +7,7 @@ function Requests() {
   const [allRequests, setAllRequests] = useState<requestType[]>([])
 
   async function getAllRequests(){
+    setAllRequests([])
     try{
       const rawFetch = await fetch("http://localhost:3000/api/request/get-all",{
         credentials : "include"
@@ -28,6 +29,7 @@ function Requests() {
 
   const mappedRequests = allRequests.map((request)=>{
     return <SingleRequest 
+    refetchFunction={getAllRequests}
     _id={request._id}
     key={request._id}
     requestItem={request.requestItem}
