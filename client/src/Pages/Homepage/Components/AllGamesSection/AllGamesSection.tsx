@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import "./AllGamesSection.css"
 import AllGamesSkeletonLoader from "./Components/AllGamesSkeletonLoader/AllGamesSkeletonLoader"
 import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent"
+import RequestItem from "../RequestItem/RequestItem"
 
 
 function AllGamesSection() {
@@ -81,7 +82,9 @@ function AllGamesSection() {
                     :
                     isSearching?
                     mappedFilteredGames.length == 0?
-                    <div>Couldn't find your game search</div>
+                    <RequestItem 
+                    itemType='Game'
+                    />
                       :
                         mappedFilteredGames
                         :

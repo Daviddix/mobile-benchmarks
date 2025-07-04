@@ -1,0 +1,68 @@
+.all-requests-container .single-request{
+    background-color: var(--l1-elevation);
+    width: 100%;
+    padding: .8rem;
+    border: 1px solid var(--l2-elevation);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+
+.single-request .request-container{
+    background-color: var(--l2-elevation);
+    margin: 0 0 1.5rem 0;
+    overflow: hidden;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    padding: 0 0 .5rem;
+    border: 1px solid var(--l3-elevation);
+}
+
+.single-request .request-container p{
+    margin: .8rem 0 0 .8rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.request-container .request-container-header{
+    background-color: var(--l3-elevation);
+    padding: .3rem .8rem;
+}
+
+.request-container-header h3{
+    opacity: .7;
+    font-weight: 500;
+}
+
+.single-request .single-request-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: .5rem;
+}
+
+.single-request-buttons button{
+    flex: 1;
+    padding: .8rem;
+    font-weight: 600;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+    border:none;
+    background-color: var(--l2-elevation);
+}
+
+.single-request-buttons button.add{
+    color: #68FD68;
+}
+
+.single-request-buttons button.discard{
+    color: #FD7C68;
+}

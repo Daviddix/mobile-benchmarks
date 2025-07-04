@@ -140,7 +140,7 @@
 }
 
 button .circular-loader{
-    border: 4px solid var(--primary-100);
+    border: 4px solid var(--primary-800);
     border-radius: 50%;
     border-left-color: transparent;
     width: 3rem;

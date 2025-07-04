@@ -12,6 +12,7 @@ const submittedGameRouter = require("./routes/submitted-game.route")
 const cookieParser = require("cookie-parser"); 
 const adminRouter = require("./routes/admin.route");
 const reportRouter = require("./routes/report.route");
+const requestRouter = require("./routes/request.route");
 const googlePlay = require("google-play-scraper").default;
 
 // googlePlay.app({appId: 'com.google.android.apps.translate'})
@@ -38,6 +39,7 @@ app.use("/api/submit-game", submittedGameRouter)
 app.use("/api/user", userRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/report", reportRouter)
+app.use("/api/request", requestRouter)
 
 app.listen(PORT, async () => {
     try{

@@ -1,4 +1,4 @@
-.homepage-main .popular-phones h2{
+.homepage-main .popular-phones > h2{
     font-size: 1.8rem;
     font-weight: 600;
     padding: 2rem 0;

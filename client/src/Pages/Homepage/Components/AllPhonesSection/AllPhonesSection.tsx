@@ -6,6 +6,7 @@ import { allPopularPhonesAtom, filteredPhonesAtom, searchingState } from '../../
 import SinglePhone from '../SinglePhone/SinglePhone'
 import ErrorComponent from '../../../../Components/ErrorComponent/ErrorComponent'
 import RequestItem from '../RequestItem/RequestItem'
+import RequestItemModal from '../RequestItemModal/RequestItemModal'
 
 function AllPhonesSection() {
   type fetchingStateType = "loading" | "error" | "completed"
