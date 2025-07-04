@@ -5,18 +5,10 @@ import { useAtom } from 'jotai'
 import { allPopularPhonesAtom, filteredPhonesAtom, searchingState } from '../../../../globals/states'
 import SinglePhone from '../SinglePhone/SinglePhone'
 import ErrorComponent from '../../../../Components/ErrorComponent/ErrorComponent'
+import RequestItem from '../RequestItem/RequestItem'
 
 function AllPhonesSection() {
   type fetchingStateType = "loading" | "error" | "completed"
-
-  type popularPhoneInfo = {
-    _id: string;
-    phoneName: string;
-    phoneChipset: string;
-    phoneCoverImage: string;
-    phoneDisplay: string[];
-    phoneMemory: number[];
-  }
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
 
@@ -55,7 +47,7 @@ function AllPhonesSection() {
   async function getPopularPhones(){
     try{
       const rawFetch = await fetch("http://localhost:3000/api/phone/get-all")
-      const responseInJson : popularPhoneInfo[] = await rawFetch.json()
+      const responseInJson : phoneData[] = await rawFetch.json()
 
       if(!rawFetch.ok){
         throw new Error("Fetching Error" , {cause : responseInJson})
@@ -76,7 +68,7 @@ function AllPhonesSection() {
 
   return (
     <div className="popular-phones">
-    {fetchingState !== "error" && <h2>Popular Phones</h2>}
+    {fetchingState !== "error" &&  <h2>Popular Phones</h2>}
 
     <div className={fetchingState == "error"? "all-phones-container error" : "all-phones-container"}>
     {
@@ -92,7 +84,9 @@ function AllPhonesSection() {
       :
       isSearching ?
       mappedFilteredPhones.length == 0 ?
-      <div>Couldn't find your search</div>
+      <RequestItem 
+      itemType='Phone'
+      />
         :
           mappedFilteredPhones
           :

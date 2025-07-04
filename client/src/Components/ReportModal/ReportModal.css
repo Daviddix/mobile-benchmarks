@@ -89,21 +89,32 @@
     resize: none;
 }
 
+.main-report-modal form .submit-report-button.empty{
+    background-color: var(--l2-elevation);
+    color: var(--text-secondary-color);
+    cursor: not-allowed;
+}
+
 .main-report-modal form .submit-report-button{
     display: flex;
     align-items: center;
     justify-content: center;
     width:100%;
-    color: var(--text-secondary-color);
+    color: #000;
     font-weight: 600;
     font-size: 1.4rem;
     padding: 1.5rem;
     border: 1px solid var(--l3-elevation);
-    background-color: var(--l2-elevation);
+    background-color: var(--text-color);
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
     margin: .5rem 0 0;
+    transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    -o-transition: all .4s ease;
 }

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import "./AllGamesSection.css"
 import AllGamesSkeletonLoader from "./Components/AllGamesSkeletonLoader/AllGamesSkeletonLoader"
 import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent"
-import { gameData } from "../../../../globals/types"
 
 
 function AllGamesSection() {

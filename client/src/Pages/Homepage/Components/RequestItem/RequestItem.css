@@ -1,0 +1,40 @@
+
+.homepage-main .all-phones-container:has(.request-item){
+    display: block;
+}
+
+
+.homepage-main .request-item{
+    margin: 0 auto;
+    padding: 4rem 0;
+    width: fit-content;
+}
+
+.request-item h3{
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.request-item p{
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    text-align: center;
+    opacity: .7;
+    max-width: 60%;
+    margin: 0 auto 1rem auto;
+}
+
+.request-item button{
+    display: block;
+    margin: auto;
+    padding: .8rem 1.5rem;
+    border: 1px solid var(--l1-elevation);
+    background-color: var(--text-color);
+    font-weight: 500;
+    border-radius: .5rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    -ms-border-radius: .5rem;
+    -o-border-radius: .5rem;
+}

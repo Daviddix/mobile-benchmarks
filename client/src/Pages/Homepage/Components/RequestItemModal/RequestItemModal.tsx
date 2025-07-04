@@ -1,17 +1,11 @@
-import "./ReportModal.css"
+import "./RequestItemModal.css"
 import reportIcon from "./assets/icons/report-icon.svg"
 import closeIcon from "./assets/icons/close-icon.svg"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
-    type reportModalProps = {
-        reportType : "Games" | "Phones",
-        closeFn : Function,
-        reportTypeName : string,
-        reportTypeId : string
-    }
 
-function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : reportModalProps) {
+function RequestItemModal () {
     type reportStatus = "submitted" | "submitting" | "error"
     const [reasonForReport, setReasonForReport] = useState("")
     const [submittingReportStatus, setSubmittingReportStatus] = useState<reportStatus>("submitted")
@@ -55,7 +49,7 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
 
 
   return (
-    <div className="report-modal-background">
+    <div className="request-item-modal-background">
         <div className="main-report-modal">
         <div className="modal-header">
             
@@ -64,9 +58,9 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
             </div>
 
             <div className="main-content">
-            <h2>Report  Issue</h2>
+            <h2>Request Phone</h2>
 
-            <p>Report an issue with the information provided about <b>{reportTypeName}</b></p>
+            <p>Request a phone you want to see <b>{reportTypeName}</b></p>
             </div>
 
             <button 
@@ -83,19 +77,11 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
                 submitReport()
             }}
             >
-                <label htmlFor="report-reason">Reason for Report:</label>
+                <label htmlFor="report-reason">Phone Name</label>
                 
-                <textarea 
-                minLength={5}
-                maxLength={1000}
-                required
-                value={reasonForReport}
-                onChange={(e)=>{
-                    setReasonForReport(e.target.value)
-                }}
-                name="report-reason" placeholder="There's an issue with..."></textarea>
+                <input type="text" name="phone name" placeholder="Samsung Galaxy S25 Ultra" />
 
-                <button className={reasonForReport.trim() == ""? "submit-report-button empty" : "submit-report-button"}>
+                <button className="submit-report-button">
                     {
                         submittingReportStatus == "submitting" ?
                         <div className="circular-loader"></div>
@@ -111,4 +97,4 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
   )
 }
 
-export default ReportModal
+export default RequestItemModal
