@@ -10,6 +10,10 @@ header{
     flex-direction: column;
 }
 
+header .logo-and-nav > img{
+    width: 2.5rem;
+}
+
 header.n{
     padding: 2rem 0 2rem 0;
     border-bottom: 1px solid var(--l3-elevation);

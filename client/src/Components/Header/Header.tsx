@@ -1,6 +1,6 @@
 import searchIcon from "./assets/icons/search-icon.svg";
 import cameraIcon from "./assets/icons/camera-icon.svg";
-import logo from "./assets/icons/logo.svg";
+import logo from "../../../public/logo.svg";
 import backIcon from "./assets/icons/back-icon.svg";
 import toast, { Toaster } from "react-hot-toast";
 import {
