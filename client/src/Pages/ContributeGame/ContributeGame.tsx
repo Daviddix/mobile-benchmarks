@@ -1,6 +1,6 @@
 import "./ContributeGame.css"
 import smallPhoneIcon from "./assets/icons/small-phone-icon.svg"
-import smallPadIcon from "./assets/icons/small-pad-icon.svg"
+import controller from "./assets/icons/controller-icon.svg"
 import PhoneInformation from "./components/PhoneInformation/PhoneInformation";
 import GameInformation from "./components/GameInformation/GameInformation";
 import { useNavigate, useSearchParams } from "react-router";
@@ -48,7 +48,7 @@ function ContributeGame() {
                 
                 <div className={step == 2 ? "game-info-container progress" : "game-info-container"}>
                     <div>
-                        <img src={smallPadIcon} alt="game icon" />
+                        <img src={controller} alt="game icon" />
                     </div>
                         <p>Game Information</p>
                     
