@@ -82,6 +82,12 @@ const itemNotFound = {
     message : "The item you are looking for cannot be found"
 }
 
+const rateLimitedHit = {
+    status : "error",
+    type: "rate limit",
+    message : "Seems like you have made too many request. Please wait and try again in 15 minutes"
+}
+
 module.exports = {
     duplicateUsername, 
     duplicateEmail,
@@ -96,5 +102,6 @@ module.exports = {
     switchToGoogleAccount, 
     invalidDataSubmitted,
     imageUploadError,
-    itemNotFound
+    itemNotFound,
+    rateLimitedHit
     }

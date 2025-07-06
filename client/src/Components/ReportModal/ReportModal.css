@@ -122,3 +122,16 @@
     -ms-transition: all .4s ease;
     -o-transition: all .4s ease;
 }
+
+.report-error-message-container{
+    width: 95%;
+    margin: 1rem auto 0;
+    border-radius: .8rem;
+    padding: 1rem;
+    border:1px solid var(--red-badge-text);
+    -webkit-border-radius: .8rem;
+    -moz-border-radius: .8rem;
+    -ms-border-radius: .8rem;
+    -o-border-radius: .8rem;
+    color: var(--red-badge-bg);
+}

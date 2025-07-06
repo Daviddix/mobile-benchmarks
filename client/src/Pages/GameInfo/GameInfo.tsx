@@ -114,11 +114,12 @@ function GameInfo() {
           <div className="heading-and-button">
           <h2>{gameInfo?.gameName}</h2>
 
-          <button className="report-inaccurate-info-button">
-          <img
+          <button 
           onClick={()=>{
             setShowReportButton((prev)=> !prev)
           }}
+          className="report-inaccurate-info-button">
+          <img
           src={menuIcon} alt="report inaccurate info icon" />
           </button>
 

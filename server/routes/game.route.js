@@ -1,5 +1,6 @@
 const express = require("express")
 const { addNewGame, getAllGames, getGameInfo } = require("../controllers/game.controller")
+const { limiter } = require("../middlewares/rate-limit-middlewares")
 
 const gameRouter = express.Router()
 

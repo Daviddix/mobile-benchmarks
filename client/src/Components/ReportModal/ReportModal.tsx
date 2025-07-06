@@ -15,6 +15,7 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
     type reportStatus = "submitted" | "submitting" | "error"
     const [reasonForReport, setReasonForReport] = useState("")
     const [submittingReportStatus, setSubmittingReportStatus] = useState<reportStatus>("submitted")
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     async function submitReport(){
         if(reasonForReport.trim() == "") return
@@ -48,8 +49,11 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
 
         }catch(err){
             setSubmittingReportStatus("error")
-            console.error("Error reporting issue:", err);
-            alert("An error occurred while reporting the issue. Please try again later.");
+            if (err instanceof Error) {
+                setErrorMessage(err.message)
+            } else {
+                setErrorMessage("An unknown error occurred.")
+            }
         }
     }
 
@@ -89,13 +93,18 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
                 minLength={5}
                 maxLength={1000}
                 required
+                disabled={submittingReportStatus == "submitting"}
                 value={reasonForReport}
                 onChange={(e)=>{
+                    if(errorMessage) setErrorMessage(null)
+
                     setReasonForReport(e.target.value)
                 }}
                 name="report-reason" placeholder="There's an issue with..."></textarea>
 
-                <button className={reasonForReport.trim() == ""? "submit-report-button empty" : "submit-report-button"}>
+                <button 
+                disabled={submittingReportStatus == "submitting"}
+                className={reasonForReport.trim() == ""? "submit-report-button empty" : "submit-report-button"}>
                     {
                         submittingReportStatus == "submitting" ?
                         <div className="circular-loader"></div>
@@ -106,6 +115,10 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
                     </button>   
             </form>
             </div>
+
+           {errorMessage && <div className="report-error-message-container">
+                <p className="error">{errorMessage}</p>
+            </div>}
         </div>
     </div>
   )

@@ -10,7 +10,7 @@ function SingleRequest({requestItem, requestType, _id, refetchFunction} : single
     async function approveRequest(requestId: string){
     try{
       const rawFetch = await fetch(`http://localhost:3000/api/request/add/${requestId}`, {
-        method : "POST",
+        method : "PUT",
         credentials : "include"
       })
       const responseInJson = await rawFetch.json()
