@@ -1,4 +1,4 @@
-const { jwtTokenError, noJwtToken } = require("../JsonResponses/error")
+const { jwtTokenError, noJwtToken, notAuthorized } = require("../JsonResponses/error")
 const JWT_SECRET = process.env.JWT_SECRET
 const jwt = require("jsonwebtoken")
 const { getEmailFromUserId } = require("../utils/admin.utils")

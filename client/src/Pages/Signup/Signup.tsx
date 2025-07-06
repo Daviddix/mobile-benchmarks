@@ -7,6 +7,13 @@ import { useEffect, useState } from "react"
 
 declare const google: any;
 
+declare global {
+  interface Window {
+    google?: any;
+  }
+}
+
+
 type userSignupDetails = {
   username : string; 
   password: string;
@@ -23,9 +30,17 @@ function Signup() {
   })
   const [signupFetchStatus, setSignupFetchStatus] = useState<signupFetchType>("completed")
   const [signupErrorMessage, setSignupErrorMessage] = useState("")
+  const [googleIsAvailable, setGoogleIsAvailable] = useState(true)
   
   useEffect(() => {
-      google?.accounts.id.initialize({
+
+     if(!window.google){
+      setGoogleIsAvailable(false)
+      return
+    }
+
+      setGoogleIsAvailable(true)
+      google.accounts.id.initialize({
         client_id:  import.meta.env.VITE_GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
       });
@@ -182,7 +197,7 @@ function Signup() {
                   </button>
               </form>
     
-              <div className="other-signup-form">
+              {googleIsAvailable && <div className="other-signup-form">
     
               <p className="divider">OR</p>
     
@@ -193,7 +208,8 @@ function Signup() {
               </button>
     
               <p>Already have an account? <Link to="/login">Login</Link></p>
-              </div>
+              </div>}
+
             </div>
           </div>
         </main>

@@ -7,6 +7,12 @@ import { useEffect, useState } from "react"
 
 declare const google: any;
 
+declare global {
+  interface Window {
+    google?: any;
+  }
+}
+
 type userLoginDetails = {
   password: string;
   email : string;
@@ -22,6 +28,7 @@ function Login() {
   })
   const [loginFetchStatus, setLoginFetchStatus] = useState<loginFetchType>("completed")
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
+    const [googleIsAvailable, setGoogleIsAvailable] = useState(true)
 
   async function logUserIn(){
     try{
@@ -53,6 +60,13 @@ function Login() {
 
   useEffect(() => {
     /* global google */
+    if(!window.google){
+      setGoogleIsAvailable(false)
+      return
+    }
+
+      setGoogleIsAvailable(true)
+    
     google.accounts.id.initialize({
       client_id:  import.meta.env.VITE_GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse,
@@ -169,7 +183,7 @@ function Login() {
               </button>
           </form>
 
-          <div className="other-login-form">
+          { googleIsAvailable && <div className="other-login-form">
 
           <p className="divider">OR</p>
 
@@ -179,7 +193,7 @@ function Login() {
           <img src={googleIcon} alt="google icon" />Continue with Google</button>
 
           <p>Don't have an account? <Link to="/signup">Signup</Link></p>
-          </div>
+          </div>}
         </div>
       </div>
     </main>

@@ -14,6 +14,10 @@ const ProtectedAdminRoute = () => {
 
       if(userInfo.username == "New Laptop"){
         setIsAdmin(true)
+      }else{
+        setIsAdmin(false)
+        navigate("/")
+        return null
       }
   
       if(userInfo.loading){
