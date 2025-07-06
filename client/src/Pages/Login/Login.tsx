@@ -4,6 +4,8 @@ import "./Login.css"
 import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
 import { useEffect, useState } from "react"
+import { useAtomValue } from "jotai"
+import { userInfoAtom } from "../../globals/states"
 
 declare const google: any;
 
@@ -28,7 +30,8 @@ function Login() {
   })
   const [loginFetchStatus, setLoginFetchStatus] = useState<loginFetchType>("completed")
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
-    const [googleIsAvailable, setGoogleIsAvailable] = useState(true)
+  const [googleIsAvailable, setGoogleIsAvailable] = useState(true)
+  const userInfo = useAtomValue(userInfoAtom)
 
   async function logUserIn(){
     try{
@@ -57,6 +60,12 @@ function Login() {
       setLoginFetchStatus("error")
     }
   }
+
+   useEffect(()=>{
+    if(!userInfo.loading && userInfo.username !== null){
+      navigate("/")
+    }
+  }, [userInfo])
 
   useEffect(() => {
     /* global google */
@@ -95,15 +104,23 @@ function Login() {
         credentials: "include", // This is equivalent to axios's withCredentials: true
         body: JSON.stringify({ credential: response.credential }),
       });
+
+      const responseInJson = await res.json()
   
       if (res.ok) {
         // Handle success, e.g., redirect or update UI
         navigate("/")
       } else {
         console.error("Google log-in failed with status:", res.status);
+        throw new Error(responseInJson.message || "An error occurred while we tried to log you in")
       }
     } catch (err) {
       console.error("Google login failed", err);
+       if(err instanceof Error){
+        setLoginErrorMessage(err.message)
+      }else{
+        setLoginErrorMessage("An unknown error occurred when trying to sign you up")
+      }
     }
   };
 
