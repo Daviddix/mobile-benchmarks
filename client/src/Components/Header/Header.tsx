@@ -21,6 +21,7 @@ import {
 } from "../../globals/states";
 import { useEffect, useState } from "react";
 import Nav from "./Components/Nav/Nav";
+import UserOnlyModal from "../UserOnlyModal/UserOnlyModal";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useAtom(searchAtom);
@@ -171,6 +172,8 @@ function Header() {
           </form>
         )}
       </header>
+
+      <UserOnlyModal />
 
       <Outlet />
     </>
