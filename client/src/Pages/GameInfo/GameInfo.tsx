@@ -9,6 +9,9 @@ import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
 import menuIcon from "./assets/icons/menu-icon.svg"
 import reportIcon from "./assets/icons/report-icon.svg"
 import ReportModal from "../../Components/ReportModal/ReportModal";
+import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
+import { useSetAtom } from "jotai";
+import { showUserOnlyModalAtom } from "../../globals/states";
 
 
 function GameInfo() {
@@ -16,21 +19,14 @@ function GameInfo() {
 
   type tabTypes = "requirements" | "supported"
 
-  type popularPhoneInfo = {
-    _id: string;
-    phoneName: string;
-    phoneChipset: string;
-    phoneCoverImage: string;
-    phoneDisplay: string[];
-    phoneMemory: number[];
-  }
-
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [gameInfo, setGameInfo] = useState<gameData | null>(null)
   const [tabToView, setTabToView] = useState<tabTypes>("requirements")
   const [showReportButton, setShowReportButton] = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
   const {gameId} = useParams()
+  const isLoggedIn = useLoggedInChecker()
+  const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
 
   async function getGameInformation(gameId : string | undefined) {
     try{
@@ -125,8 +121,13 @@ function GameInfo() {
 
           {showReportButton && <button 
           onClick={()=>{
-            setShowReportModal(true)
-            setShowReportButton(false)
+           if(isLoggedIn){
+              setShowReportModal(true)
+              setShowReportButton(false)
+            }else{
+              setShowUserOnlyModal(true)
+              setShowReportButton(false)
+            }
           }}
           className="report">
             <img src={reportIcon} alt="report icon" />

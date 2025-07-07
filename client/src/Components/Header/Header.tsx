@@ -18,6 +18,7 @@ import {
   filteredPhonesAtom,
   searchAtom,
   searchingState,
+  showUserOnlyModalAtom,
 } from "../../globals/states";
 import { useEffect, useState } from "react";
 import Nav from "./Components/Nav/Nav";
@@ -33,6 +34,7 @@ function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialView = searchParams.get("page") || "Phones";
   const [itemsToView, setItemsToView] = useState(initialView);
+  const [showUserOnlyModal, setShowUserOnlyModal] = useAtom(showUserOnlyModalAtom)
   const location = useLocation();
   const navigate = useNavigate();
   const notify = () => toast("This feature is coming Soon.");
@@ -173,7 +175,10 @@ function Header() {
         )}
       </header>
 
-      <UserOnlyModal />
+      {showUserOnlyModal && 
+      <UserOnlyModal
+      closeFn={()=> setShowUserOnlyModal(false)}
+      />}
 
       <Outlet />
     </>

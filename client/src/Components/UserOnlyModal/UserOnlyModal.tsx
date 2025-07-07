@@ -1,8 +1,13 @@
 import userIcon from "./assets/icons/user-icon.svg"
 import closeIcon from "./assets/icons/close-icon.svg"
 import "./UserOnlyModal.css"
+import { Link } from "react-router"
 
-function UserOnlyModal() {
+type userOnlyModalProps = {
+    closeFn : Function
+}
+
+function UserOnlyModal({closeFn} : userOnlyModalProps) {
   return (
     <div className="user-only-modal-background">
         <div className="main-user-only-modal">
@@ -19,14 +24,25 @@ function UserOnlyModal() {
             </div>
 
             <button 
+            onClick={()=>{
+                closeFn()
+            }}
             className="close-modal-button">
                 <img src={closeIcon} alt="close modal" />
             </button>
         </div>
 
             <div className="user-only-modal-content">
+
+                <Link onClick={()=> closeFn()} to={"/signup"}>
             <button className="create">Create an Account</button>
-            <button>Cancel</button>
+                </Link>
+
+            <button
+            onClick={()=>{
+                closeFn()
+            }}
+            >Cancel</button>
             </div>
         </div>
     </div>

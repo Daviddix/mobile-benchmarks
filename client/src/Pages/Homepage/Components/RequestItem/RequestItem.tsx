@@ -1,6 +1,9 @@
 import { useState } from "react";
 import RequestItemModal from "../RequestItemModal/RequestItemModal";
 import "./RequestItem.css";
+import { useLoggedInChecker } from "../../../../hooks/useLoggedInChecker";
+import { useSetAtom } from "jotai";
+import { showUserOnlyModalAtom } from "../../../../globals/states";
 
 type requestItemProps = {
   itemType: "Game" | "Phone";
@@ -8,6 +11,8 @@ type requestItemProps = {
 
 function RequestItem({ itemType }: requestItemProps) {
   const [showRequestItemModal, setShowRequestItemModal] = useState(false);
+  const isLoggedIn = useLoggedInChecker()
+  const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
 
   return (
     <>
@@ -26,7 +31,13 @@ function RequestItem({ itemType }: requestItemProps) {
         </p>
 
         <button
-        onClick={() => setShowRequestItemModal(true)}
+        onClick={() => {
+          if(isLoggedIn){
+            setShowRequestItemModal(true)
+          }else{
+            setShowUserOnlyModal(true)
+          }
+        }}
         >Request For a {itemType == "Game" ? "Game" : "Phone"}</button>
       </div>
     </>

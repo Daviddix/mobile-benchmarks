@@ -1,8 +1,6 @@
-
-.homepage-main .all-phones-container:has(.request-item){
+.homepage-main :is(.all-phones-container, .all-games-container):has(.request-item){
     display: block;
 }
-
 
 .homepage-main .request-item{
     margin: 0 auto;

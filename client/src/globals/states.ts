@@ -26,3 +26,5 @@ export const userInfoAtom = atom<userInfo>({
 })
 
 export const isAdminAtom = atom(false)
+
+export const showUserOnlyModalAtom = atom(false)

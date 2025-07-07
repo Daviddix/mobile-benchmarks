@@ -6,6 +6,7 @@ const {
   googleTokenError,
   userNotFoundInDataBase,
   switchToGoogleAccount,
+  invalidDataSubmitted,
 } = require("../JsonResponses/error");
 const { userCreated, loginSuccessful, reportSubmitted } = require("../JsonResponses/Success");
 const userModel = require("../models/user.model");
@@ -28,6 +29,10 @@ async function createNewUser(req, res) {
 
     if (!email || !username || !password) {
       return res.status(401).json(noBodyDataError);
+    }
+
+    if(typeof email !== "string" || typeof email !== "string" || typeof password !== "string"){
+      return res.status(401).json(invalidDataSubmitted)
     }
     const isDuplicateUsername = await checkForDuplicateUsername(username);
 
@@ -61,8 +66,8 @@ async function createNewUser(req, res) {
       httpOnly: true,
       maxAge: timeBeforeItExpires,
       path: "/",
-      secure: true,
-      sameSite: "None",
+      secure: true, 
+      sameSite: "Strict",
     });
 
     res.status(201).json(userInfo);
@@ -81,7 +86,7 @@ async function logUserIn(req, res) {
       return;
     }
 
-    const userInDb = await userModel.findOne({ email });
+    const userInDb = await userModel.findOne({ email : String(email) });
     if (!userInDb) {
       return res.status(404).json(userNotFoundInDataBase);
     }
@@ -102,8 +107,8 @@ async function logUserIn(req, res) {
       httpOnly: true,
       maxAge: timeBeforeItExpires,
       path: "/",
-      secure: true,
-      sameSite: "None",
+      secure: true, 
+      sameSite: "Strict",
     });
 
     const userInfo = {
@@ -169,8 +174,8 @@ async function createNewUserFromGoogle(req, res) {
       httpOnly: true,
       maxAge: timeBeforeItExpires,
       path: "/",
-      secure: false,
-      sameSite: "Lax",
+      secure: true, 
+      sameSite: "Strict",
     });
 
     return res.status(200).json(userCreated);
@@ -210,7 +215,7 @@ async function logUserInFromGoogle(req, res) {
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "None",
+      sameSite: "Strict",
     });
 
     res.status(200).json(loginSuccessful);

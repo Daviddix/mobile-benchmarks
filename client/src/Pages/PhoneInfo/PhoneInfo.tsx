@@ -7,6 +7,9 @@ import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
 import menuIcon from "./assets/icons/menu-icon.svg"
 import reportIcon from "./assets/icons/report-icon.svg"
 import ReportModal from "../../Components/ReportModal/ReportModal";
+import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
+import { useSetAtom } from "jotai";
+import { showUserOnlyModalAtom } from "../../globals/states";
 
 function PhoneInfo() {
   const {phoneId} = useParams()
@@ -18,6 +21,8 @@ function PhoneInfo() {
   const [phoneData, setPhoneData] = useState<phoneData |null>(null)
   const [showReportModal, setShowReportModal] = useState(false)
   const [showReportButton, setShowReportButton] = useState(false)
+  const isLoggedIn = useLoggedInChecker()
+  const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
 
     function closeReportModal(){
     setShowReportModal(false)
@@ -88,8 +93,13 @@ function PhoneInfo() {
 
           {showReportButton && <button 
            onClick={()=>{
-            setShowReportModal(true)
-            setShowReportButton(false)
+            if(isLoggedIn){
+              setShowReportModal(true)
+              setShowReportButton(false)
+            }else{
+              setShowUserOnlyModal(true)
+              setShowReportButton(false)
+            }
           }}
           className="report">
             <img src={reportIcon} alt="report icon" />
