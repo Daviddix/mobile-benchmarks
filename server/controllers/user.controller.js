@@ -178,7 +178,14 @@ async function createNewUserFromGoogle(req, res) {
       sameSite: "Strict",
     });
 
-    return res.status(200).json(userCreated);
+    const userInfo = {
+      _id : user._id,
+      username : user.username,
+    }
+
+    res.status(200).json(userInfo);
+
+    return res.status(200).json(userInfo);
   } catch (err) {
     console.error("Google login error:", err);
     return res.status(500).json(unknownError);
@@ -218,7 +225,12 @@ async function logUserInFromGoogle(req, res) {
       sameSite: "Strict",
     });
 
-    res.status(200).json(loginSuccessful);
+    const userInfo = {
+      _id : user._id,
+      username : user.username,
+    }
+
+    res.status(200).json(userInfo);
   } catch (err) {
     console.error("Google login error:", err);
     return res.status(500).json(unknownError);

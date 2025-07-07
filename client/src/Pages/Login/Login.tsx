@@ -119,6 +119,15 @@ function Login() {
   
       if (res.ok) {
         // Handle success, e.g., redirect or update UI
+        
+        const createdInfo : userInfo = {
+        username : responseInJson.username,
+        _id : responseInJson._id ,
+        error : false,
+        loading : false
+      }
+
+      setUserInfo(createdInfo)
         navigate("/")
       } else {
         console.error("Google log-in failed with status:", res.status);

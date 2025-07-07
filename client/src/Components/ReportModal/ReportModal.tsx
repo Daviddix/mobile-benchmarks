@@ -18,7 +18,9 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     async function submitReport(){
-        if(reasonForReport.trim() == "") return
+        const regex = /^(?=.*[A-Za-z]).+$/
+
+        if(reasonForReport.trim() == "" || !regex.test(reasonForReport.trim())) return
         setSubmittingReportStatus("submitting")
         try{
             const reportInformation = {

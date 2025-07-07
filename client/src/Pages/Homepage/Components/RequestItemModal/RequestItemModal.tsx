@@ -86,6 +86,7 @@ function RequestItemModal ({closeFn, requestType} : requestItemModalProps) {
                 
                 <input type="text" name="phone name" 
                 maxLength={50}
+                pattern="^(?=.*[A-Za-z]).+$"
                 required
                 onChange={(e)=>{
                     setRequestItem(e.target.value)
