@@ -4,7 +4,7 @@ import "./Login.css"
 import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
 import { useEffect, useState } from "react"
-import { useAtomValue } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import { userInfoAtom } from "../../globals/states"
 
 declare const google: any;
@@ -31,7 +31,7 @@ function Login() {
   const [loginFetchStatus, setLoginFetchStatus] = useState<loginFetchType>("completed")
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
   const [googleIsAvailable, setGoogleIsAvailable] = useState(true)
-  const userInfo = useAtomValue(userInfoAtom)
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom)
 
   async function logUserIn(){
     try{
@@ -55,6 +55,16 @@ function Login() {
 
       console.log("signup successful")
       setLoginFetchStatus("completed")
+
+      const createdInfo : userInfo = {
+        username : responseInJson.username,
+        _id : responseInJson._id ,
+        error : false,
+        loading : false
+      }
+
+      setUserInfo(createdInfo)
+
       navigate("/")
     }catch(err){
       setLoginFetchStatus("error")

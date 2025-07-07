@@ -4,7 +4,7 @@ import logoIcon from "./assets/icons/logo.svg"
 import googleIcon from "./assets/icons/google.svg"
 import { Link, useNavigate } from 'react-router'
 import { useEffect, useState } from "react"
-import { useAtomValue } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import { userInfoAtom } from "../../globals/states"
 
 declare const google: any;
@@ -33,7 +33,7 @@ function Signup() {
   const [signupFetchStatus, setSignupFetchStatus] = useState<signupFetchType>("completed")
   const [signupErrorMessage, setSignupErrorMessage] = useState("")
   const [googleIsAvailable, setGoogleIsAvailable] = useState(true)
-  const userInfo = useAtomValue(userInfoAtom)
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom)
   
   useEffect(()=>{
     if(!userInfo.loading && userInfo.username !== null){
@@ -121,6 +121,16 @@ function Signup() {
 
       console.log("signup successful")
       setSignupFetchStatus("completed")
+
+      const createdInfo : userInfo = {
+        username : responseInJson.username,
+        _id : responseInJson._id ,
+        error : false,
+        loading : false
+      }
+
+      setUserInfo(createdInfo)
+      
       navigate("/")
     }catch(err){
       setSignupFetchStatus("error")

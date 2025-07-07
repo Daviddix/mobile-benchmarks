@@ -52,6 +52,11 @@ async function createNewUser(req, res) {
 
     const userToken = await generateJwtToken(userMade._id);
 
+    const userInfo = {
+      username : userMade.username,
+      _id : userMade._id,
+    }
+
     res.cookie("jwt", userToken, {
       httpOnly: true,
       maxAge: timeBeforeItExpires,
@@ -60,7 +65,7 @@ async function createNewUser(req, res) {
       sameSite: "None",
     });
 
-    res.status(201).json(userCreated);
+    res.status(201).json(userInfo);
   } catch (err) {
     console.log(err);
     res.status(400).json(unknownError);
@@ -100,7 +105,13 @@ async function logUserIn(req, res) {
       secure: true,
       sameSite: "None",
     });
-    res.status(200).json(loginSuccessful);
+
+    const userInfo = {
+      _id : userInDb._id,
+      username : userInDb.username,
+    }
+
+    res.status(200).json(userInfo);
   } catch (e) {
     console.log(e);
     res.status(400).json(unknownError);
