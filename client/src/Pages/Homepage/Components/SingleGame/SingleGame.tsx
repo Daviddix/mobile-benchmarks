@@ -40,7 +40,7 @@ function SingleGame({
 
       <div
         onClick={() => {
-          navigate(`/game/${_id}`);
+          navigate(`/game/info/${_id}`);
         }}
         className="text"
       >

@@ -22,7 +22,7 @@ function SinglePhone({_id, phoneChipset, phoneCoverImage, phoneDisplay, phoneMem
 
     <div 
      onClick={()=>{
-      navigate(`/phone/${_id}`)
+      navigate(`/phone/info/${_id}`)
     }}
     className="text">
         <h3>{phoneName}</h3>

@@ -6,6 +6,6 @@ const phoneRouter = express.Router()
 phoneRouter.post("/add", addNewPhone)
 phoneRouter.get("/get-all", getAllPhones)
 phoneRouter.get("/search", searchForPhone)
-phoneRouter.get("/:id", getPhoneInfo)
+phoneRouter.get("/info/:id", getPhoneInfo)
 
 module.exports = phoneRouter

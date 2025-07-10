@@ -6,6 +6,6 @@ const gameRouter = express.Router()
 gameRouter.post("/add", addNewGame)
 gameRouter.get("/get-all", getAllGames)
 gameRouter.get("/search", searchForGame)
-gameRouter.get("/:id", getGameInfo)
+gameRouter.get("/info/:id", getGameInfo)
 
 module.exports = gameRouter

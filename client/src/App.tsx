@@ -62,8 +62,8 @@ function App(){
     <Routes>
       <Route element={<Header />}>
       <Route path="/" element={<Homepage />} />
-      <Route path="/phone/:phoneId" element={<PhoneInfo />} />
-      <Route path="/game/:gameId" element={<GameInfo />} />
+      <Route path="/phone/info/:phoneId" element={<PhoneInfo />} />
+      <Route path="/game/info/:gameId" element={<GameInfo />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
           <Route element={<ProtectedRoute />}>

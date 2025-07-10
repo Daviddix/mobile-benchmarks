@@ -45,11 +45,11 @@ function SingleReport({reportType, resolveFunction, reasonForReport, userInfo, p
                     <div className="report-buttons">
                         {
                             reportType == "Games" ?
-                            <Link to={`/game/${populatedReportTypeInfo._id}`}>
+                            <Link to={`/game/info/${populatedReportTypeInfo._id}`}>
                                     <button className='report-button-view'>View Game</button>
                             </Link>
                             :
-                            <Link to={`/phone/${populatedReportTypeInfo._id}`}>
+                            <Link to={`/phone/info/${populatedReportTypeInfo._id}`}>
                                     <button className='report-button-view'>View Phone</button>
                             </Link>
                         }
