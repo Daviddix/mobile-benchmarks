@@ -43,4 +43,32 @@ async function getPhoneInfo(req, res){
     } 
 }
 
-module.exports = {addNewPhone, getAllPhones, getPhoneInfo}
+async function searchForPhone(req, res) {
+  try {
+    let { searchQuery } = req.query;
+
+    // Check if it's missing or blank
+    if (!searchQuery || typeof searchQuery !== 'string' || searchQuery.trim() === '') {
+      return res.status(400).json(missingData);
+    }
+
+    // Validate length
+    if (searchQuery.length > 50) {
+      return res.status(400).json(invalidDataSubmitted);
+    }
+
+    // Escape regex characters
+    searchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const phones = await phoneModel.find({
+      phoneName: { $regex: searchQuery, $options: 'i' }
+    });
+
+    return res.json(phones);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json(unknownError);
+  }
+}
+
+module.exports = {addNewPhone, getAllPhones, getPhoneInfo, searchForPhone}

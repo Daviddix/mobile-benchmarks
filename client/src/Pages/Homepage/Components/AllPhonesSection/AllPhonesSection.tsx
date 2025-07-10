@@ -1,12 +1,11 @@
 import  { useEffect, useState } from 'react'
 import "./AllPhonesSection.css"
 import AllPhonesLoaderSkeleton from './Components/AllPhonesLoaderSkeleton/AllPhonesLoaderSkeleton'
-import { useAtom } from 'jotai'
-import { allPopularPhonesAtom, filteredPhonesAtom, searchingState } from '../../../../globals/states'
+import { useAtom, useAtomValue } from 'jotai'
+import { allPopularPhonesAtom, filteredPhonesAtom, headerSearchStatusAtom, searchingState } from '../../../../globals/states'
 import SinglePhone from '../SinglePhone/SinglePhone'
 import ErrorComponent from '../../../../Components/ErrorComponent/ErrorComponent'
 import RequestItem from '../RequestItem/RequestItem'
-import RequestItemModal from '../RequestItemModal/RequestItemModal'
 
 function AllPhonesSection() {
   type fetchingStateType = "loading" | "error" | "completed"
@@ -18,6 +17,7 @@ function AllPhonesSection() {
   const [allPopularPhones, setAllPopularPhones] = useAtom(allPopularPhonesAtom)
 
   const [filteredPhones, setAllFilteredPhones] = useAtom(filteredPhonesAtom)
+  const headerSearchStatus = useAtomValue(headerSearchStatusAtom)
 
 
 
@@ -89,9 +89,12 @@ function AllPhonesSection() {
       itemType='Phone'
       />
         :
-          mappedFilteredPhones
-          :
-            mappedPopularPhones
+                      headerSearchStatus == "searching" ? 
+                      <AllPhonesLoaderSkeleton />   
+                          : 
+                          mappedFilteredPhones
+                          :
+                          mappedPopularPhones
     }
     </div>
 </div>

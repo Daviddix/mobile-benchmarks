@@ -96,6 +96,34 @@ function Header() {
     }
   }
 
+  async function searchForPhones(searchQuery : string){
+    if(!searchQuery || !searchQuery.trim()) {
+      setIsSearching(false)
+      setHeaderSearchStatus("completed")
+      return
+    }
+    try{
+      setIsSearching(true)
+      setHeaderSearchStatus("searching")
+      const rawFetch = await fetch(`http://localhost:3000/api/phone/search?searchQuery=${encodeURIComponent(searchQuery)}`)
+
+      const responseInJson = await rawFetch.json()
+
+      if(!rawFetch.ok){
+        throw new Error("Couldn't find phone", {cause: responseInJson})
+      }
+
+      setFilteredPhones(responseInJson)
+      setHeaderSearchStatus("completed")
+
+    }catch(err : any){
+      setIsSearching(false)
+      setHeaderSearchStatus("error")
+      alert("A search phone error occurred")
+      console.log(err.message || "")
+    }
+  }
+
 
   function searchGameList(
     searchText: string,
@@ -165,11 +193,7 @@ function Header() {
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     itemsToView == "Phones"
-                      ? searchPhoneList(
-                          e.target.value,
-                          allPopularPhones,
-                          setFilteredPhones
-                        )
+                      ? debounceSearch(e.target.value, searchForPhones, timeoutId)
                       : debounceSearch(e.target.value, searchForGames, timeoutId)
                   }}
                   value={searchQuery}
