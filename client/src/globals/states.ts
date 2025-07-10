@@ -4,6 +4,8 @@ type itemsToView = "Phones" | "Games"
 
 type searchingStates = true | false
 
+type headerSearchStatusType = "searching" | "error" | "completed"
+
 export const searchAtom = atom<string>("")
 
 export const allPopularPhonesAtom = atom<phoneData[]>([])
@@ -28,3 +30,5 @@ export const userInfoAtom = atom<userInfo>({
 export const isAdminAtom = atom(false)
 
 export const showUserOnlyModalAtom = atom(false)
+
+export const headerSearchStatusAtom = atom<headerSearchStatusType>("completed")

@@ -16,13 +16,15 @@ import {
   allPopularPhonesAtom,
   filteredGamesAtom,
   filteredPhonesAtom,
+  headerSearchStatusAtom,
   searchAtom,
   searchingState,
   showUserOnlyModalAtom,
 } from "../../globals/states";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Nav from "./Components/Nav/Nav";
 import UserOnlyModal from "../UserOnlyModal/UserOnlyModal";
+import { debounceSearch } from "../../libs/header";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useAtom(searchAtom);
@@ -38,6 +40,8 @@ function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const notify = () => toast("This feature is coming Soon.");
+  const timeoutId = useRef(null)
+  const [headerSearchStatus, setHeaderSearchStatus] = useAtom(headerSearchStatusAtom)
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -63,6 +67,35 @@ function Header() {
       arrayToUpdateSetterFunction(newArray);
     }
   }
+
+  async function searchForGames(searchQuery : string){
+    if(!searchQuery || !searchQuery.trim()) {
+      setIsSearching(false)
+      setHeaderSearchStatus("completed")
+      return
+    }
+    try{
+      setIsSearching(true)
+      setHeaderSearchStatus("searching")
+      const rawFetch = await fetch(`http://localhost:3000/api/game/search?searchQuery=${encodeURIComponent(searchQuery)}`)
+
+      const responseInJson = await rawFetch.json()
+
+      if(!rawFetch.ok){
+        throw new Error("Couldn't find game", {cause: responseInJson})
+      }
+
+      setFilteredGames(responseInJson)
+      setHeaderSearchStatus("completed")
+
+    }catch(err : any){
+      setIsSearching(false)
+      setHeaderSearchStatus("error")
+      alert("A search game error occurred")
+      console.log(err.message || "")
+    }
+  }
+
 
   function searchGameList(
     searchText: string,
@@ -137,11 +170,7 @@ function Header() {
                           allPopularPhones,
                           setFilteredPhones
                         )
-                      : searchGameList(
-                          e.target.value,
-                          allPopularGames,
-                          setFilteredGames
-                        );
+                      : debounceSearch(e.target.value, searchForGames, timeoutId)
                   }}
                   value={searchQuery}
                   type="text"

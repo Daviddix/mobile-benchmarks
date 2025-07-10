@@ -1,6 +1,6 @@
-import { useAtom } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import SingleGame from "../SingleGame/SingleGame"
-import { allPopularGamesAtom, filteredGamesAtom, searchingState } from "../../../../globals/states"
+import { allPopularGamesAtom, filteredGamesAtom, headerSearchStatusAtom, searchingState } from "../../../../globals/states"
 import { useEffect, useState } from "react"
 import "./AllGamesSection.css"
 import AllGamesSkeletonLoader from "./Components/AllGamesSkeletonLoader/AllGamesSkeletonLoader"
@@ -13,6 +13,7 @@ function AllGamesSection() {
   const [isSearching, setIsSearching] = useAtom(searchingState)
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [filteredGames, setFilteredGames] = useAtom(filteredGamesAtom)
+  const headerSearchStatus = useAtomValue(headerSearchStatusAtom)
 
     type fetchingStateType = "loading" | "error" | "completed"
 
@@ -86,8 +87,11 @@ function AllGamesSection() {
                     itemType='Game'
                     />
                       :
-                        mappedFilteredGames
-                        :
+                      headerSearchStatus == "searching" ? 
+                      <AllGamesSkeletonLoader />   
+                          : 
+                          mappedFilteredGames
+                          :
                           mappedPopularGames
                 }
             </div>
