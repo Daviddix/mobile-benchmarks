@@ -1,7 +1,35 @@
+import { useState } from "react";
 import "./AddNewPhone.css";
 import pictureIcon from "./assets/icons/picture-icon.svg"
 
+
 function AddNewPhone() {
+ async function transformImageFromUrl(phoneImageUrl: string): Promise<Blob | undefined> {
+  try {
+    const response = await fetch("http://localhost:3000/api/phone/transform-image", {
+      method: "POST",
+      body: JSON.stringify({ imageUrl: phoneImageUrl }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    });
+
+    if (!response.ok) {
+      throw new Error("Cannot get image from backend");
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    return new Blob([arrayBuffer], { type: "image/png" });
+
+  } catch (error: any) {
+    console.error(error);
+    alert("An error occurred");
+  }
+}
+
+  const [imageUrl, setImageUrl] = useState("")
+  const [phoneUrl, setPhoneUrl] = useState("")
   return (
     <main className="add-new-phone">
       <main className="add-new-phone-inner">
@@ -15,14 +43,42 @@ function AddNewPhone() {
             <label htmlFor="phone-url">Phone URL</label>
 
             <div className="bigger-input">
-              <input type="url" id="phone-url" name="phone-url" placeholder="https://" />
+              <input type="url"
+              value={phoneUrl}
+              onChange={(e)=>{
+                setPhoneUrl(e.target.value)
+              }}
+              id="phone-url" name="phone-url" placeholder="https://" />
 
-              <div className="attach">
-                <img src={pictureIcon} alt="image icon" />
+              <div
+              style={{
+                backgroundImage : `url(${imageUrl})`,
+                backgroundSize : "cover",
+                backgroundPosition : "center"
+              }}
+              className="attach">
+                {
 
-                <p>Phone Preview</p>
+                  !imageUrl && <>
+                  <img src={pictureIcon} alt="image icon" />
+  
+                  <p>Phone Preview</p>
+                  
+                  </>
+                }
               </div>
             </div>
+
+            <button
+            disabled={!phoneUrl}
+            onClick={async()=>{
+              const blob = await transformImageFromUrl(phoneUrl);
+            if (!blob) return;
+            const srcBlob = URL.createObjectURL(blob);
+            setImageUrl(srcBlob);
+
+            }}
+            type="button">Transform Image</button>
           </div>
 
           <div>

@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.14.2",
     "mongoose": "^8.12.1",
+    "puppeteer-core": "^24.12.1",
     "sharp": "^0.34.3"
   }
 }
