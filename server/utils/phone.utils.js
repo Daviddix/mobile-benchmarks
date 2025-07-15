@@ -30,26 +30,30 @@ async function scrapeUrlForPhoneInfo(phoneUrl) {
     await page.waitForSelector('.specs-phone-name-title', { timeout: 15000 });
 
     // Now safely select and extract text
-    const phoneName = await page.$eval('.specs-phone-name-title', el => el.textContent.trim());
-    const phoneCPU = await page.$eval("#specs-list > table:nth-child(6) > tbody > tr:nth-child(2) > td.nfo", el => el.textContent.trim());
-    const phoneDisplayPixels = await page.$eval("#specs-list > table:nth-child(5) > tbody > tr:nth-child(2) > td.nfo", el => el.textContent.trim());
-    const phoneDisplayRefreshRate = await page.$eval("#specs-list > table:nth-child(5) > tbody > tr:nth-child(1) > td.nfo", el => el.textContent.trim());
-    const phoneMemoryRam = await page.$eval("#specs-list > table:nth-child(7) > tbody > tr:nth-child(2) > td.nfo", el => el.textContent.trim());
-    const phoneGPU = await page.$eval("#specs-list > table:nth-child(6) > tbody > tr:nth-child(4) > td.nfo", el => el.textContent.trim());
-    const phoneBenchmarksGeekbench = await page.$eval("#specs-list > table:nth-child(15) > tbody > tr:nth-child(1) > td.nfo", el => el.textContent.trim());
+    const phoneName = await page.$eval('.specs-phone-name-title', el => el.textContent.trim()).catch(() => "Not found");
+    const phoneCPU = await page.$eval("#specs-list > table:nth-child(6) > tbody > tr:nth-child(2) > td.nfo", el => el.textContent.trim()).catch(() => "Not found");
+    const phoneDisplayPixels = await page.$eval("#specs-list > table:nth-child(5) > tbody > tr:nth-child(2) > td.nfo", el => el.textContent.trim()).catch(() => "Not found");
+    const phoneDisplayRefreshRate = await page.$eval("#specs-list > table:nth-child(5) > tbody > tr:nth-child(1) > td.nfo", el => el.textContent.trim()).catch(() => "Not found");
+    const phoneMemory = await page.$eval("#specs-list > table:nth-child(7) > tbody > tr:nth-child(2) > td.nfo", el => el.textContent.trim()).catch(() => "Not found");
+    const phoneGPU = await page.$eval("#specs-list > table:nth-child(6) > tbody > tr:nth-child(4) > td.nfo", el => el.textContent.trim()).catch(() => "Not found");
+    const phoneBenchmarks = await page.$eval(
+      "#specs-list > table:nth-child(15) > tbody > tr:nth-child(1) > td.nfo",
+      el => el.textContent.trim()
+    ).catch(() => "Not found");
 
     // Output results
-    return {
+    const result = {
       phoneName,
       phoneCPU,
-      phoneDisplayPixels,
-      phoneDisplayRefreshRate,
-      phoneMemoryRam,
+      phoneDisplay : [phoneDisplayPixels, phoneDisplayRefreshRate],
+      phoneMemory,
       phoneGPU,
-      phoneBenchmarksGeekbench,
-    }
+      phoneBenchmarks,
+      phoneGeneralCompatibility : 0
+    };
 
     await browser.close();
+    return result;
   } catch (err) {
     console.log(err.message ?? err);
   }

@@ -111,7 +111,7 @@ async function scrapePhoneInfo(req,res){
       return res.status(404).json({ type: "error", message: "Phone information not found" });
     }
 
-    res.status(200).json({phoneInfo});
+    res.status(200).json(phoneInfo);
   }
   catch(err){
     console.log("An error occurred while scraping phone info", err.message ?? err) 

@@ -2,6 +2,17 @@ import { useState } from "react";
 import "./AddNewPhone.css";
 import pictureIcon from "./assets/icons/picture-icon.svg"
 
+type scrapedPhoneInfoType = {
+      phoneName : string,
+      phoneCPU : string,
+      phoneDisplay : [string, string]
+      phoneMemory : string,
+      phoneGPU : string,
+      phoneBenchmarks : string,
+      phoneGeneralCompatibility : number
+}
+
+//LEAVE FOR NOW, COMPLETE LATER
 
 function AddNewPhone() {
  async function transformImageFromUrl(phoneImageUrl: string): Promise<Blob | undefined> {
@@ -28,8 +39,44 @@ function AddNewPhone() {
   }
 }
 
+async function scrapePhoneInfo(gsmArenaUrl : string) : Promise<scrapedPhoneInfoType | undefined>{
+  try {
+    const response = await fetch("http://localhost:3000/api/phone/scrape-phone-info", {
+      method : "POST",
+      headers : {
+        "Content-Type" : "Application/json"
+      },
+      body : JSON.stringify({phoneUrl : gsmArenaUrl}),
+      credentials : "include"
+    })
+
+    const responseInJson : scrapedPhoneInfoType = await response.json()
+    if(!response.ok){
+      throw new Error("Couldn't scrape url", {cause : responseInJson})
+    }
+
+    // setFormData()
+    return responseInJson
+
+  } catch (error : any) {
+    console.log(error.message)
+  }
+}
+
   const [imageUrl, setImageUrl] = useState("")
   const [phoneUrl, setPhoneUrl] = useState("")
+  const [formData, setFormData] = useState<scrapedPhoneInfoType>({
+    phoneName : "",
+    phoneCPU : "",
+    phoneDisplay : ["", ""],
+    phoneMemory : "",
+    phoneGeneralCompatibility : 0,
+    phoneGPU : "",
+    // phoneRating : [0, 0],
+    phoneBenchmarks : ""
+  })
+
+  const [gsmArenaUrl, setGsmArenaUrl] = useState("")
   return (
     <main className="add-new-phone">
       <main className="add-new-phone-inner">
@@ -85,9 +132,13 @@ function AddNewPhone() {
             <label htmlFor="scrape">Phone URL to Scrape</label>
 
 
-              <input type="url" id="scrape" name="scrape" placeholder="https://" />
+              <input value={gsmArenaUrl} onChange={(e)=>setGsmArenaUrl(e.target.value)} type="url" id="scrape" name="scrape" placeholder="https://" />
 
-             <button type="button">Scrape</button>
+             <button
+             onClick={()=>{
+              scrapePhoneInfo(gsmArenaUrl)
+             }}
+             type="button">Scrape</button>
 
           </div>
 
@@ -95,7 +146,14 @@ function AddNewPhone() {
             <label htmlFor="phone-name">Phone Name</label>
 
 
-              <input type="text" id="phone-name" name="phone-name" placeholder="Samsung Galaxy A15 4G" />
+              <input type="text" 
+              onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneName}
+              id="phone-name" 
+              name="phoneName" 
+              placeholder="Samsung Galaxy A15 4G" />
 
           </div>
 
@@ -103,7 +161,15 @@ function AddNewPhone() {
             <label htmlFor="phone-cpu">Phone CPU</label>
 
 
-              <input type="text" name="phone-cpu" placeholder="Helio G99" />
+              <input 
+              type="text" 
+              id="phone-cpu"
+              name="phoneCpu"
+              onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneCPU}
+              placeholder="Helio G99" />
 
           </div>
 
@@ -112,8 +178,20 @@ function AddNewPhone() {
 
 
               <div className="two-input-containers">
-                <input type="number" id="phone-display" name="phone-display" placeholder="1080" />
-                <input type="number" name="phone-display-refresh" placeholder="90" />
+                <input type="number" id="phone-display" name="phoneDisplay"
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneDisplay[0]}
+                placeholder="1080" />
+
+
+                <input type="number" name="phone-display-refresh" 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneDisplay[1]}
+                placeholder="90" />
               </div>
 
           </div>
@@ -123,8 +201,21 @@ function AddNewPhone() {
 
 
               <div className="two-input-containers">
-                <input type="number" id="phone-memory" name="phone-memory" placeholder="4" />
-                <input type="number" name="phone-memory-refresh" placeholder="128" />
+                <input type="number" id="phone-memory" name="phoneMemory" 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneMemory[0]}
+                placeholder="4" 
+                />
+
+                <input type="number" 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneMemory[1]}
+                name="phoneMemory" placeholder="128" 
+                />
               </div>
 
           </div>
@@ -133,7 +224,13 @@ function AddNewPhone() {
             <label htmlFor="phone-chipset">Phone General Compatibility</label>
 
 
-              <input type="number" name="phone-general-compatibility" id="phone-general-compatibility" placeholder="79" />
+              <input type="number" name="phoneGeneralCompatibility"
+              onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneGeneralCompatibility} id="phone-general-compatibility" 
+              placeholder="79" 
+              />
 
           </div>
 
@@ -141,7 +238,12 @@ function AddNewPhone() {
             <label htmlFor="phone-gpu">Phone GPU</label>
 
 
-              <input type="text" id="phone-gpu" name="phone-gpu" placeholder="Mali G125" />
+              <input type="text" id="phone-gpu" name="phoneGpu"
+              onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneGPU}
+              placeholder="Mali G125" />
 
           </div>
 
@@ -150,8 +252,20 @@ function AddNewPhone() {
 
 
               <div className="two-input-containers">
-                <input type="number" name="phone-rating" placeholder="4.3" />
-                <input type="number" name="phone-rating-count" placeholder="300000" />
+                <input 
+                type="number" name="phoneRating" 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+                placeholder="4.3" />
+
+
+                <input 
+                type="number" name="phoneRating"
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+                placeholder="300000" />
               </div>
 
           </div>
@@ -161,9 +275,29 @@ function AddNewPhone() {
 
 
               <div className="three-input-containers">
-                <input type="text" name="phone-benchmarks-geekbench" placeholder="Geekbench" />
-                <input type="text" name="phone-memory-benchmark-antutu" placeholder="AnTuTu" />
-                <input type="text" name="phone-memory-benchmark-threedmark" placeholder="ThreeDMark" />
+                <input 
+                type="text" name="phoneBenchmarks" 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneBenchmarks[0]}
+                placeholder="Geekbench" />
+
+
+                <input 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneBenchmarks[1]}
+                type="text" name="phone-memory-benchmark-antutu" placeholder="AnTuTu" />
+
+
+                <input 
+                onChange={(e)=>{
+                setFormData((prev)=> ({...prev, [e.target.name] : e.target.value}))
+              }}
+              value={formData.phoneBenchmarks[2]}
+                type="text" name="phone-memory-benchmark-threedmark" placeholder="ThreeDMark" />
               </div>
 
           </div>
