@@ -81,8 +81,8 @@
     
     strong{
         color: #ffffff;
-        animation: blink 1s infinite alternate ease-in-out;
-        -webkit-animation: blink 1s infinite alternate ease-in-out;
+        animation: blink .7s infinite alternate linear;
+        -webkit-animation: blink .7s infinite alternate linear;
 }
 }
 

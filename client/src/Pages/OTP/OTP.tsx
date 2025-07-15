@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./OTP.css";
 import { useSetAtom } from "jotai";
 import { userInfoAtom } from "../../globals/states";
@@ -15,6 +15,38 @@ function OTP() {
   const setUserInfo = useSetAtom(userInfoAtom)
   const [otpError, setOtpError] = useState("")
   const navigate = useNavigate()
+  
+  // Add countdown timer state
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+
+  // Timer effect to count down from 5 minutes
+  useEffect(() => {
+    // Only run if we have a valid email (user is on the OTP page)
+    if (!userEmail) return;
+    
+    // Set up the interval to decrement the timer
+    const timerId = setInterval(() => {
+      setTimeLeft(prevTime => {
+        // When the timer reaches 0, set the error
+        if (prevTime <= 1) {
+          clearInterval(timerId);
+          setOtpError("Verification code has expired. Please request a new one.");
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+    
+    // Clean up the interval when component unmounts
+    return () => clearInterval(timerId);
+  }, [userEmail]);
+  
+  // Helper function to format the remaining time as MM:SS
+  const formatTimeLeft = () => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
 
   async function verifyOtp(){
     try {
@@ -50,8 +82,9 @@ function OTP() {
       localStorage.removeItem("otp-email")
       navigate("/")
 
-    } catch (error) {
+    } catch (error : any) {
         setVerificationStatus("error")
+        setOtpError(error.message)
         console.log("otp error", error)
     }
   }
@@ -79,6 +112,7 @@ function OTP() {
             pattern="[0-9]*"
             value={otp === undefined ? "" : otp}
             onChange={(e) => {
+              setOtpError("")
               const value = e.target.value.replace(/[^\d]/g, "");
               setOtp(value ? Number(value) : undefined);
             }}
@@ -88,19 +122,20 @@ function OTP() {
             type="text"
             id="otp-input"
             className="otp-input"
+            disabled={timeLeft === 0}
           />
 
-          {otpError && <p className="error">An error occurred while we were trying to verify your OTP</p>}
+          {otpError && <p className="error">{otpError}</p>}
 
           <button
-          disabled={otp == undefined || otp.toString().length < 6 || verificationStatus == "verifying"}
+          disabled={otp == undefined || otp.toString().length < 6 || verificationStatus == "verifying" || !!otpError || timeLeft === 0}
           >
             {verificationStatus == "verifying" ? "Verifying..." : "Verify"}
           </button>
         </form>
 
         <p className="otp-expire">
-          Your verification code will expire in <strong>5 Minutes</strong>
+          Your verification code will expire in <strong>{formatTimeLeft()}</strong>
         </p>
       </div>
     </main>
