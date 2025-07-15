@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./OTP.css";
 import { useSetAtom } from "jotai";
 import { userInfoAtom } from "../../globals/states";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 type verificationStatusType = "completed" | "error" | "verifying"
 
@@ -18,6 +18,7 @@ function OTP() {
 
   async function verifyOtp(){
     try {
+        setOtpError("")
         setVerificationStatus("verifying")
         const response = await fetch("http://localhost:3000/api/user/verify-otp", {
             credentials : "include",
@@ -46,6 +47,7 @@ function OTP() {
       }
 
       setUserInfo(createdInfo)
+      localStorage.removeItem("otp-email")
       navigate("/")
 
     } catch (error) {
@@ -53,6 +55,9 @@ function OTP() {
         console.log("otp error", error)
     }
   }
+
+  if(!userEmail) return <Navigate to={"/"} />
+  
   return (
     <main className="otp-main">
       <div className="otp-inner">
@@ -84,6 +89,8 @@ function OTP() {
             id="otp-input"
             className="otp-input"
           />
+
+          {otpError && <p className="error">An error occurred while we were trying to verify your OTP</p>}
 
           <button
           disabled={otp == undefined || otp.toString().length < 6 || verificationStatus == "verifying"}

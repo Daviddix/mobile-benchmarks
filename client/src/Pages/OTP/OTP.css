@@ -91,3 +91,9 @@
         opacity: 0;
 }
 }
+
+.otp-inner .error{
+    color: var(--red-badge-bg);
+    margin: .5rem 0 0;
+    font-size: 1.2rem;
+}
