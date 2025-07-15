@@ -19,6 +19,7 @@ import GameToReviewInfo from "./Pages/GameToReviewInfo/GameToReviewInfo"
 import Reports from "./Pages/Reports/Reports"
 import Requests from "./Pages/Requests/Requests"
 import AddNewPhone from "./Pages/AddNewPhone/AddNewPhone"
+import OTP from "./Pages/OTP/OTP"
 
 function App(){
   const [userInfo, setUserInfo] = useAtom(userInfoAtom)
@@ -67,10 +68,13 @@ function App(){
       <Route path="/game/info/:gameId" element={<GameInfo />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-          <Route element={<ProtectedRoute />}>
-      <Route path="/contribute/game" element={<ContributeGame />} />
-          </Route>
       <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/otp" element={<OTP />} />
+
+
+      <Route element={<ProtectedRoute />}>
+          <Route path="/contribute/game" element={<ContributeGame />} />
+      </Route>
 
         <Route element={<ProtectedAdminRoute />}>
           <Route path="/admin/review/game" element={<AdminGameReview />} />
@@ -80,6 +84,7 @@ function App(){
           <Route path="/admin/phone/add" element={<AddNewPhone />} />
           {/* <Route path="/admin/game/add" element={<Reports />} /> */}
         </Route>
+
       <Route path="*" element={<NotFound />} />
       
       </Route>
