@@ -119,19 +119,20 @@ function Signup() {
         throw new Error("Signup Error", {cause : responseInJson})
       }
 
-      console.log("signup successful")
+      console.log("signup successful, going to OTP page")
       setSignupFetchStatus("completed")
+      localStorage.setItem("otp-email", responseInJson.email)
 
-      const createdInfo : userInfo = {
-        username : responseInJson.username,
-        _id : responseInJson._id ,
-        error : false,
-        loading : false
-      }
+      // const createdInfo : userInfo = {
+      //   username : responseInJson.username,
+      //   _id : responseInJson._id ,
+      //   error : false,
+      //   loading : false
+      // }
 
-      setUserInfo(createdInfo)
+      // setUserInfo(createdInfo)
       
-      navigate("/")
+      navigate("/otp")
     }catch(err){
       setSignupFetchStatus("error")
     }

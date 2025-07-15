@@ -28,4 +28,10 @@ const successfullyDeletedItem = {
     message : "The item has been successfully deleted"
 }
 
-module.exports = {userCreated, reportSubmitted, loginSuccessful, gameSubmitted, successfullyDeletedItem}
+const otpSentToUser = {
+    status : "success",
+    type : "otp sent",
+    message : "The OTP has successfully been created and sent to the user email address"
+}
+
+module.exports = {userCreated, reportSubmitted, loginSuccessful, gameSubmitted, successfullyDeletedItem, otpSentToUser}

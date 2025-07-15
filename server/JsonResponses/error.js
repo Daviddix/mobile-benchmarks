@@ -88,6 +88,12 @@ const rateLimitedHit = {
     message : "Seems like you have made too many request. Please wait and try again in 15 minutes"
 }
 
+const otpNotValid = {
+    status : "error",
+    type : "otp error",
+    message : "The OTP you entered cannot be verified. Please try again after a while"
+}
+
 module.exports = {
     duplicateUsername, 
     duplicateEmail,
@@ -103,5 +109,6 @@ module.exports = {
     invalidDataSubmitted,
     imageUploadError,
     itemNotFound,
-    rateLimitedHit
+    rateLimitedHit,
+    otpNotValid
     }

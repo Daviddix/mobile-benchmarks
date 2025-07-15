@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema({
     default: "local",
   },
 
+  status : {
+    type : String,
+    default : "pending",
+    enum : ["pending", "active"]
+  }
+
 });
 
 const userModel = mongoose.model("Users", userSchema);

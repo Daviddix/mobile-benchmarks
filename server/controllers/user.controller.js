@@ -7,8 +7,9 @@ const {
   userNotFoundInDataBase,
   switchToGoogleAccount,
   invalidDataSubmitted,
+  otpNotValid,
 } = require("../JsonResponses/error");
-const { userCreated, loginSuccessful, reportSubmitted } = require("../JsonResponses/Success");
+const { userCreated, loginSuccessful, reportSubmitted, otpSentToUser } = require("../JsonResponses/Success");
 const userModel = require("../models/user.model");
 const {
   checkForDuplicateUsername,
@@ -19,6 +20,8 @@ const timeBeforeItExpires = 90000000000 * 300;
 const saltRounds = 10;
 const bcrypt = require("bcryptjs");
 const { OAuth2Client } = require("google-auth-library");
+const { generateOtp, sentOtpEmailWithResend, OtpIsVerified } = require("../utils/otp.utils");
+const otpModel = require("../models/otp.model");
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
@@ -53,16 +56,19 @@ async function createNewUser(req, res) {
       username,
       password: hashedPassword,
       authProvider: "local",
+      status : "pending"
     });
 
-    const userToken = await generateJwtToken(userMade._id);
+    const otpNumber = generateOtp()
 
-    const userInfo = {
-      username : userMade.username,
-      _id : userMade._id,
-    }
+    const userOtp = await otpModel.create({
+      userId : userMade._id,
+      otp : otpNumber
+    })
 
-    res.cookie("jwt", userToken, {
+    await sentOtpEmailWithResend(userMade.email, userOtp.otp, userMade.username)
+
+    res.cookie("userIdAwaitingOtp", userMade._id, {
       httpOnly: true,
       maxAge: timeBeforeItExpires,
       path: "/",
@@ -70,7 +76,7 @@ async function createNewUser(req, res) {
       sameSite: "Strict",
     });
 
-    res.status(201).json(userInfo);
+    res.status(201).json({...otpSentToUser, email : userMade.email});
   } catch (err) {
     console.log(err);
     res.status(400).json(unknownError);
@@ -237,10 +243,70 @@ async function logUserInFromGoogle(req, res) {
   }
 }
 
+async function verifyOtp(req, res){
+  try {
+    const userId = req.cookies.userIdAwaitingOtp
+
+    const {otpEntered} = req.body
+
+    if(!userId || !otpEntered){
+      return res.status(400).json(noBodyDataError)
+    }
+
+    const otpHasBeenVerified = await OtpIsVerified(userId, otpEntered)
+
+    if(!otpHasBeenVerified){
+      return res.status(401).json(otpNotValid)
+    }
+
+    console.log("The OTP has been verified")
+
+    res.cookie("userIdAwaitingOtp", "", {
+      httpOnly: true,
+      maxAge: 0,
+      path: "/",
+      secure: true, 
+      sameSite: "Strict",
+    });
+
+    const userInDb = await userModel.findById(userId);
+
+    if (!userInDb) {
+      return res.status(404).json(userNotFoundInDataBase);
+    }
+
+    const userToken = await generateJwtToken(userInDb._id);
+
+    res.cookie("jwt", userToken, {
+      httpOnly: true,
+      maxAge: timeBeforeItExpires,
+      path: "/",
+      secure: true, 
+      sameSite: "Strict",
+    });
+
+    userInDb.status = "active"
+
+    await userInDb.save()
+
+    const userInfo = {
+      _id: userInDb._id,
+      username: userInDb.username,
+    }
+
+    res.status(200).json(userInfo);
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(unknownError)
+  }
+}
+
 module.exports = {
   createNewUser,
   createNewUserFromGoogle,
   getUserDetails,
   logUserIn,
-  logUserInFromGoogle
+  logUserInFromGoogle,
+  verifyOtp
 };
