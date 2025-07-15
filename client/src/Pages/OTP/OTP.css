@@ -6,9 +6,10 @@
 
 .otp-inner h1{
     text-align: center;
+    margin: 0 0 .5rem 0;
 }
 
-.otp-inner p{
+.otp-title p{
     text-align: center;
     opacity: .7;
     font-size: 1.2rem;
@@ -35,6 +36,11 @@
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: flex;
+    padding: 0 0 0 2.6rem;
 }
 
 .otp-inner button{
@@ -60,4 +66,22 @@
     -moz-transition: all .4s ease;
     -ms-transition: all .4s ease;
     -o-transition: all .4s ease;
+}
+
+.otp-inner .otp-expire{
+    margin: 1rem 0 0 0;
+    font-size: 1.2rem;
+    color: #ffffff99;
+    
+    strong{
+        color: #ffffff;
+        animation: blink 1s infinite alternate ease-in-out;
+        -webkit-animation: blink 1s infinite alternate ease-in-out;
+}
+}
+
+@keyframes blink {
+    to{
+        opacity: 0;
+}
 }
