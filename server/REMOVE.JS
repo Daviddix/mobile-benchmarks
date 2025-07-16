@@ -50,8 +50,8 @@ async function processPhoneImage(imageUrl) {
 
     // 4. Resize the image down (adjust the scale factor to your needs)
     const scaleFactor = 0.3; // 50% size
-    const scaledWidth = 274
-    const scaledHeight = 325
+    const scaledWidth = 254
+    const scaledHeight = 305
 
     console.log('Scaled size:', scaledWidth, scaledHeight);
 
@@ -75,7 +75,7 @@ async function processPhoneImage(imageUrl) {
         width: canvasWidth,
         height: canvasHeight,
         channels: 3,
-        background: { r: 255, g: 255, b: 255 }
+        background: { r: 26, g: 26, b: 26 }
       }
     })
       .composite([

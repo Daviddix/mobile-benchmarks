@@ -62,15 +62,14 @@ async function scrapeUrlForPhoneInfo(phoneUrl) {
 async function scaleImage(phoneImageUrl) {
     try {
         // 1. Download original image
-        console.log("I have gotten", phoneImageUrl)
+        console.log("Fetching", phoneImageUrl);
         const originalResponse = await fetch(phoneImageUrl);
         if (!originalResponse.ok) throw new Error('Failed to fetch original image.');
-        console.log("I have fetched", phoneImageUrl)
 
         // 2. Send to remove.bg
         const formData = new URLSearchParams();
         formData.append('image_url', phoneImageUrl);
-        formData.append('size', 'auto');
+        formData.append('size', 'auto'); // Request higher resolution
 
         const removeBgResponse = await fetch('https://api.remove.bg/v1.0/removebg', {
             method: 'POST',
@@ -96,56 +95,46 @@ async function scaleImage(phoneImageUrl) {
             throw new Error('Invalid image metadata from remove.bg');
         }
 
-        // 4. Calculate scale to fit within target size, preserving aspect ratio
-        const targetWidth = 274;
-        const targetHeight = 325;
+        // 4. Set larger target dimensions
+        const targetWidth = 648; // Increased from 548
+        const targetHeight = 750; // Increased from 650
 
-        const widthRatio = targetWidth / metadata.width;
-        const heightRatio = targetHeight / metadata.height;
-        const scaleFactor = Math.min(widthRatio, heightRatio);
-
-        const scaledWidth = Math.round(metadata.width * scaleFactor);
-        const scaledHeight = Math.round(metadata.height * scaleFactor);
-
-        console.log('Scaled size:', scaledWidth, scaledHeight);
-
-        // 5. Resize the phone image to fit within the target box, preserving aspect ratio
+        // 5. Resize the phone image to fit the target box
         const resizedPhone = await sharp(noBgBuffer)
             .resize({
-                width: scaledWidth,
-                height: scaledHeight,
-                fit: 'contain',
+                width: targetWidth,
+                height: targetHeight,
+                fit: 'cover',
+                withoutEnlargement: false, // Allow upscaling
                 background: { r: 0, g: 0, b: 0, alpha: 0 }
             })
             .toBuffer();
 
-        // 6. Create a white canvas that's 2x the target size
-        const canvasFactor = 2;
-        const canvasWidth = targetWidth * canvasFactor;
-        const canvasHeight = targetHeight * canvasFactor;
+        // 6. Create a canvas matching the target size
+        const canvasWidth = targetWidth * 1.4;
+        const canvasHeight = targetHeight * 1.4;
 
-        if (!canvasWidth || !canvasHeight || isNaN(canvasWidth) || isNaN(canvasHeight)) {
-            throw new Error(`Invalid canvas size: ${canvasWidth}x${canvasHeight}`);
-        }
-
-        // 7. Composite the phone image centered on the white canvas
         const finalImage = await sharp({
             create: {
-                width: canvasWidth,
-                height: canvasHeight,
+                width: Math.floor(canvasWidth),
+                height: Math.floor(canvasHeight),
                 channels: 3,
-                background: { r: 255, g: 255, b: 255 }
+                background: { r: 26, g: 26, b: 26 }
             }
         })
             .composite([
                 {
                     input: resizedPhone,
-                    top: Math.floor((canvasHeight - scaledHeight) / 2),
-                    left: Math.floor((canvasWidth - scaledWidth) / 2)
+                    top: Math.floor((canvasHeight - targetHeight) / 2), 
+                    left:Math.floor((canvasWidth - targetWidth) / 2)
                 }
             ])
-            .png()
+            .png({ quality: 100 }) // Ensure high-quality PNG
             .toBuffer();
+
+        // 7. Save the output
+        await fs.promises.writeFile('output.png', finalImage);
+        console.log('Image saved as output.png');
 
         return finalImage;
     } catch (err) {
