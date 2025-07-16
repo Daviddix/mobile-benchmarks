@@ -1,0 +1,30 @@
+.under-construction-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.under-construction-main .under-construction-inner{
+    width: 90%;
+    max-width: 120rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.under-construction-inner p{
+    text-align:center;
+    margin: 1rem 0 0;
+    opacity: .7;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    max-width: 60rem;
+}
+
+.under-construction-inner img{
+    margin-bottom: -2rem;
+}
