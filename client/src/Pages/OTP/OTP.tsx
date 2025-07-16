@@ -18,18 +18,15 @@ function OTP() {
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from") as "login" | "signup" | null
   
-  // Add countdown timer state
+
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
-  // Timer effect to count down from 5 minutes
+  
   useEffect(() => {
-    // Only run if we have a valid email (user is on the OTP page)
     if (!userEmail) return;
     
-    // Set up the interval to decrement the timer
     const timerId = setInterval(() => {
       setTimeLeft(prevTime => {
-        // When the timer reaches 0, set the error
         if (prevTime <= 1) {
           clearInterval(timerId);
           setOtpError("Verification code has expired. Please request a new one.");
@@ -39,11 +36,9 @@ function OTP() {
       });
     }, 1000);
     
-    // Clean up the interval when component unmounts
     return () => clearInterval(timerId);
   }, [userEmail]);
   
-  // Helper function to format the remaining time as MM:SS
   const formatTimeLeft = () => {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
