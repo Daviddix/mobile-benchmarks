@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./OTP.css";
 import { useSetAtom } from "jotai";
 import { userInfoAtom } from "../../globals/states";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate, useNavigate, useSearchParams } from "react-router";
 
 type verificationStatusType = "completed" | "error" | "verifying"
 
@@ -15,6 +15,8 @@ function OTP() {
   const setUserInfo = useSetAtom(userInfoAtom)
   const [otpError, setOtpError] = useState("")
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from") as "login" | "signup" | null
   
   // Add countdown timer state
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
@@ -49,10 +51,13 @@ function OTP() {
   };
 
   async function verifyOtp(){
+    if(!from) return
     try {
         setOtpError("")
         setVerificationStatus("verifying")
-        const response = await fetch("http://localhost:3000/api/user/verify-otp", {
+        const otpFetchUrl = from == "login" ? "http://localhost:3000/api/user/login/verify-otp" : "http://localhost:3000/api/user/signup/verify-otp"
+
+        const response = await fetch(otpFetchUrl, {
             credentials : "include",
             method : "POST",
             headers : {

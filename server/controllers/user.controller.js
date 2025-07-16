@@ -8,6 +8,7 @@ const {
   switchToGoogleAccount,
   invalidDataSubmitted,
   otpNotValid,
+  wrongPassword,
 } = require("../JsonResponses/error");
 const { userCreated, loginSuccessful, reportSubmitted, otpSentToUser } = require("../JsonResponses/Success");
 const userModel = require("../models/user.model");
@@ -107,9 +108,16 @@ async function logUserIn(req, res) {
       return res.status(401).json(wrongPassword);
     }
 
-    const userToken = await generateJwtToken(userInDb._id);
+     const otpNumber = generateOtp()
 
-    res.cookie("jwt", userToken, {
+    const userOtp = await otpModel.create({
+      userId : userInDb._id,
+      otp : otpNumber
+    })
+
+    await sentOtpEmailWithResend(userInDb.email, userOtp.otp, userInDb.username)
+
+    res.cookie("userIdAwaitingOtp", userInDb._id, {
       httpOnly: true,
       maxAge: timeBeforeItExpires,
       path: "/",
@@ -117,12 +125,8 @@ async function logUserIn(req, res) {
       sameSite: "Strict",
     });
 
-    const userInfo = {
-      _id : userInDb._id,
-      username : userInDb.username,
-    }
+    res.status(201).json({...otpSentToUser, email : userInDb.email});
 
-    res.status(200).json(userInfo);
   } catch (e) {
     console.log(e);
     res.status(400).json(unknownError);
@@ -243,7 +247,7 @@ async function logUserInFromGoogle(req, res) {
   }
 }
 
-async function verifyOtp(req, res){
+async function verifyOtpForSignup(req, res){
   try {
     const userId = req.cookies.userIdAwaitingOtp
 
@@ -302,11 +306,68 @@ async function verifyOtp(req, res){
   }
 }
 
+
+async function verifyOtpForLogin(req, res){
+  try {
+    const userId = req.cookies.userIdAwaitingOtp
+
+    const {otpEntered} = req.body
+
+    if(!userId || !otpEntered){
+      return res.status(400).json(noBodyDataError)
+    }
+
+    const otpHasBeenVerified = await OtpIsVerified(userId, otpEntered)
+
+    if(!otpHasBeenVerified){
+      return res.status(401).json(otpNotValid)
+    }
+
+    console.log("The OTP has been verified")
+
+    res.cookie("userIdAwaitingOtp", "", {
+      httpOnly: true,
+      maxAge: 0,
+      path: "/",
+      secure: true, 
+      sameSite: "Strict",
+    });
+
+    const userInDb = await userModel.findById(userId);
+
+    if (!userInDb) {
+      return res.status(404).json(userNotFoundInDataBase);
+    }
+
+    const userToken = await generateJwtToken(userInDb._id);
+
+    res.cookie("jwt", userToken, {
+      httpOnly: true,
+      maxAge: timeBeforeItExpires,
+      path: "/",
+      secure: true, 
+      sameSite: "Strict",
+    });
+
+    const userInfo = {
+      _id: userInDb._id,
+      username: userInDb.username,
+    }
+
+    res.status(200).json(userInfo);
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(unknownError)
+  }
+}
+
 module.exports = {
   createNewUser,
   createNewUserFromGoogle,
   getUserDetails,
   logUserIn,
   logUserInFromGoogle,
-  verifyOtp
+  verifyOtpForSignup,
+  verifyOtpForLogin
 };

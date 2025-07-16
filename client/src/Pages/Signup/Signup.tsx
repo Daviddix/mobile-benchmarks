@@ -123,16 +123,8 @@ function Signup() {
       setSignupFetchStatus("completed")
       localStorage.setItem("otp-email", responseInJson.email)
 
-      // const createdInfo : userInfo = {
-      //   username : responseInJson.username,
-      //   _id : responseInJson._id ,
-      //   error : false,
-      //   loading : false
-      // }
-
-      // setUserInfo(createdInfo)
       
-      navigate("/otp")
+      navigate("/otp?from=signup")
     }catch(err){
       setSignupFetchStatus("error")
     }

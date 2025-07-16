@@ -53,19 +53,11 @@ function Login() {
         throw new Error("Signup Error", {cause : responseInJson})
       }
 
-      console.log("signup successful")
+      console.log("login successful")
       setLoginFetchStatus("completed")
+      localStorage.setItem("otp-email", responseInJson.email)
 
-      const createdInfo : userInfo = {
-        username : responseInJson.username,
-        _id : responseInJson._id ,
-        error : false,
-        loading : false
-      }
-
-      setUserInfo(createdInfo)
-
-      navigate("/")
+      navigate("/otp?from=login")
     }catch(err){
       setLoginFetchStatus("error")
     }

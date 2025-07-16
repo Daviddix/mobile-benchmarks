@@ -94,6 +94,12 @@ const otpNotValid = {
     message : "The OTP you entered cannot be verified. Please try again after a while"
 }
 
+const wrongPassword = {
+    status : "error",
+    type : "wrong password",
+    message : "The password you entered is incorrect. Please try again"
+}
+
 module.exports = {
     duplicateUsername, 
     duplicateEmail,
@@ -110,5 +116,6 @@ module.exports = {
     imageUploadError,
     itemNotFound,
     rateLimitedHit,
-    otpNotValid
+    otpNotValid,
+    wrongPassword
     }
