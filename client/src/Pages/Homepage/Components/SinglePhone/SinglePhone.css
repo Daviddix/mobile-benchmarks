@@ -8,11 +8,13 @@
     object-fit: cover;
     aspect-ratio: 9/17;
     height: 36rem;
-    border-radius: .5rem;
-    -webkit-border-radius: .5rem;
-    -moz-border-radius: .5rem;
-    -ms-border-radius: .5rem;
-    -o-border-radius: .5rem;
+    overflow: hidden;
+    border-radius: .8rem;
+    -webkit-border-radius: .8rem;
+    -moz-border-radius: .8rem;
+    -ms-border-radius: .8rem;
+    -o-border-radius: .8rem;
+    border: 1px solid var(--l3-elevation);
 }
 
 .single-phone .text{

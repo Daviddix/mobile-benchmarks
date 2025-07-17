@@ -106,7 +106,11 @@
     max-width: fit-content;
     background-color: transparent;
     border:none;
-    
+    transition: .2s ease-in ;
+    -webkit-transition: .2s ease-in ;
+    -moz-transition: .2s ease-in ;
+    -ms-transition: .2s ease-in ;
+    -o-transition: .2s ease-in ;
 }
 
 .tab-inner button.active{
@@ -123,6 +127,7 @@
 .similar-games .similar-games-inner
 {
     width:90vw;
+    max-width: 130rem;
     margin: 0 auto 0rem;
 }
 
@@ -156,6 +161,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
+}
+
+.similar-games-inner .similar-games-container.empty{
+   display: block;
 }
 
 .bottom-game-info{

@@ -19,7 +19,6 @@ function PhoneInfo() {
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [phoneData, setPhoneData] = useState<phoneData |null>(null)
   const [showReportModal, setShowReportModal] = useState(false)
-  const [showReportButton, setShowReportButton] = useState(false)
   const isLoggedIn = useLoggedInChecker()
   const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
 
@@ -135,6 +134,10 @@ function PhoneInfo() {
 
             <p className="report-text">Notice any wrong information? <button
             onClick={()=>{
+              if(!isLoggedIn){
+                setShowUserOnlyModal(true)
+                return
+              }
             setShowReportModal(true)
           }}
             >Send a Report</button></p>

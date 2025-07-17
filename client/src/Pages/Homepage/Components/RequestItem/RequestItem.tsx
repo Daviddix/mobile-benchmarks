@@ -4,6 +4,8 @@ import "./RequestItem.css";
 import { useLoggedInChecker } from "../../../../hooks/useLoggedInChecker";
 import { useSetAtom } from "jotai";
 import { showUserOnlyModalAtom } from "../../../../globals/states";
+import emptyIllustrationPhone from "./assets/icons/phone-empty.svg"
+import emptyIllustrationGame from "./assets/icons/game-empty.svg"
 
 type requestItemProps = {
   itemType: "Game" | "Phone";
@@ -23,6 +25,7 @@ function RequestItem({ itemType }: requestItemProps) {
         />
       )}
       <div className="request-item">
+        <img src={itemType == "Game" ? emptyIllustrationGame : emptyIllustrationPhone} alt="empty illustration" />
         <h3>Your {itemType == "Game" ? "game" : "phone"} isn’t listed yet</h3>
 
         <p>

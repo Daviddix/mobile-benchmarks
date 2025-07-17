@@ -6,12 +6,11 @@ import SupportedDevicesSection from "./Components/SupportedDevicesSection/Suppor
 import RequirementSection from "./Components/RequirementSection/RequirementSection";
 import GameInfoLoaderSkeleton from "./Components/GameInfoLoaderSkeleton/GameInfoLoaderSkeleton";
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
-import menuIcon from "./assets/icons/menu-icon.svg"
-import reportIcon from "./assets/icons/report-icon.svg"
 import ReportModal from "../../Components/ReportModal/ReportModal";
 import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
 import { useSetAtom } from "jotai";
 import { showUserOnlyModalAtom } from "../../globals/states";
+import NoSimilarGames from "./Components/NoSimilarGames/NoSimilarGames";
 
 
 function GameInfo() {
@@ -22,11 +21,11 @@ function GameInfo() {
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
   const [gameInfo, setGameInfo] = useState<gameData | null>(null)
   const [tabToView, setTabToView] = useState<tabTypes>("requirements")
-  const [showReportButton, setShowReportButton] = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
   const {gameId} = useParams()
   const isLoggedIn = useLoggedInChecker()
   const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
+  const [similarGames, setSimilarGames] = useState(0)
 
   async function getGameInformation(gameId : string | undefined) {
     try{
@@ -164,6 +163,10 @@ function GameInfo() {
 
             <p className="report-text">Notice any wrong information? <button
             onClick={()=>{
+              if(!isLoggedIn){
+                setShowUserOnlyModal(true)
+                return
+              }
             setShowReportModal(true)
           }}
             >Send a Report</button></p>
@@ -227,8 +230,8 @@ function GameInfo() {
     <div className="similar-games-inner">
       <h2>Similar Games</h2>
 
-      <div className="similar-games-container">
-        [No similar Game found]
+      <div className={similarGames == 0 ? "similar-games-container empty" : "similar-games-container"}>
+        <NoSimilarGames />
       </div>
     </div>
         </section>
