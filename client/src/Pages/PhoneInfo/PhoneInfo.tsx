@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import CompatibleGamesSection from "./Components/CompatibleGamesSection/CompatibleGamesSection";
 import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneInfoSkeletonLoader";
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
-import menuIcon from "./assets/icons/menu-icon.svg"
 import reportIcon from "./assets/icons/report-icon.svg"
 import ReportModal from "../../Components/ReportModal/ReportModal";
 import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
@@ -79,32 +78,8 @@ function PhoneInfo() {
         <img src={phoneData?.phoneCoverImage} alt="phone info" className="phone-image" />
 
         <div className="phone-info-text">
-          <div className="heading-and-button">
 
           <h2>{phoneData?.phoneName}</h2>
-          <button 
-          onClick={()=>{
-            setShowReportButton((prev)=> !prev)
-          }}
-          className="report-inaccurate-info-button">
-          <img
-          src={menuIcon} alt="report inaccurate info icon" />
-          </button>
-
-          {showReportButton && <button 
-           onClick={()=>{
-            if(isLoggedIn){
-              setShowReportModal(true)
-              setShowReportButton(false)
-            }else{
-              setShowUserOnlyModal(true)
-              setShowReportButton(false)
-            }
-          }}
-          className="report">
-            <img src={reportIcon} alt="report icon" />
-            Report inaccurate information</button>}
-          </div>
 
           <div className="other-phone-info">
             <div className="single-phone-info">
@@ -157,7 +132,15 @@ function PhoneInfo() {
               <h3>3D Mark</h3>
               <p>{phoneData?.moreInfo.threeDMark ||"NA"}</p>
             </div>
+
+            <p className="report-text">Notice any wrong information? <button
+            onClick={()=>{
+            setShowReportModal(true)
+          }}
+            >Send a Report</button></p>
           </div>
+
+          
         </div>
         </div>
       }

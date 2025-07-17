@@ -107,33 +107,7 @@ function GameInfo() {
         />
 
         <div className="game-info-text">
-          <div className="heading-and-button">
           <h2>{gameInfo?.gameName}</h2>
-
-          <button 
-          onClick={()=>{
-            setShowReportButton((prev)=> !prev)
-          }}
-          className="report-inaccurate-info-button">
-          <img
-          src={menuIcon} alt="report inaccurate info icon" />
-          </button>
-
-          {showReportButton && <button 
-          onClick={()=>{
-           if(isLoggedIn){
-              setShowReportModal(true)
-              setShowReportButton(false)
-            }else{
-              setShowUserOnlyModal(true)
-              setShowReportButton(false)
-            }
-          }}
-          className="report">
-            <img src={reportIcon} alt="report icon" />
-            Report inaccurate information</button>}
-
-          </div>
 
           <p>{gameInfo?.gameDescription}</p>
 
@@ -187,6 +161,12 @@ function GameInfo() {
                 </a>
               </p>
             </div>
+
+            <p className="report-text">Notice any wrong information? <button
+            onClick={()=>{
+            setShowReportModal(true)
+          }}
+            >Send a Report</button></p>
           </div>
         </div>
         </div>
