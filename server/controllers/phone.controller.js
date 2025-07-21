@@ -22,7 +22,7 @@ async function addNewPhone(req, res){
  
 async function getAllPhones(req, res){
     try{
-        const allPhones = await phoneModel.find({}).limit(15) 
+        const allPhones = await phoneModel.find({}).limit(20) 
 
         res.status(200).json(allPhones)
     }
