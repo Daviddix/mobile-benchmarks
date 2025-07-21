@@ -1,4 +1,4 @@
-const { scaleImage } = require("./phone.utils");
+const { scaleImage } = require("../utils/phone.utils");
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const phoneModel = require("../models/phone.model");
 const connectToDb = require("../database/mongodb");

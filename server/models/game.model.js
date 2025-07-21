@@ -88,6 +88,11 @@ const gameSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    descriptionEmbedding: {
+    type: [Number],
+    required: false,
+    default: []
+    },
     gameYearOfRelease : {
         type : Number,
         required : true
