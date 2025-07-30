@@ -3,6 +3,7 @@ import CompatibleGame from "../../Components/CompatibleGame/CompatibleGame";
 import CompatibleGamesSectionSkeletonLoader from "./CompatibleGamesSectionSkeletonLoader/CompatibleGamesSectionSkeletonLoader";
 import "./CompatibleGamesSection.css"
 import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent";
+import { Link } from "react-router";
 
 type compatibleGamesSectionProps = {
     phoneId : string | undefined
@@ -81,7 +82,19 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
                 <div className="empty">No items</div>
 
             }
+
           
+
+          </div>
+          <div className="disclaimer-text">
+            <h4>Disclaimer</h4>
+            <p>
+              Game compatibility and FPS data are manually gathered from YouTube gameplay videos and public sources. Accuracy may vary.
+            </p>
+
+            <Link to="/disclaimer">
+            Learn more
+            </Link>
 
           </div>
 

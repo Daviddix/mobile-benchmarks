@@ -52,11 +52,11 @@ function CompatibleGame({gameCoverImage, gameDescription, gameName,gameCompatibi
                   <small>Frame Rate</small>
                 </div>
 
-                <div className="single-setting small">
+                {gamePerformanceStats.batteryUsagePerHour && <div className="single-setting small">
                   <img src={batteryIcon} alt="battery icon" />
                   <p>{gamePerformanceStats.batteryUsagePerHour}</p>
                   <small>/hr</small>
-                </div>
+                </div>}
 
                 <div className="single-setting">
                   <img src={iosIcon} alt="apple icon" />
@@ -78,11 +78,11 @@ function CompatibleGame({gameCoverImage, gameDescription, gameName,gameCompatibi
                   <small>Playstore</small>
                 </div>
 
-                <div className="single-setting small">
+                {gamePerformanceStats.fps && <div className="single-setting small">
                   <img src={fpsIcon} alt="fps icon" />
                   <p>{gamePerformanceStats.fps}</p>
                   <small>fps</small>
-                </div>
+                </div>}
               </div>
             </div>
     </div>

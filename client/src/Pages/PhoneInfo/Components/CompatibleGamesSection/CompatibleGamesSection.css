@@ -19,6 +19,30 @@
     padding: .8rem 0;
 }
 
+.compatible-games .disclaimer-text{
+    opacity: .6;
+    width: 100%;
+    max-width: 40rem;
+    margin:5rem auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.compatible-games .disclaimer-text p{
+    font-weight: 100;
+    line-height: 1.4;
+    margin: .2rem 0 0 0;
+    font-style: italic;
+    text-align: center;
+}
+
+.compatible-games .disclaimer-text a{
+    color: var(--primary-300);
+    font-weight: 600;
+}
+
 @media screen and (min-width:600px) {
     .compatible-games-inner .compatible-games-container{
         display:grid;
