@@ -1,0 +1,66 @@
+.disclaimer-main .disclaimer-inner{
+    width: 90%;
+    max-width: 50rem;
+    margin: auto;
+    padding: 2rem 0 0 0;
+}
+
+.disclaimer-inner p{
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #ffffffc2;
+
+    b{
+        color: #fff;
+    }
+}
+
+.disclaimer-inner h2{
+    margin: 0 0 1rem 0;
+    background-image: linear-gradient(to right, var(--primary-100), var(--primary-400));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: contain;
+    width: fit-content;
+    color: transparent;
+    font-size: 2.2rem;
+}
+
+.disclaimer-inner h3{
+    margin: 0 0 .5rem 0;
+    font-size: 1.6rem;
+}
+
+.disclaimer-inner .disclaimer-logo{
+    max-width: 4rem;
+}
+
+.disclaimer-inner h1{
+    margin: .5rem 0 3rem 0;
+    background-image: linear-gradient(to right, #fff, #999999);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: contain;
+    width: fit-content;
+    color: transparent;
+    font-size: 2.6rem;
+}
+
+.disclaimer-inner > div{
+    margin: 0 0 4rem 0;
+}
+
+.disclaimer-inner ul{
+    padding: 0 0 0 3rem;
+}
+
+.disclaimer-inner ul li{
+    list-style-position: inside;
+    font-weight: 600;
+}
+
+.disclaimer-inner ul li a{
+    color: inherit;
+}

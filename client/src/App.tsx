@@ -20,6 +20,7 @@ import Reports from "./Pages/Reports/Reports"
 import Requests from "./Pages/Requests/Requests"
 import AddNewPhone from "./Pages/AddNewPhone/AddNewPhone"
 import OTP from "./Pages/OTP/OTP"
+import Disclaimer from "./Pages/Disclaimer/Disclaimer"
 
 function App(){
   const [userInfo, setUserInfo] = useAtom(userInfoAtom)
@@ -70,6 +71,7 @@ function App(){
       <Route path="/signup" element={<Signup />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/otp" element={<OTP />} />
+      <Route path="/disclaimer" element={<Disclaimer />} />
 
 
       <Route element={<ProtectedRoute />}>
