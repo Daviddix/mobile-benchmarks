@@ -21,7 +21,7 @@ async function addNewGame(req, res){
 
 async function getAllGames(req, res){
     try{
-        const allGames = await gameModel.find({})
+        const allGames = await gameModel.find({}).select("-descriptionEmbedding")
 
         res.status(200).json(allGames)
     }
@@ -34,7 +34,7 @@ async function getAllGames(req, res){
 async function getGameInfo(req, res){
     try{
         const {id} = req.params
-        const gameInfo = await gameModel.findById(id).populate("moreInfo.supportedDevices")
+        const gameInfo = await gameModel.findById(id).populate(["moreInfo.supportedDevices", "moreInfo.similarGames"]).select("-descriptionEmbedding")
 
         res.status(200).json(gameInfo)
     }

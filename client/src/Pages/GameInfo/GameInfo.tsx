@@ -11,6 +11,7 @@ import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
 import { useSetAtom } from "jotai";
 import { showUserOnlyModalAtom } from "../../globals/states";
 import NoSimilarGames from "./Components/NoSimilarGames/NoSimilarGames";
+import SingleGame from "../Homepage/Components/SingleGame/SingleGame";
 
 
 function GameInfo() {
@@ -25,7 +26,7 @@ function GameInfo() {
   const {gameId} = useParams()
   const isLoggedIn = useLoggedInChecker()
   const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
-  const [similarGames, setSimilarGames] = useState(0)
+  const [similarGames, setSimilarGames] = useState<gameData[]>([])
 
   async function getGameInformation(gameId : string | undefined) {
     try{
@@ -37,6 +38,7 @@ function GameInfo() {
         throw new Error("An error occurred", {cause : responseInJson})
       }
       setGameInfo(responseInJson)
+      setSimilarGames(responseInJson.moreInfo.similarGames || [])
       setFetchingState("completed")
     }
     catch(err){
@@ -54,6 +56,18 @@ function GameInfo() {
   const mappedScreenShots = gameInfo?.moreInfo.gameScreenshots?.map((screenshot)=>{
     return <img key={screenshot} src={screenshot} alt="screenshot" />
   })
+
+   const mappedSimilarGames = similarGames.map(({gameName, gameCategory, gameCoverImage, gamePlatform, gameSize, _id})=>{
+        return <SingleGame
+        _id={_id} 
+        key={_id}
+        gameCategory={gameCategory}
+        gameCoverImage={gameCoverImage}
+        gameName={gameName}
+        gamePlatform={gamePlatform}
+        gameSize={gameSize}
+        /> 
+    })
 
   function formatSize(number : number | undefined) : string | number {
     if(number){
@@ -230,8 +244,13 @@ function GameInfo() {
     <div className="similar-games-inner">
       <h2>Similar Games</h2>
 
-      <div className={similarGames == 0 ? "similar-games-container empty" : "similar-games-container"}>
-        <NoSimilarGames />
+      <div className={similarGames.length === 0 ? "similar-games-container empty" : "similar-games-container"}>
+        {
+          similarGames.length === 0 ?
+          <NoSimilarGames />
+          :
+          mappedSimilarGames
+        }
       </div>
     </div>
         </section>

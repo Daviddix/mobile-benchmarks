@@ -1,6 +1,6 @@
 const { default: mongoose } = require('mongoose');
 const connectToDb = require('../database/mongodb');
-const gameModel = require('../models/game.model');  // Replace with actual path to your model
+const gameModel = require('../models/game.model');
 
 async function generateEmbedding(text) {
     const response = await fetch('http://localhost:5000/embed', {
@@ -14,11 +14,8 @@ async function generateEmbedding(text) {
     }
 
     const data = await response.json();
-    return data.embedding;  // array of floats
+    return data.embedding;
 }
-
-
-
 
 async function processGames() {
     await connectToDb()
@@ -26,15 +23,18 @@ async function processGames() {
     const games = await gameModel.find();
 
     for (const game of games) {
-        if (game.descriptionEmbedding?.length) {
-            console.log(`Embedding already exists for ${game.gameName}`);
-            continue;
-        }
+        // if (game.descriptionEmbedding?.length) {
+        //     console.log(`Embedding already exists for ${game.gameName}`);
+        //     continue;
+        // }
 
         console.log(`Generating embedding for: ${game.gameName}`);
 
         try {
-            const embedding = await generateEmbedding(game.gameDescription);
+            // Combine description and category for richer embeddings
+            const combinedText = `Genre: ${game.gameCategory}. Description: ${game.gameDescription}`;
+            
+            const embedding = await generateEmbedding(combinedText);
 
             game.descriptionEmbedding = embedding;
             await game.save();
