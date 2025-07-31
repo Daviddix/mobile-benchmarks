@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react'
 import "./AllPhonesSection.css"
 import AllPhonesLoaderSkeleton from './Components/AllPhonesLoaderSkeleton/AllPhonesLoaderSkeleton'
 import { useAtom, useAtomValue } from 'jotai'
-import { allPopularPhonesAtom, filteredPhonesAtom, headerSearchStatusAtom, searchingState } from '../../../../globals/states'
+import { allPopularPhonesAtom, filteredPhonesAtom, headerSearchStatusAtom, searchingState, popularPhonesCacheAtom } from '../../../../globals/states'
 import SinglePhone from '../SinglePhone/SinglePhone'
 import ErrorComponent from '../../../../Components/ErrorComponent/ErrorComponent'
 import RequestItem from '../RequestItem/RequestItem'
@@ -18,6 +18,12 @@ function AllPhonesSection() {
 
   const [filteredPhones, setAllFilteredPhones] = useAtom(filteredPhonesAtom)
   const headerSearchStatus = useAtomValue(headerSearchStatusAtom)
+  
+  // Cache atom for storing phones data with timestamp
+  const [phonesCache, setPhonesCache] = useAtom(popularPhonesCacheAtom)
+
+  // Cache duration: 5 minutes in milliseconds
+  const CACHE_DURATION = 5 * 60 * 1000
 
 
 
@@ -45,6 +51,26 @@ function AllPhonesSection() {
     />
   })
 
+  // Check if cached data is still valid (not older than 5 minutes)
+  function isCacheValid(): boolean {
+    if (!phonesCache) return false
+    const now = Date.now()
+    return (now - phonesCache.timestamp) < CACHE_DURATION
+  }
+
+  // Load phones from cache or fetch from API
+  async function loadPopularPhones() {
+    // Check cache first
+    if (isCacheValid() && phonesCache) {
+      setAllPopularPhones(phonesCache.data)
+      setFetchingState("completed")
+      return
+    }
+
+    // If no valid cache, fetch from API
+    await getPopularPhones()
+  }
+
   async function getPopularPhones(){
     try{
       const rawFetch = await fetch("http://localhost:3000/api/phone/get-all")
@@ -53,7 +79,13 @@ function AllPhonesSection() {
       if(!rawFetch.ok){
         throw new Error("Fetching Error" , {cause : responseInJson})
       }
+      
+      // Update both the state and cache
       setAllPopularPhones(responseInJson)
+      setPhonesCache({
+        data: responseInJson,
+        timestamp: Date.now()
+      })
       setFetchingState("completed")
     }
     catch(err){
@@ -63,7 +95,7 @@ function AllPhonesSection() {
   }
 
   useEffect(() => {  
-    getPopularPhones()
+    loadPopularPhones()
   }, [])
 
 
