@@ -45,7 +45,7 @@ function AllGamesSection() {
 
     async function getPopularGames(){
         try{
-          setFetchingState("loading")
+          // setFetchingState("loading")
           const rawFetch = await fetch("http://localhost:3000/api/game/get-all")
           const responseInJson : gameData[] = await rawFetch.json()
     
