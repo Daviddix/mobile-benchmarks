@@ -23,10 +23,10 @@ async function processGames() {
     const games = await gameModel.find();
 
     for (const game of games) {
-        // if (game.descriptionEmbedding?.length) {
-        //     console.log(`Embedding already exists for ${game.gameName}`);
-        //     continue;
-        // }
+        if (game.descriptionEmbedding?.length) {
+            console.log(`Embedding already exists for ${game.gameName}`);
+            continue;
+        }
 
         console.log(`Generating embedding for: ${game.gameName}`);
 

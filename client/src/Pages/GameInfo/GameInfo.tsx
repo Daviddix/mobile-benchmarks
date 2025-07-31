@@ -87,13 +87,13 @@ function GameInfo() {
     setShowReportModal(false)
   }
 
-  useEffect(()=>{
-    window.scrollTo({
-      top:0,
-      left : 0
-    })
-    getGameInformation(gameId)
-  }, [])
+  // useEffect(()=>{
+  //   window.scrollTo({
+  //     top:0,
+  //     left : 0
+  //   })
+  //   getGameInformation(gameId)
+  // }, [])
   return (
     <main className="game-info-main">
       {

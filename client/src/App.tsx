@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router"
+import {Route, Routes, ScrollRestoration} from "react-router"
 import "./App.css"
 import Homepage from "./Pages/Homepage/Homepage"
 import Header from "./Components/Header/Header"
@@ -62,6 +62,8 @@ function App(){
   }, [])
 
   return (
+    <>
+    <ScrollRestoration />
     <Routes>
       <Route element={<Header />}>
       <Route path="/" element={<Homepage />} />
@@ -91,6 +93,7 @@ function App(){
       
       </Route>
     </Routes>
+    </>
   )
 }
 
