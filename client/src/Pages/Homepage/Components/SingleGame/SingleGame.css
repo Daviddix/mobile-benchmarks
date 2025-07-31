@@ -3,6 +3,24 @@
     display: flex;
     min-width: 300px;
     align-items: center;
+     transition: all .2s ease-out ;
+    -webkit-transition: all .2s ease-out ;
+    -moz-transition: all .2s ease-out ;
+    -ms-transition: all .2s ease-out ;
+    -o-transition: all .2s ease-out ;
+}
+
+.single-game-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.single-game:hover{
+    transform: translateY(-4px);
+    -webkit-transform: translateY(-4px);
+    -moz-transform: translateY(-4px);
+    -ms-transform: translateY(-4px);
+    -o-transform: translateY(-4px);
 }
 
 .single-game > div{

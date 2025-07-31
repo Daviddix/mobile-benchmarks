@@ -2,7 +2,7 @@ import "./SinglePhone.css"
 import chipIcon from "./assets/icons/chip-icon.svg"
 import screenIcon from "./assets/icons/screen-icon.svg"
 import memoryIcon from "./assets/icons/ram-icon.svg"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 type SinglePhoneProps = {
   _id: string;
@@ -14,17 +14,13 @@ type SinglePhoneProps = {
 }
 
 function SinglePhone({_id, phoneChipset, phoneCoverImage, phoneDisplay, phoneMemory, phoneName} : SinglePhoneProps) {
-  const navigate = useNavigate()
-  return (
-    <div 
-    className="single-phone">
-    <img src={phoneCoverImage} alt={`image of ${phoneName}`} className="phone-image" />
 
-    <div 
-     onClick={()=>{
-      navigate(`/phone/info/${_id}`)
-    }}
-    className="text">
+  return (
+    <Link className="single-phone-link" to={`/phone/info/${_id}`}>
+      <div className="single-phone">
+        <img src={phoneCoverImage} alt={`image of ${phoneName}`} className="phone-image" />
+
+    <div className="text">
         <h3>{phoneName}</h3>
 
         <div className="more-phone-text">
@@ -45,6 +41,7 @@ function SinglePhone({_id, phoneChipset, phoneCoverImage, phoneDisplay, phoneMem
         </div>
     </div>
     </div>
+    </Link>
   )
 }
 

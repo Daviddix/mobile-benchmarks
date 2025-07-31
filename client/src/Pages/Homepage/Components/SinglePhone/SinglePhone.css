@@ -1,6 +1,24 @@
 .single-phone{
     max-width: 100%;
     align-items: start;
+    transition: all .2s ease-out ;
+    -webkit-transition: all .2s ease-out ;
+    -moz-transition: all .2s ease-out ;
+    -ms-transition: all .2s ease-out ;
+    -o-transition: all .2s ease-out ;
+}
+
+.single-phone:hover{
+    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+}
+
+.single-phone-link{
+    text-decoration: none;
+    color: inherit;
 }
 
 .single-phone .phone-image{
