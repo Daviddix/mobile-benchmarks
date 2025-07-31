@@ -8,13 +8,13 @@
     -o-transition: all .2s ease-out ;
 }
 
-.single-phone:hover{
+/* .single-phone:hover{
     transform: translateY(-5px);
     -webkit-transform: translateY(-5px);
     -moz-transform: translateY(-5px);
     -ms-transform: translateY(-5px);
     -o-transform: translateY(-5px);
-}
+} */
 
 .single-phone-link{
     text-decoration: none;
@@ -33,10 +33,37 @@
     -ms-border-radius: .8rem;
     -o-border-radius: .8rem;
     border: 1px solid var(--l3-elevation);
+    transition: all .2s ease-out ;
+    -webkit-transition: all .2s ease-out ;
+    -moz-transition: all .2s ease-out ;
+    -ms-transition: all .2s ease-out ;
+    -o-transition: all .2s ease-out ;
+}
+
+.single-phone:hover .phone-image{
+    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+}
+
+.single-phone:hover .text{
+    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
 }
 
 .single-phone .text{
-    cursor: pointer;
+        cursor: pointer;
+        transition: all .3s ease-out ;
+        -webkit-transition: all .3s ease-out ;
+        -moz-transition: all .3s ease-out ;
+        -ms-transition: all .3s ease-out ;
+        -o-transition: all .3s ease-out ;
+        transition-delay: .1s;
 }
 
 .single-phone h3{
