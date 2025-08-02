@@ -10,7 +10,7 @@ const {
   otpNotValid,
   wrongPassword,
 } = require("../JsonResponses/error");
-const { userCreated, loginSuccessful, reportSubmitted, otpSentToUser } = require("../JsonResponses/Success");
+const { otpSentToUser } = require("../JsonResponses/success");
 const userModel = require("../models/user.model");
 const {
   checkForDuplicateUsername,
