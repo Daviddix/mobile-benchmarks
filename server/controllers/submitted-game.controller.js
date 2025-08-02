@@ -1,5 +1,5 @@
 const { invalidDataSubmitted, noBodyDataError, unknownError, imageUploadError } = require("../JsonResponses/error")
-const { gameSubmitted } = require("../JsonResponses/Success")
+const { gameSubmitted } = require("../JsonResponses/success")
 const submittedGameModel = require("../models/submitted-game.model");
 const { changeBase64ToCloudinaryUrl } = require("../utils/submitted-game.utils");
 

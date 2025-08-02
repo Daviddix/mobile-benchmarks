@@ -1,5 +1,5 @@
 const { unknownError, missingData, itemNotFound } = require("../JsonResponses/error");
-const { reportSubmitted } = require("../JsonResponses/Success");
+const { reportSubmitted } = require("../JsonResponses/success");
 const reportModel = require("../models/reports.model")
 
 
