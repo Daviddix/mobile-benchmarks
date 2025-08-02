@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import SingleLeader from "./components/SingleLeader/SingleLeader"
 import "./Leaderboard.css"
 
@@ -5,9 +6,13 @@ function Leaderboard() {
   return (
     <main className="leaderboard-main">
         <div className="leaderboard-inner">
-            <h1>Some Amazing People that Helped This Platform</h1>
+            <h1 style={{opacity : .7, fontWeight : 500}}>This feature is coming soon. Stay Tuned</h1>
 
-            <div className="all-leader-container">
+            <Link to="/" className="back-to-home">
+                <p>Back to Home</p>
+            </Link>
+
+            {/* <div className="all-leader-container">
                 <div className="title">
                     <p>Rank</p>
                     <p>User</p>
@@ -21,7 +26,7 @@ function Leaderboard() {
                 <SingleLeader userName="Ade Balogun" userRank={3} userPoints={6} />
 
                 <SingleLeader userName="Abdul Jay" userRank={4} userPoints={4} />
-            </div>
+            </div> */}
         </div>
     </main>
   )

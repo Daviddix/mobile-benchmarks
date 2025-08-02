@@ -34,6 +34,7 @@ export const itemsToViewAtom = atom<itemsToView>("Phones")
 
 export const userInfoAtom = atom<userInfo>({
   username : null,
+  email : null,
   _id : null,
   loading : true,
   error : false

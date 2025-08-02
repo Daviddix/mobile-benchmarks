@@ -17,8 +17,8 @@ const ProtectedAdminRoute = () => {
           <div className="loading">Loading...</div>
         </div>
       }
-      
-      if(userInfo.username == "Emmanuel Nsikan-david"){
+
+      if(userInfo.username == "Emmanuel Nsikan-david" || userInfo.email == "emmanuelnsikandavid@gmail.com" || userInfo.email == "en56434@gmail.com"){
         setIsAdmin(true)
       }else{
         setIsAdmin(false)

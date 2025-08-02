@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken")
 
  async function checkForDuplicateUsername(username){
     const existingUser = await userModel.findOne({ username });
-    return !!existingUser;
+    return !!existingUser; 
 }
 
  async function checkForDuplicateEmail(email){

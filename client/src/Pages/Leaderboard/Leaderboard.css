@@ -61,3 +61,13 @@
         color: var(--primary-300);
     }
 }
+
+.leaderboard-inner a{
+    font-size: 1.2rem;
+    color: var(--text-primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    margin: 2rem auto 0 auto;
+}

@@ -68,6 +68,7 @@ type storageSizeType = {
 
 type userInfo = {
   username : string | null;
+  email : string | null;
   _id : string | null;
   loading : boolean;
   error : boolean;

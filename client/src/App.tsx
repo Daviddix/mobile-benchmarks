@@ -47,6 +47,7 @@ function App(){
     catch(err){
       setUserInfo({
         _id : null,
+        email : null,
         username : null,
         loading : false,
         error : true
