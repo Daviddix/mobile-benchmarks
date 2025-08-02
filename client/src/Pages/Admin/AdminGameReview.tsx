@@ -7,7 +7,7 @@ function AdminGameReview() {
 
   async function getAllSubmissions(){
     try{
-      const rawFetch = await fetch("http://localhost:3000/api/admin/submissions",  {
+      const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/admin/submissions",  {
         credentials : "include"
       })
 
@@ -21,7 +21,7 @@ function AdminGameReview() {
 
   async function approveSubmission(submissionId: string){
     try{
-      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/admin/submissions/approve/${submissionId}`, {
         method : "DELETE",
         credentials : "include"
       })
@@ -38,7 +38,7 @@ function AdminGameReview() {
 
   async function declineSubmission(submissionId: string){
     try{
-      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/admin/submissions/approve/${submissionId}`, {
         method : "DELETE",
         credentials : "include"
       })

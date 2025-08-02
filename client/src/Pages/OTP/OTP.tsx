@@ -50,7 +50,7 @@ function OTP() {
     try {
         setOtpError("")
         setVerificationStatus("verifying")
-        const otpFetchUrl = from == "login" ? "http://localhost:3000/api/user/login/verify-otp" : "http://localhost:3000/api/user/signup/verify-otp"
+        const otpFetchUrl = from == "login" ? "https://mobile-benchmarks.onrender.com/api/user/login/verify-otp" : "https://mobile-benchmarks.onrender.com/api/user/signup/verify-otp"
 
         const response = await fetch(otpFetchUrl, {
             credentials : "include",

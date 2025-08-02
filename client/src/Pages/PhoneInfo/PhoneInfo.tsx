@@ -29,7 +29,7 @@ function PhoneInfo() {
   async function getPhoneData(id : string | undefined){
     try{
       setFetchingState("loading")
-      const rawFetch = await fetch(`http://localhost:3000/api/phone/info/${id}`)
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/phone/info/${id}`)
       const responseInJson = await rawFetch.json()
 
       if(!rawFetch.ok){

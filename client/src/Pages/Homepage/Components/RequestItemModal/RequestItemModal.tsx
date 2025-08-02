@@ -25,7 +25,7 @@ function RequestItemModal ({closeFn, requestType} : requestItemModalProps) {
                 requestItem
             }
 
-            const rawFetch = await fetch("http://localhost:3000/api/request/make-request", {
+            const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/request/make-request", {
                 method: "POST",
                 credentials: "include",
                 headers: {

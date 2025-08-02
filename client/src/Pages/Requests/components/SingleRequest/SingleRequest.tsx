@@ -9,7 +9,7 @@ function SingleRequest({requestItem, requestType, _id, refetchFunction} : single
 
     async function approveRequest(requestId: string){
     try{
-      const rawFetch = await fetch(`http://localhost:3000/api/request/add/${requestId}`, {
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/request/add/${requestId}`, {
         method : "PUT",
         credentials : "include"
       })
@@ -26,7 +26,7 @@ function SingleRequest({requestItem, requestType, _id, refetchFunction} : single
 
   async function deleteRequest(requestId: string){
     try{
-      const rawFetch = await fetch(`http://localhost:3000/api/request/delete/${requestId}`, {
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/request/delete/${requestId}`, {
         method : "DELETE",
         credentials : "include"
       })

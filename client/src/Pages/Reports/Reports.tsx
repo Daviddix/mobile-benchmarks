@@ -18,7 +18,7 @@ function Reports() {
 
     async function getAllReports(){
         try{
-            const rawFetch = await fetch("http://localhost:3000/api/report/all-reports", {
+            const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/report/all-reports", {
                 credentials: "include",
             })
 
@@ -38,7 +38,7 @@ function Reports() {
 
     async function markAsResolved(reportId: string, reportInfo: populatedReportTypeInfo){
         try{
-            const rawFetch = await fetch(`http://localhost:3000/api/report/resolve/${reportId}`, {
+            const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/report/resolve/${reportId}`, {
                 method: "PUT",
                 credentials: "include"
             })

@@ -77,7 +77,7 @@ function Header() {
     try{
       setIsSearching(true)
       setHeaderSearchStatus("searching")
-      const rawFetch = await fetch(`http://localhost:3000/api/game/search?searchQuery=${encodeURIComponent(searchQuery)}`)
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/game/search?searchQuery=${encodeURIComponent(searchQuery)}`)
 
       const responseInJson = await rawFetch.json()
 
@@ -105,7 +105,7 @@ function Header() {
     try{
       setIsSearching(true)
       setHeaderSearchStatus("searching")
-      const rawFetch = await fetch(`http://localhost:3000/api/phone/search?searchQuery=${encodeURIComponent(searchQuery)}`)
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/phone/search?searchQuery=${encodeURIComponent(searchQuery)}`)
 
       const responseInJson = await rawFetch.json()
 

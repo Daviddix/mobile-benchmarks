@@ -23,7 +23,7 @@ function GameToReviewInfo() {
 
     async function getGamesFromSubmission() {
         try{
-            const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/${gameId}`, {
+            const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/admin/submissions/${gameId}`, {
                 credentials: "include"
             });
 
@@ -43,7 +43,7 @@ function GameToReviewInfo() {
 
      async function approveSubmission(submissionId: string){
     try{
-      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/admin/submissions/approve/${submissionId}`, {
         method : "DELETE",
         credentials : "include"
       })
@@ -60,7 +60,7 @@ function GameToReviewInfo() {
 
   async function declineSubmission(submissionId: string){
     try{
-      const rawFetch = await fetch(`http://localhost:3000/api/admin/submissions/approve/${submissionId}`, {
+      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/admin/submissions/approve/${submissionId}`, {
         method : "DELETE",
         credentials : "include"
       })

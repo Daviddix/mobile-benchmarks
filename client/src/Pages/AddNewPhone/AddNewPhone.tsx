@@ -17,7 +17,7 @@ type scrapedPhoneInfoType = {
 function AddNewPhone() {
  async function transformImageFromUrl(phoneImageUrl: string): Promise<Blob | undefined> {
   try {
-    const response = await fetch("http://localhost:3000/api/phone/transform-image", {
+    const response = await fetch("https://mobile-benchmarks.onrender.com/api/phone/transform-image", {
       method: "POST",
       body: JSON.stringify({ imageUrl: phoneImageUrl }),
       headers: {
@@ -41,7 +41,7 @@ function AddNewPhone() {
 
 async function scrapePhoneInfo(gsmArenaUrl : string) : Promise<scrapedPhoneInfoType | undefined>{
   try {
-    const response = await fetch("http://localhost:3000/api/phone/scrape-phone-info", {
+    const response = await fetch("https://mobile-benchmarks.onrender.com/api/phone/scrape-phone-info", {
       method : "POST",
       headers : {
         "Content-Type" : "Application/json"

@@ -198,7 +198,7 @@ function GameInformationForm({
     if(!data) return
     try{
       setSubmissionStatus("submitting")
-      const response = await fetch("http://localhost:3000/api/submit-game/submit", {
+      const response = await fetch("https://mobile-benchmarks.onrender.com/api/submit-game/submit", {
         body : JSON.stringify(data),
         credentials : "include",
         method : "POST",

@@ -27,7 +27,7 @@ function App(){
 
   async function getUserInfo(){
     try{
-      const rawFetch = await fetch("http://localhost:3000/api/user/info", {
+      const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/user/info", {
         credentials : "include"
       })
   

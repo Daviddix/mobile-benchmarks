@@ -71,7 +71,7 @@ function Signup() {
 
   const handleCredentialResponse = async (response : any) => {
     try {
-      const res = await fetch("http://localhost:3000/api/user/signup/google", {
+      const res = await fetch("https://mobile-benchmarks.onrender.com/api/user/signup/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ function Signup() {
     try{
       setSignupFetchStatus("loading")
       setSignupErrorMessage("")
-      const rawFetch = await fetch("http://localhost:3000/api/user/signup", {
+      const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/user/signup", {
         method : "POST",
         body : JSON.stringify(userDetails),
         headers : {

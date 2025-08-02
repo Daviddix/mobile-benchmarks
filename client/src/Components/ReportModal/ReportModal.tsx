@@ -29,7 +29,7 @@ function ReportModal({reportTypeName, reportType, reportTypeId, closeFn} : repor
                 reasonForReport
             }
 
-            const rawFetch = await fetch("http://localhost:3000/api/report/make-report", {
+            const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/report/make-report", {
                 method: "POST",
                 credentials: "include",
                 headers: {

@@ -37,7 +37,7 @@ function Login() {
     try{
       setLoginFetchStatus("loading")
       setLoginErrorMessage("")
-      const rawFetch = await fetch("http://localhost:3000/api/user/login", {
+      const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/user/login", {
         method : "POST",
         body : JSON.stringify(userDetails),
         headers : {
@@ -98,7 +98,7 @@ function Login() {
 
   const handleCredentialResponse = async (response : any) => {
     try {
-      const res = await fetch("http://localhost:3000/api/user/login/google", {
+      const res = await fetch("https://mobile-benchmarks.onrender.com/api/user/login/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

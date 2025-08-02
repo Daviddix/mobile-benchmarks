@@ -9,7 +9,7 @@ function Requests() {
   async function getAllRequests(){
     setAllRequests([])
     try{
-      const rawFetch = await fetch("http://localhost:3000/api/request/get-all",{
+      const rawFetch = await fetch("https://mobile-benchmarks.onrender.com/api/request/get-all",{
         credentials : "include"
       })
 
