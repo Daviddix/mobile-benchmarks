@@ -190,6 +190,7 @@ async function createNewUserFromGoogle(req, res) {
 
     const userInfo = {
       _id : user._id,
+      email : user.email,
       username : user.username,
     }
 
@@ -237,6 +238,7 @@ async function logUserInFromGoogle(req, res) {
 
     const userInfo = {
       _id : user._id,
+      email : user.email,
       username : user.username,
     }
 
@@ -295,6 +297,7 @@ async function verifyOtpForSignup(req, res){
 
     const userInfo = {
       _id: userInDb._id,
+      email: userInDb.email,
       username: userInDb.username,
     }
 
@@ -352,6 +355,7 @@ async function verifyOtpForLogin(req, res){
     const userInfo = {
       _id: userInDb._id,
       username: userInDb.username,
+      email: userInDb.email,
     }
 
     res.status(200).json(userInfo);

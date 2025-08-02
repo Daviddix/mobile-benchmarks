@@ -114,6 +114,7 @@ function Login() {
         
         const createdInfo : userInfo = {
         username : responseInJson.username,
+        email : responseInJson.email,
         _id : responseInJson._id ,
         error : false,
         loading : false

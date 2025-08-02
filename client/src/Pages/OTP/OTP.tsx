@@ -74,6 +74,7 @@ function OTP() {
         const createdInfo : userInfo = {
         username : responseInJson.username,
         _id : responseInJson._id ,
+        email : responseInJson.email,
         error : false,
         loading : false
       }
