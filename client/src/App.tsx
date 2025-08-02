@@ -64,8 +64,7 @@ function App(){
 
   return (
     <Routes>
-      <Route element={<UnderConstruction />} path="*"/>
-      {/* <Route element={<Header />}>
+      <Route element={<Header />}>
       <Route path="/" element={<Homepage />} />
       <Route path="/phone/info/:phoneId" element={<PhoneInfo />} />
       <Route path="/game/info/:gameId" element={<GameInfo />} />
@@ -87,11 +86,10 @@ function App(){
           <Route path="/admin/requests" element={<Requests />} />
           <Route path="/admin/phone/add" element={<AddNewPhone />} />
           {/* <Route path="/admin/game/add" element={<Reports />} /> */}
-        </Route>
+        </Route>  
+      </Route>
 
       <Route path="*" element={<NotFound />} />
-      
-      </Route>
     </Routes>
   )
 }
