@@ -6,13 +6,18 @@ header{
     padding: 2rem 0 0 0;
     min-height: 22rem;
     display: flex;
+    position: relative;
     flex-direction: column;
+}
+
+header .logo-and-nav > img{
+    width: 2.5rem;
 }
 
 header.n{
     padding: 2rem 0 2rem 0;
     border-bottom: 1px solid var(--l3-elevation);
-    min-height: auto;
+    min-height: var(--header-height);
 }
 
 .homepage-inner-top{
@@ -45,7 +50,7 @@ header.n{
 }
 
 header form{
-    border-block:1.5px solid var(--l4-elevation);
+    border-block:1.5px solid #5151515e;
     height: 6.5rem;
     background-color: rgba(0, 0, 0, 0.295);
     display:flex;
@@ -116,8 +121,20 @@ header form .homepage-inner-top{
     -webkit-border-radius: .6rem;
     -moz-border-radius: .6rem;
     -ms-border-radius: .6rem;
-    -o-border-radius: .6rem;
+    -o-border-radius: .6rem; 
     color: #fff;
     width:3.5rem;
     padding: 0 .2rem;
+}
+
+@media screen and (min-width:600px) {
+    header .n::after{
+        content: "";
+        position: absolute;
+        height: 100%;
+        width:450px;
+        right: 0;
+        bottom:0;
+        background-image: linear-gradient(to right, transparent, #00000070, #00000028);
+    }
 }

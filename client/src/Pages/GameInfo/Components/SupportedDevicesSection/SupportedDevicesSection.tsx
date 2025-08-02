@@ -1,17 +1,9 @@
 import SinglePhone from "../../../Homepage/Components/SinglePhone/SinglePhone";
+import NoSupportedDevices from "./components/NoSupportedDevices/NoSupportedDevices";
 import "./SupportedDevicesSection.css"
 
-type popularPhoneInfo = {
-  _id: string;
-  phoneName: string;
-  phoneChipset: string;
-  phoneCoverImage: string;
-  phoneDisplay: string[];
-  phoneMemory: number[];
-}
-
 type SupportedDevicesSectionProps = {
-  allSupportedDevices: popularPhoneInfo[];
+  allSupportedDevices: phoneData[];
 };
 
 
@@ -28,8 +20,13 @@ function SupportedDevicesSection({allSupportedDevices} : SupportedDevicesSection
   })
   return (
     <div className="supported-devices-container">
-            <div className="supported-devices-inner">
-              {mappedPhones}
+            <div className={allSupportedDevices.length === 0 ? "supported-devices-inner empty" : "supported-devices-inner"}>
+              {
+                allSupportedDevices.length === 0 ?
+                <NoSupportedDevices />
+                :
+              mappedPhones
+              }
             </div>
     </div>
   )

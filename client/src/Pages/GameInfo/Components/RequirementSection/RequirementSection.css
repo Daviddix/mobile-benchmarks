@@ -61,6 +61,13 @@ table tr td{
     border-left: 1px solid #51515177;
 }
 
+table td .android-ios-size{
+    display: flex;
+    align-items:center ;
+    justify-content: start;
+    column-gap: .2rem;
+}
+
 table.recommended{
     border:1px solid var(--primary-500);
 }

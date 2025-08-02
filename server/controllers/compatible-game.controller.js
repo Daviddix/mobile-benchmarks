@@ -1,3 +1,5 @@
+const { unknownError } = require("../JsonResponses/error")
+
 const compatibleGameModel = require("../models/compatible-game.model")
 
 async function addNewCompatibleGame(req, res){
@@ -14,14 +16,20 @@ async function addNewCompatibleGame(req, res){
     }
     catch(err){
         console.log("An error occurred when trying to add a compatible game", err) 
-        res.status(500).json({type : "error", message : "Server Error"})
+        res.status(500).json({
+            generic : unknownError,
+            specific : err
+        })
     } 
 }
 
 async function getCompatibleGamesForPhone(req, res){
     try{
         const {phoneId} = req.params
-        const compatibleGames = await compatibleGameModel.findOne({phone : phoneId})
+        const compatibleGames = await compatibleGameModel.findOne({phone : phoneId}).populate({
+            path: 'compatibleGamesInfo.game', // Path to nested field
+            select: '_id gameName gameCoverImage gameDescription iosDownloadLink androidDownloadLink', // Optional: select specific fields
+  })
 
         res.status(200).json(compatibleGames)
     } 

@@ -1,0 +1,99 @@
+.otp-main .otp-inner{
+    width:90%;
+    max-width: 40rem;
+    margin: 4rem auto 0;
+}
+
+.otp-inner h1{
+    text-align: center;
+    margin: 0 0 .5rem 0;
+}
+
+.otp-title p{
+    text-align: center;
+    opacity: .7;
+    font-size: 1.2rem;
+    width: 90%;
+    max-width: 40rem;
+    margin: auto;
+    margin-bottom: 4rem;
+}
+
+.otp-inner form .otp-input-container{
+    display: grid;
+    grid-template-columns: repeat(6 , 1fr);
+    column-gap: 1rem;
+}
+
+.otp-form input{
+    width: 100%;
+    background-color: var(--l1-elevation);
+    border: 1px solid var(--l3-elevation);
+    border-radius: 1rem;
+    height: 4.5rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: flex;
+    padding: 0 1rem;
+}
+
+.otp-form label{
+    font-size: 1.2rem;
+    display: block;
+    margin: 0 0 .4rem 0;
+    font-weight: 500;
+}
+
+.otp-inner button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    color: #000;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 1.5rem;
+    border: 1px solid var(--l3-elevation);
+    background-color: var(--text-color);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    margin: 1.5rem 0 0;
+    transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    -o-transition: all .4s ease;
+}
+
+.otp-inner .otp-expire{
+    margin: 1rem 0 0 0;
+    font-size: 1.2rem;
+    color: #ffffff99;
+    
+    strong{
+        color: #ffffff;
+        animation: blink .7s infinite alternate linear;
+        -webkit-animation: blink .7s infinite alternate linear;
+}
+}
+
+@keyframes blink {
+    to{
+        opacity: 0;
+}
+}
+
+.otp-inner .error{
+    color: var(--red-badge-bg);
+    margin: .5rem 0 0;
+    font-size: 1.2rem;
+}

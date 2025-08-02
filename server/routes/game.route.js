@@ -1,10 +1,11 @@
 const express = require("express")
-const { addNewGame, getAllGames, getGameInfo } = require("../controllers/game.controller")
+const { addNewGame, getAllGames, getGameInfo, searchForGame } = require("../controllers/game.controller")
 
 const gameRouter = express.Router()
 
 gameRouter.post("/add", addNewGame)
 gameRouter.get("/get-all", getAllGames)
-gameRouter.get("/:id", getGameInfo)
+gameRouter.get("/search", searchForGame)
+gameRouter.get("/info/:id", getGameInfo)
 
 module.exports = gameRouter

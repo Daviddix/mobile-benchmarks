@@ -1,0 +1,50 @@
+<svg width="68" height="70" viewBox="0 0 68 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_266_3263)">
+<path d="M0 30C0 15.8579 0 8.7868 4.3934 4.3934C8.7868 0 15.8579 0 30 0H38C52.1421 0 59.2132 0 63.6066 4.3934C68 8.7868 68 15.8579 68 30V40C68 54.1421 68 61.2132 63.6066 65.6066C59.2132 70 52.1421 70 38 70H30C15.8579 70 8.7868 70 4.3934 65.6066C0 61.2132 0 54.1421 0 40V30Z" fill="#515151"/>
+<g filter="url(#filter0_n_266_3263)">
+<rect width="68" height="70" rx="15" fill="#042F2A"/>
+</g>
+<path d="M20 43V28.6H24.8L28.8 42.48H27.06L31.06 28.6H35.88V43H32.84V29.46H33.36L29.46 43H26.28L22.42 29.58H22.92V43H20ZM40.1911 43V40.8H43.9111C44.5778 40.8 45.0778 40.62 45.4111 40.26C45.7578 39.8867 45.9311 39.3733 45.9311 38.72C45.9311 38.0533 45.7444 37.5267 45.3711 37.14C45.0111 36.7533 44.4911 36.56 43.8111 36.56H40.1911V34.36H43.6511C44.2778 34.36 44.7511 34.2133 45.0711 33.92C45.4044 33.6133 45.5711 33.1667 45.5711 32.58C45.5711 31.9933 45.4111 31.5533 45.0911 31.26C44.7844 30.9533 44.3244 30.8 43.7111 30.8H40.1911V28.6H44.3711C45.6511 28.6 46.6844 28.9267 47.4711 29.58C48.2578 30.2333 48.6511 31.12 48.6511 32.24C48.6511 32.9467 48.4844 33.5533 48.1511 34.06C47.8178 34.5667 47.3711 34.9533 46.8111 35.22C46.2511 35.4867 45.6244 35.62 44.9311 35.62L45.0311 35.2C45.7778 35.2 46.4511 35.36 47.0511 35.68C47.6644 36 48.1511 36.4533 48.5111 37.04C48.8711 37.6133 49.0511 38.2933 49.0511 39.08C49.0511 39.8667 48.8644 40.56 48.4911 41.16C48.1311 41.7467 47.6178 42.2 46.9511 42.52C46.2978 42.84 45.5244 43 44.6311 43H40.1911ZM37.6711 43V28.6H40.7511V43H37.6711Z" fill="white"/>
+<g filter="url(#filter1_f_266_3263)">
+<circle cx="73.5" cy="66.5" r="20.5" fill="#16E9D0"/>
+</g>
+<g filter="url(#filter2_f_266_3263)">
+<circle cx="15.5" cy="6.5" r="20.5" fill="#16E9D0"/>
+</g>
+<path d="M17.5 15C17.5 15 24.5 9 34 9C43.5 9 50.5 15 50.5 15" stroke="#12BA82" stroke-width="2" stroke-linecap="round"/>
+<path d="M50.5 55C50.5 55 43.5 61 34 61C24.5 61 17.5 55 17.5 55" stroke="#12BA82" stroke-width="2" stroke-linecap="round"/>
+<path d="M14 51.5C14 51.5 8 44.5 8 35C8 25.5 14 18.5 14 18.5" stroke="#12BA82" stroke-width="2" stroke-linecap="round"/>
+<path d="M54 51.5C54 51.5 60 44.5 60 35C60 25.5 54 18.5 54 18.5" stroke="#12BA82" stroke-width="2" stroke-linecap="round"/>
+</g>
+<defs>
+<filter id="filter0_n_266_3263" x="0" y="0" width="68" height="70" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="6330" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(0, 0, 0, 0.1)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect1_noise_266_3263">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+<filter id="filter1_f_266_3263" x="13" y="6" width="121" height="121" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="20" result="effect1_foregroundBlur_266_3263"/>
+</filter>
+<filter id="filter2_f_266_3263" x="-45" y="-54" width="121" height="121" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="20" result="effect1_foregroundBlur_266_3263"/>
+</filter>
+<clipPath id="clip0_266_3263">
+<path d="M0 30C0 15.8579 0 8.7868 4.3934 4.3934C8.7868 0 15.8579 0 30 0H38C52.1421 0 59.2132 0 63.6066 4.3934C68 8.7868 68 15.8579 68 30V40C68 54.1421 68 61.2132 63.6066 65.6066C59.2132 70 52.1421 70 38 70H30C15.8579 70 8.7868 70 4.3934 65.6066C0 61.2132 0 54.1421 0 40V30Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -6,71 +6,39 @@ import SupportedDevicesSection from "./Components/SupportedDevicesSection/Suppor
 import RequirementSection from "./Components/RequirementSection/RequirementSection";
 import GameInfoLoaderSkeleton from "./Components/GameInfoLoaderSkeleton/GameInfoLoaderSkeleton";
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
+import ReportModal from "../../Components/ReportModal/ReportModal";
+import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
+import { useSetAtom } from "jotai";
+import { showUserOnlyModalAtom } from "../../globals/states";
+import NoSimilarGames from "./Components/NoSimilarGames/NoSimilarGames";
+import SingleGame from "../Homepage/Components/SingleGame/SingleGame";
+
 
 function GameInfo() {
   type fetchingStateType = "loading" | "error" | "completed"
 
   type tabTypes = "requirements" | "supported"
 
-  type Requirements = {
-    operatingSystem: string;
-    processor: string;
-    gpu: string;
-    ram: number;
-    storageSize: number;
-    additionalFeatures: string;
-  };
-
-  type popularPhoneInfo = {
-    _id: string;
-    phoneName: string;
-    phoneChipset: string;
-    phoneCoverImage: string;
-    phoneDisplay: string[];
-    phoneMemory: number[];
-  }
-  
-  type GameRequirements = {
-    minimumRequirements: Requirements;
-    recommendedRequirements: Requirements;
-  };
-  
-  type MoreInfo = {
-    supportedDevices : popularPhoneInfo[];
-    similarGames : Game[];
-    gameRequirements: GameRequirements;
-    gameScreenshots?: string[]; // Optional array of strings
-  };
-  
-  type Game = {
-    gameName: string;
-    gameCategory: string;
-    gameSize: number;
-    gamePlatform: string;
-    gameCoverImage: string;
-    gameDescription: string;
-    gameYearOfRelease: number;
-    gameRating: [number, number]; // Tuple with exactly 2 numbers
-    androidDownloadLink: string;
-    iosDownloadLink: string;
-    moreInfo: MoreInfo;
-  };
-
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
-  const [gameInfo, setGameInfo] = useState<Game | null>(null)
+  const [gameInfo, setGameInfo] = useState<gameData | null>(null)
   const [tabToView, setTabToView] = useState<tabTypes>("requirements")
+  const [showReportModal, setShowReportModal] = useState(false)
   const {gameId} = useParams()
+  const isLoggedIn = useLoggedInChecker()
+  const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
+  const [similarGames, setSimilarGames] = useState<gameData[]>([])
 
   async function getGameInformation(gameId : string | undefined) {
     try{
       setFetchingState("loading")
-      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/game/${gameId}`)
-      const responseInJson : Game = await rawFetch.json()
+      const rawFetch = await fetch(`http://localhost:3000/api/game/info/${gameId}`)
+      const responseInJson : gameData = await rawFetch.json()
       
       if(!rawFetch.ok){
         throw new Error("An error occurred", {cause : responseInJson})
       }
       setGameInfo(responseInJson)
+      setSimilarGames(responseInJson.moreInfo.similarGames || [])
       setFetchingState("completed")
     }
     catch(err){
@@ -89,6 +57,18 @@ function GameInfo() {
     return <img key={screenshot} src={screenshot} alt="screenshot" />
   })
 
+   const mappedSimilarGames = similarGames.map(({gameName, gameCategory, gameCoverImage, gamePlatform, gameSize, _id})=>{
+        return <SingleGame
+        _id={_id} 
+        key={_id}
+        gameCategory={gameCategory}
+        gameCoverImage={gameCoverImage}
+        gameName={gameName}
+        gamePlatform={gamePlatform}
+        gameSize={gameSize}
+        /> 
+    })
+
   function formatSize(number : number | undefined) : string | number {
     if(number){
       if(number >= 1000000){
@@ -103,13 +83,17 @@ function GameInfo() {
     }
   }
 
+  function closeReportModal(){
+    setShowReportModal(false)
+  }
+
   useEffect(()=>{
     window.scrollTo({
       top:0,
       left : 0
     })
     getGameInformation(gameId)
-  }, [])
+  }, [gameId])
   return (
     <main className="game-info-main">
       {
@@ -190,6 +174,16 @@ function GameInfo() {
                 </a>
               </p>
             </div>
+
+            <p className="report-text">Notice any wrong information? <button
+            onClick={()=>{
+              if(!isLoggedIn){
+                setShowUserOnlyModal(true)
+                return
+              }
+            setShowReportModal(true)
+          }}
+            >Send a Report</button></p>
           </div>
         </div>
         </div>
@@ -250,8 +244,13 @@ function GameInfo() {
     <div className="similar-games-inner">
       <h2>Similar Games</h2>
 
-      <div className="similar-games-container">
-        [No similar Game found]
+      <div className={similarGames.length === 0 ? "similar-games-container empty" : "similar-games-container"}>
+        {
+          similarGames.length === 0 ?
+          <NoSimilarGames />
+          :
+          mappedSimilarGames
+        }
       </div>
     </div>
         </section>
@@ -260,6 +259,12 @@ function GameInfo() {
         </>
       }
       
+      {showReportModal && <ReportModal
+      closeFn={closeReportModal}
+      reportTypeName={gameInfo?.gameName || ""}
+      reportType="Games"
+      reportTypeId={gameId || "1234"}
+      />}
 
     </main>
   );

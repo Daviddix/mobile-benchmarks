@@ -3,6 +3,7 @@ import CompatibleGame from "../../Components/CompatibleGame/CompatibleGame";
 import CompatibleGamesSectionSkeletonLoader from "./CompatibleGamesSectionSkeletonLoader/CompatibleGamesSectionSkeletonLoader";
 import "./CompatibleGamesSection.css"
 import ErrorComponent from "../../../../Components/ErrorComponent/ErrorComponent";
+import { Link } from "react-router";
 
 type compatibleGamesSectionProps = {
     phoneId : string | undefined
@@ -11,26 +12,6 @@ type compatibleGamesSectionProps = {
 function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {    
     type fetchingStateType = "loading" | "error" | "completed"
 
-    type compatibleGame = {
-        _id: string,
-        phone: string,
-        compatibleGamesInfo: [
-          {
-            gameCoverImage: string,
-            gameName:string,
-            gameCompatibilityRating: number,
-            gameDescription:string,
-            gameData: {
-              fps: number,
-              frameRate: string,
-              playStoreDownloadLink: string,
-              iosDownloadLink: string,
-              graphicsQuality: string,
-              batteryUsagePerHour: number,
-            }
-          }
-        ]
-      }
 
   const [compatibleGameFetchingState, setCompatibleGameFetchingState] = useState<fetchingStateType>("loading")
   const [compatibleGameData, setCompatibleGameData] = useState<compatibleGame | null>(null)
@@ -39,7 +20,7 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
   async function getCompatibleGames(id : string | undefined){
     try{
       setCompatibleGameFetchingState("loading")
-      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/compatible-game/get-games/${id}`)
+      const rawFetch = await fetch(`http://localhost:3000/api/compatible-game/get-games/${id}`)
       const responseInJson : compatibleGame = await rawFetch.json()
 
       if(!rawFetch.ok){
@@ -55,14 +36,16 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
     }
   }
 
-    const mappedCompatibleGames = compatibleGameData?.compatibleGamesInfo?.sort((a,b)=>b.gameCompatibilityRating - a.gameCompatibilityRating).map(({gameCompatibilityRating, gameDescription, gameData, gameCoverImage, gameName})=>{
+    const mappedCompatibleGames = compatibleGameData?.compatibleGamesInfo?.sort((a,b)=>b.gameCompatibilityRating - a.gameCompatibilityRating).map(({gameCompatibilityRating, game, gamePerformanceStats})=>{
         return <CompatibleGame 
-        key={gameName}
+        key={game.gameName}
         gameCompatibilityRating={gameCompatibilityRating}
-        gameData={gameData}
-        gameCoverImage={gameCoverImage}
-        gameName={gameName}
-        gameDescription={gameDescription}
+        gamePerformanceStats={gamePerformanceStats}
+        gameCoverImage={game.gameCoverImage}
+        gameName={game.gameName}
+        gameIosLink={game.iosDownloadLink}
+        gameAndroidLink={game.androidDownloadLink}
+        gameDescription={game.gameDescription}
         />
       })
 
@@ -99,7 +82,19 @@ function CompatibleGamesSection({phoneId} : compatibleGamesSectionProps) {
                 <div className="empty">No items</div>
 
             }
+
           
+
+          </div>
+          <div className="disclaimer-text">
+            <h4>Disclaimer</h4>
+            <p>
+              Game compatibility and FPS data are manually gathered from YouTube gameplay videos and public sources. Accuracy may vary.
+            </p>
+
+            <Link to="/disclaimer">
+            Learn more
+            </Link>
 
           </div>
 

@@ -2,13 +2,19 @@ import "./SingleGame.css";
 import ramIcon from "./assets/icons/ram-icon.svg";
 import platformIcon from "./assets/icons/platform-icon.svg";
 import categoryIcon from "./assets/icons/game-category-icon.svg";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { formatSize } from "../../../../libs/size";
+
+type storageSizeType = {
+      androidSize : number,
+      iosSize : number
+    }
 
 type singleGameProps = {
   _id: string;
   gameName: string;
   gameCategory: string;
-  gameSize: number;
+  gameSize: storageSizeType;
   gamePlatform: string;
   gameCoverImage: string;
 };
@@ -21,16 +27,10 @@ function SingleGame({
   gameSize,
   _id,
 }: singleGameProps) {
-  const navigate = useNavigate();
 
-  function formatSize(size : number){
-    if(size >= 1000){
-      return size / 1000 + "GB"
-    }else{
-      return size + "MB"
-    }
-  }
+
   return (
+    <Link className="single-game-link" to={`/game/info/${_id}`}>
     <div className="single-game">
       <img
         src={gameCoverImage}
@@ -38,11 +38,7 @@ function SingleGame({
         className="game-logo"
       />
 
-      <div
-        onClick={() => {
-          navigate(`/game/${_id}`);
-        }}
-        className="text"
+      <div className="text"
       >
         <h3>{gameName}</h3>
 
@@ -54,7 +50,17 @@ function SingleGame({
 
           <div className="size">
             <img src={ramIcon} alt="storage icon" />
-            <p>{formatSize(gameSize)}</p>
+            <div className="android-ios-size">
+              <div className="android-size">
+                <p>{formatSize(gameSize.androidSize)} <small>Android</small></p>
+              </div>
+
+              <hr />
+
+              <div className="ios-size">
+                <p>{formatSize(gameSize.iosSize)} <small>iOS</small></p>
+              </div>
+            </div>
           </div>
 
           <div className="platform">
@@ -64,6 +70,7 @@ function SingleGame({
         </div>
       </div>
     </div>
+    </Link>
   );
 }
 

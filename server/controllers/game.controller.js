@@ -1,3 +1,4 @@
+const { missingData, unknownError, invalidDataSubmitted } = require("../JsonResponses/error")
 const gameModel = require("../models/game.model")
 
 async function addNewGame(req, res){
@@ -20,7 +21,7 @@ async function addNewGame(req, res){
 
 async function getAllGames(req, res){
     try{
-        const allGames = await gameModel.find({}).limit(10) 
+        const allGames = await gameModel.find({}).select("-descriptionEmbedding")
 
         res.status(200).json(allGames)
     }
@@ -33,7 +34,7 @@ async function getAllGames(req, res){
 async function getGameInfo(req, res){
     try{
         const {id} = req.params
-        const gameInfo = await gameModel.findById(id).populate("moreInfo.supportedDevices")
+        const gameInfo = await gameModel.findById(id).populate(["moreInfo.supportedDevices", "moreInfo.similarGames"]).select("-descriptionEmbedding")
 
         res.status(200).json(gameInfo)
     }
@@ -43,4 +44,33 @@ async function getGameInfo(req, res){
     } 
 }
 
-module.exports = {getGameInfo, getAllGames, addNewGame}
+async function searchForGame(req, res) {
+  try {
+    let { searchQuery } = req.query;
+
+    // Check if it's missing or blank
+    if (!searchQuery || typeof searchQuery !== 'string' || searchQuery.trim() === '') {
+      return res.status(400).json(missingData);
+    }
+
+    // Validate length
+    if (searchQuery.length > 50) {
+      return res.status(400).json(invalidDataSubmitted);
+    }
+
+    // Escape regex characters
+    searchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const games = await gameModel.find({
+      gameName: { $regex: searchQuery, $options: 'i' }
+    });
+
+    return res.json(games);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json(unknownError);
+  }
+}
+
+
+module.exports = {getGameInfo, getAllGames, addNewGame, searchForGame}

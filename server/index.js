@@ -7,14 +7,39 @@ const PORT = process.env.PORT || 3000;
 const phoneRouter = require("./routes/phone.route")
 const compatibleGameRouter = require("./routes/compatible-game.route");
 const gameRouter = require("./routes/game.route");
+const userRouter = require("./routes/user.route");
+const submittedGameRouter = require("./routes/submitted-game.route")
+const cookieParser = require("cookie-parser"); 
+const adminRouter = require("./routes/admin.route");
+const reportRouter = require("./routes/report.route");
+const requestRouter = require("./routes/request.route");
+const googlePlay = require("google-play-scraper").default;
 
-app.use(cors())
-app.use(express.json());
+// googlePlay.app({appId: 'com.google.android.apps.translate'})
+//   .then(console.log, console.log);
 
-//routers
+// console.log(googlePlay)
+
+
+const allowedOrigins = ["http://localhost:5173", "https://mobile-benchmarks.vercel.app", ]; // Add more for prod if needed
+
+app.use(cors({
+  origin: allowedOrigins, 
+  credentials: true, // crucial for cookies and headers to work across origins
+}));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(cookieParser())
+ 
+//routers 
 app.use("/api/phone", phoneRouter)
 app.use("/api/game", gameRouter)
 app.use("/api/compatible-game", compatibleGameRouter)
+app.use("/api/submit-game", submittedGameRouter)
+app.use("/api/user", userRouter)
+app.use("/api/admin", adminRouter)
+app.use("/api/report", reportRouter)
+app.use("/api/request", requestRouter)
 
 app.listen(PORT, async () => {
     try{

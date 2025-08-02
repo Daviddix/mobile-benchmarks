@@ -1,0 +1,29 @@
+.requests-main .requests-inner{
+    width: 90%;
+    margin: 0 auto;
+    max-width: 150rem;
+    padding: 0 0 1rem 0;
+}
+
+.requests-inner .title{
+    display: flex;
+    column-gap: .5rem;
+    margin: 1rem 0;
+}
+
+.requests-inner .title h1{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.requests-inner .title small{
+    opacity: .7;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.requests-inner .all-requests-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.5rem;
+}

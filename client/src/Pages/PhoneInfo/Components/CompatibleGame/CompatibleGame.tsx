@@ -8,24 +8,22 @@ import linkIcon from "./assets/icons/link-icon.svg";
 import fpsIcon from "./assets/icons/fps-icon.svg"
 import Badge from "./Components/Badge/Badge";
 
-type gameDataType = {
-  fps: number,
-    frameRate: string,
-    playStoreDownloadLink: string,
-    iosDownloadLink: string,
-    graphicsQuality: string,
-    batteryUsagePerHour: number,
-}
-
 type compatibleGameProps = {
   gameCoverImage: string,
   gameName:string,
+  gameIosLink : string;
+  gameAndroidLink : string;
   gameCompatibilityRating: number,
   gameDescription:string,
-  gameData: gameDataType
+  gamePerformanceStats: {
+        fps: number;
+        frameRate: string;
+        graphicsQuality: string;
+        batteryUsagePerHour: number;
+  }
 }
 
-function CompatibleGame({gameCoverImage, gameDescription, gameName, gameData, gameCompatibilityRating} : compatibleGameProps) {
+function CompatibleGame({gameCoverImage, gameDescription, gameName,gameCompatibilityRating, gamePerformanceStats, gameAndroidLink, gameIosLink} : compatibleGameProps) {
   return (
     <div className="single-compatible-game">
             <div className="image">
@@ -44,26 +42,26 @@ function CompatibleGame({gameCoverImage, gameDescription, gameName, gameData, ga
               <div className="game-settings">
                 <div className="single-setting">
                   <img src={graphicsIcon} alt="graphics icon" />
-                  <p>{gameData.graphicsQuality}</p>
+                  <p>{gamePerformanceStats.graphicsQuality}</p>
                   <small>Graphics</small>
                 </div>
 
                 <div className="single-setting">
                   <img src={frameRateIcon} alt="frame rate icon" />
-                  <p>{gameData.fps}</p>
+                  <p>{gamePerformanceStats.frameRate}</p>
                   <small>Frame Rate</small>
                 </div>
 
-                <div className="single-setting small">
+                {gamePerformanceStats.batteryUsagePerHour && <div className="single-setting small">
                   <img src={batteryIcon} alt="battery icon" />
-                  <p>{gameData.batteryUsagePerHour}</p>
+                  <p>{gamePerformanceStats.batteryUsagePerHour}</p>
                   <small>/hr</small>
-                </div>
+                </div>}
 
                 <div className="single-setting">
                   <img src={iosIcon} alt="apple icon" />
                   <p>
-                    <a href={gameData.iosDownloadLink} target="_blank" rel="noopener noreferrer">
+                    <a href={gameIosLink} target="_blank" rel="noopener noreferrer">
                     Download <img src={linkIcon} alt="link icon" />
                     </a>
                   </p>
@@ -73,18 +71,18 @@ function CompatibleGame({gameCoverImage, gameDescription, gameName, gameData, ga
                 <div className="single-setting">
                   <img src={androidIcon} alt="playstore icon" />
                   <p>
-                    <a href={gameData.playStoreDownloadLink} target="_blank" rel="noopener noreferrer">
+                    <a href={gameAndroidLink} target="_blank" rel="noopener noreferrer">
                     Download <img src={linkIcon} alt="link icon" />
                     </a>
                   </p>
                   <small>Playstore</small>
                 </div>
 
-                <div className="single-setting small">
+                {gamePerformanceStats.fps && <div className="single-setting small">
                   <img src={fpsIcon} alt="fps icon" />
-                  <p>{gameData.fps}</p>
+                  <p>{gamePerformanceStats.fps}</p>
                   <small>fps</small>
-                </div>
+                </div>}
               </div>
             </div>
     </div>

@@ -1,0 +1,29 @@
+.reports-main .reports-inner{
+    width: 90%;
+    margin: 0 auto;
+    max-width: 150rem;
+    padding: 0 0 1rem 0;
+}
+
+.reports-inner .title{
+    display: flex;
+    column-gap: .5rem;
+    margin: 1rem 0;
+}
+
+.reports-inner .title h1{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.reports-inner .title small{
+    opacity: .7;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.reports-inner .all-reports-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}

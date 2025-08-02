@@ -4,38 +4,32 @@ import { useEffect, useState } from "react";
 import CompatibleGamesSection from "./Components/CompatibleGamesSection/CompatibleGamesSection";
 import PhoneInfoSkeletonLoader from "./Components/PhoneInfoSkeletonLoader/PhoneInfoSkeletonLoader";
 import ErrorComponent from "../../Components/ErrorComponent/ErrorComponent";
+import reportIcon from "./assets/icons/report-icon.svg"
+import ReportModal from "../../Components/ReportModal/ReportModal";
+import { useLoggedInChecker } from "../../hooks/useLoggedInChecker";
+import { useSetAtom } from "jotai";
+import { showUserOnlyModalAtom } from "../../globals/states";
 
 function PhoneInfo() {
   const {phoneId} = useParams()
 
   type fetchingStateType = "loading" | "error" | "completed"
-  type phoneInfoType = {
-    _id: number,
-    phoneName: string,
-    phoneChipset: string,
-    phoneCoverImage: string,
-    phoneDisplay: string[],
-    phoneMemory: number[],
-    moreInfo: {
-      generalCompatibility: number,
-      gpu: string,
-      averageRating: string[],
-      geekBench: number,
-      anTutu: number,
-      threeDMark: number,
-    }
-  }
   
 
   const [fetchingState, setFetchingState] = useState<fetchingStateType>("loading")
-  const [phoneData, setPhoneData] = useState<phoneInfoType |null>(null)
+  const [phoneData, setPhoneData] = useState<phoneData |null>(null)
+  const [showReportModal, setShowReportModal] = useState(false)
+  const isLoggedIn = useLoggedInChecker()
+  const setShowUserOnlyModal = useSetAtom(showUserOnlyModalAtom)
 
-
+    function closeReportModal(){
+    setShowReportModal(false)
+    }
 
   async function getPhoneData(id : string | undefined){
     try{
       setFetchingState("loading")
-      const rawFetch = await fetch(`https://mobile-benchmarks.onrender.com/api/phone/${id}`)
+      const rawFetch = await fetch(`http://localhost:3000/api/phone/info/${id}`)
       const responseInJson = await rawFetch.json()
 
       if(!rawFetch.ok){
@@ -83,6 +77,7 @@ function PhoneInfo() {
         <img src={phoneData?.phoneCoverImage} alt="phone info" className="phone-image" />
 
         <div className="phone-info-text">
+
           <h2>{phoneData?.phoneName}</h2>
 
           <div className="other-phone-info">
@@ -136,7 +131,19 @@ function PhoneInfo() {
               <h3>3D Mark</h3>
               <p>{phoneData?.moreInfo.threeDMark ||"NA"}</p>
             </div>
+
+            <p className="report-text">Notice any wrong information? <button
+            onClick={()=>{
+              if(!isLoggedIn){
+                setShowUserOnlyModal(true)
+                return
+              }
+            setShowReportModal(true)
+          }}
+            >Send a Report</button></p>
           </div>
+
+          
         </div>
         </div>
       }
@@ -144,6 +151,13 @@ function PhoneInfo() {
       {fetchingState !== "error" &&
         <CompatibleGamesSection
       phoneId={phoneId}
+      />}
+
+      {showReportModal && <ReportModal
+      closeFn={closeReportModal}
+      reportTypeName={phoneData?.phoneName || ""}
+      reportType="Phones"
+      reportTypeId={phoneId || "1234"}
       />}
     </main>
   );
