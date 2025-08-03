@@ -74,7 +74,7 @@ async function createNewUser(req, res) {
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     res.status(201).json({...otpSentToUser, email : userMade.email});
@@ -122,7 +122,7 @@ async function logUserIn(req, res) {
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     res.status(201).json({...otpSentToUser, email : userInDb.email});
@@ -185,7 +185,7 @@ async function createNewUserFromGoogle(req, res) {
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     const userInfo = {
@@ -233,7 +233,7 @@ async function logUserInFromGoogle(req, res) {
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     const userInfo = {
@@ -272,7 +272,7 @@ async function verifyOtpForSignup(req, res){
       maxAge: 0,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     const userInDb = await userModel.findById(userId);
@@ -288,7 +288,7 @@ async function verifyOtpForSignup(req, res){
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     userInDb.status = "active"
@@ -333,7 +333,7 @@ async function verifyOtpForLogin(req, res){
       maxAge: 0,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     const userInDb = await userModel.findById(userId);
@@ -349,7 +349,7 @@ async function verifyOtpForLogin(req, res){
       maxAge: timeBeforeItExpires,
       path: "/",
       secure: true, 
-      sameSite: "Strict",
+      sameSite: "None",
     });
 
     const userInfo = {
