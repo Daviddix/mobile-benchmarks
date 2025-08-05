@@ -29,7 +29,7 @@ function SingleReport({reportType, resolveFunction, reasonForReport, userInfo, p
                             }
                             <div className="report-chips-container">
                                 <span>{reportType}</span>
-                                <span>By {userInfo.username}</span>
+                                <span>By {userInfo?.username}</span>
                             </div>
                         </div>
                     </div>
